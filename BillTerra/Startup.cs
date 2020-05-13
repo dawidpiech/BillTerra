@@ -13,6 +13,7 @@ using BillTerra.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BillTerra.Models;
+using BillTerra.EntityFramework;
 
 namespace BillTerra
 {
@@ -29,13 +30,15 @@ namespace BillTerra
         public void ConfigureServices(IServiceCollection services)
         {  
 
-            services.AddDbContext<ApplicationDbContext>(options =>   
+            
+            services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration["Data:BillTerra:ConnectionString"]));
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddTransient<ITransactionRepository, EFTransactionRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -43,7 +46,6 @@ namespace BillTerra
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-          
 
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();

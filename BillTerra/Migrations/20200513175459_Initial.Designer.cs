@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BillTerra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200507183824_Initial")]
+    [Migration("20200513175459_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,123 @@ namespace BillTerra.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BillTerra.Models.BudgetPlan", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Ammount");
+
+                    b.Property<int?>("CategorieID");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CategorieID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BudgetPlans");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.Categorie", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsExpense");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.Jar", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AcumulatedAmmount");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<int>("FinalAmmount");
+
+                    b.Property<int>("MonthlyPayment");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Sequence");
+
+                    b.Property<int>("State");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Jars");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.ShopingList", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Sequence");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ShopingLists");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.Transaction", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount");
+
+                    b.Property<int?>("CategorieID");
+
+                    b.Property<string>("Coment");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CategorieID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Transactions");
+                });
 
             modelBuilder.Entity("BillTerra.Models.User", b =>
                 {
@@ -180,6 +297,49 @@ namespace BillTerra.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.BudgetPlan", b =>
+                {
+                    b.HasOne("BillTerra.Models.Categorie", "Categorie")
+                        .WithMany()
+                        .HasForeignKey("CategorieID");
+
+                    b.HasOne("BillTerra.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.Categorie", b =>
+                {
+                    b.HasOne("BillTerra.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.Jar", b =>
+                {
+                    b.HasOne("BillTerra.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.ShopingList", b =>
+                {
+                    b.HasOne("BillTerra.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.Transaction", b =>
+                {
+                    b.HasOne("BillTerra.Models.Categorie", "Categorie")
+                        .WithMany()
+                        .HasForeignKey("CategorieID");
+
+                    b.HasOne("BillTerra.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

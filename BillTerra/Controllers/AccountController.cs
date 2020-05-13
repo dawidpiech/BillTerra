@@ -19,7 +19,7 @@ namespace BillTerra.Controllers
             this.userManager = userManager;
         }
         public ViewResult Index() => View(userManager.Users);
-        public ViewResult Create() => View();
+        
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateModel createModel)

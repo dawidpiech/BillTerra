@@ -1,0 +1,12 @@
+﻿@model TransactionViewModel
+<h1>Lista tranzakcji</h1>
+
+    @foreach(var elm in Model.Transactions)
+    {
+    <li>@elm.ID , @elm.Name </li>
+
+    }
+
+
+<a class="btn btn-primary" asp-action="Add" >Add new Company</a>
+
