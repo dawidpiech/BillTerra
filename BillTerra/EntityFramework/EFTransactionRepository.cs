@@ -21,7 +21,7 @@ namespace BillTerra.EntityFramework
 
         public IQueryable<Transaction> Transactions => context.Transactions;
 
-        public async Task Add()
+        public async Task Add(User user)
         {
             var transaction = new Transaction
             {
@@ -29,7 +29,7 @@ namespace BillTerra.EntityFramework
                 Name = "Kamil",
                 Coment = "Taaaaa",
                 Categorie = new Categorie { },
-                User = new User { },
+                User = user,
                 Date = new DateTime(2000, 10, 10)
 
 

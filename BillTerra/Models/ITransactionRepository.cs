@@ -8,6 +8,6 @@ namespace BillTerra.Models
     public interface ITransactionRepository
     {
         IQueryable<Transaction> Transactions { get; }
-        Task Add();
+        Task Add(User user);
     }
 }
