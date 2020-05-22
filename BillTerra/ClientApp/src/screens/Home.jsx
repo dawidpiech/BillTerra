@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Nav } from 'reactstrap';
+import { Router, NavLink, Route } from "react-router-dom";
 import './Home.scss';
 
 export class Home extends Component {
@@ -7,14 +8,14 @@ export class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <header>
           <div className="logo">
             Bill<span>Terra</span>
           </div>
           <div className="buttons-container">
-            <a href="/">SignIn</a>
-            <a href="/">SignUp</a>
+            <NavLink to="/login">SignIn</NavLink>
+            <NavLink to="/registration">SignUp</NavLink>
           </div>
         </header>
         <main>
@@ -40,7 +41,6 @@ export class Home extends Component {
           </div>
         </footer>
       </div>
-
     );
   }
 }
