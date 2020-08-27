@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BillTerra.Models;
 using BillTerra.Contexts;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillTerra.Controllers
 {
@@ -20,20 +21,31 @@ namespace BillTerra.Controllers
             this.repository = repository;
         }
 
-
-        public ViewResult Index()
-        {
-
-            return View("List",new TransactionViewModel
-            {
-                Transactions = repository.Transactions
-            });
-
-        }
-        public async Task Add()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
-            await repository.Add(user);
+
+            return View("List", repository.Transactions(user).Result);
+
+        }
+        [Authorize]
+        public async Task Add()
+        {
+            
+            User user = await userManager.GetUserAsync(HttpContext.User);
+            var transaction = new Transaction
+            {
+                Amount = 100,
+                Name = "Kamil",
+                Coment = "Taaaaa",
+                Categorie = new Categorie { },
+                User = user,
+                Date = new DateTime(2000, 10, 10)
+
+
+            };
+            await repository.Add(transaction) ;
         }
     }
 }

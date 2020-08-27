@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 using BillTerra.Models;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace BillTerra.Contexts
 {
@@ -14,13 +16,13 @@ namespace BillTerra.Contexts
         public DbSet<Categorie> Categories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }  
         public DbSet<BudgetPlan> BudgetPlans { get; set; }
-        
+
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
-       
 
 
 

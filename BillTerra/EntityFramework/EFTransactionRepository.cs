@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BillTerra.Models;
 using BillTerra.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace BillTerra.EntityFramework
 {
@@ -16,24 +17,20 @@ namespace BillTerra.EntityFramework
         {
             context = ctx;
 
-            
         }
 
-        public IQueryable<Transaction> Transactions => context.Transactions;
-
-        public async Task Add(User user)
+        public async Task<IEnumerable<Transaction>> Transactions(User user)
         {
-            var transaction = new Transaction
-            {
-                Amount = 100,
-                Name = "Kamil",
-                Coment = "Taaaaa",
-                Categorie = new Categorie { },
-                User = user,
-                Date = new DateTime(2000, 10, 10)
+            var sql = $"SELECT * FROM dbo.Transactions WHERE UserId = '{user.Id}'";
+
+            return await context.Transactions
+                .FromSql(sql)
+                .ToListAsync();
+        }
 
 
-            };
+        public async Task Add( Transaction transaction)
+        {
 
             context.Transactions.Add(transaction);
             await context.SaveChangesAsync();

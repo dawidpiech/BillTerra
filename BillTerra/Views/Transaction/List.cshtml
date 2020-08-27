@@ -1,9 +1,9 @@
-﻿@model TransactionViewModel
+﻿@model IEnumerable<Transaction>
 <h1>Lista tranzakcji</h1>
 
-    @foreach(var elm in Model.Transactions)
+    @foreach(var elm in Model)
     {
-<li>@elm.ID , @elm.Name  </li>
+<li>@elm.ID , @elm.Name @elm.User.UserName </li>
 
     }
 

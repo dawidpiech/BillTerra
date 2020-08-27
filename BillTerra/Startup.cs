@@ -39,6 +39,9 @@ namespace BillTerra
                 .AddDefaultTokenProviders();
 
             services.AddTransient<ITransactionRepository, EFTransactionRepository>();
+            services.AddTransient<IBudgetPlanRepository, EFBudgetPlanRepository>();
+            services.AddTransient<ICategorieRepository, EFCategorieRepository>();
+            services.AddTransient<IJarRepositorycs, EFJarRepositorycs>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
