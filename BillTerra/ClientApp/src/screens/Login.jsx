@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Alert, Form, Label, Input, FormGroup, Button, FormFeedback } from 'reactstrap'
 import { Redirect, Link } from 'react-router-dom'
 import './Login.scss'
+import { Loader } from "./components/Loader/Loader"
 
 
 export class Login extends Component {
@@ -15,13 +16,17 @@ export class Login extends Component {
             error: false,
             errorMessage: "Error",
             emailValid: false,
-            passwordValid: false
+            passwordValid: false,
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
+
+    componentDidMount() {
+        this.loader.hideLoader()
+    }
 
 
     handleChange(e, param) {
@@ -72,6 +77,7 @@ export class Login extends Component {
         else {
             return (
                 <div className="wrapper-login">
+                    <Loader onRef={(ref) => this.loader = ref}></Loader>
                     <header>
                         <div className="logo">
                             <Link to="/">Bill<span>Terra</span></Link>
