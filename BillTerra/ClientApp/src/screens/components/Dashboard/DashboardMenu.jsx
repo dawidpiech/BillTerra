@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from "react-router-dom"
 import './DashboardMenu.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faHome, faCreditCard, faPiggyBank, faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faHome, faCreditCard, faPiggyBank, faClipboardList, faChartBar } from '@fortawesome/free-solid-svg-icons'
 
 export class DashboardMenu extends Component {
 
@@ -21,29 +21,31 @@ export class DashboardMenu extends Component {
                         <li className="dashboard_menu_element">
                             <NavLink to="/dashboard">
                                 <FontAwesomeIcon icon={faCoffee} />
-                                <br />
                                 Dashboard
                             </NavLink>
                         </li>
                         <li className="dashboard_menu_element">
                             <NavLink to="/transactions">
                                 <FontAwesomeIcon icon={faCreditCard} />
-                                <br />
                                 Transactions
                             </NavLink>
                         </li>
                         <li className="dashboard_menu_element">
                             <NavLink to="/jars">
                                 <FontAwesomeIcon icon={faPiggyBank} />
-                                <br />
                                 Jars
                             </NavLink>
                         </li>
                         <li className="dashboard_menu_element">
                             <NavLink to="/shoppinglist">
                                 <FontAwesomeIcon icon={faClipboardList} />
-                                <br />
-                                Shopping List
+                                <span>Shopping List</span>
+                            </NavLink>
+                        </li>
+                        <li className="dashboard_menu_element">
+                            <NavLink to="/reports">
+                                <FontAwesomeIcon icon={faChartBar} />
+                                <span>Reports</span>
                             </NavLink>
                         </li>
                     </ul>
