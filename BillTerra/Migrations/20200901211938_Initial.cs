@@ -202,6 +202,28 @@ namespace BillTerra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notyfications",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Describe = table.Column<string>(nullable: true),
+                    IsVisible = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notyfications", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Notyfications_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ShopingLists",
                 columns: table => new
                 {
@@ -339,6 +361,11 @@ namespace BillTerra.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notyfications_UserId",
+                table: "Notyfications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShopingLists_UserId",
                 table: "ShopingLists",
                 column: "UserId");
@@ -376,6 +403,9 @@ namespace BillTerra.Migrations
 
             migrationBuilder.DropTable(
                 name: "Jars");
+
+            migrationBuilder.DropTable(
+                name: "Notyfications");
 
             migrationBuilder.DropTable(
                 name: "ShopingLists");

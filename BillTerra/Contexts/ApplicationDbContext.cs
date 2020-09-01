@@ -16,6 +16,7 @@ namespace BillTerra.Contexts
         public DbSet<Categorie> Categories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }  
         public DbSet<BudgetPlan> BudgetPlans { get; set; }
+        public DbSet<Notification> Notyfications { get; set; }
 
 
 

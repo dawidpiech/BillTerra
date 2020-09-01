@@ -90,6 +90,27 @@ namespace BillTerra.Migrations
                     b.ToTable("Jars");
                 });
 
+            modelBuilder.Entity("BillTerra.Models.Notification", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Describe");
+
+                    b.Property<bool>("IsVisible");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notyfications");
+                });
+
             modelBuilder.Entity("BillTerra.Models.ShopingList", b =>
                 {
                     b.Property<int>("ID")
@@ -316,6 +337,13 @@ namespace BillTerra.Migrations
                 });
 
             modelBuilder.Entity("BillTerra.Models.Jar", b =>
+                {
+                    b.HasOne("BillTerra.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BillTerra.Models.Notification", b =>
                 {
                     b.HasOne("BillTerra.Models.User", "User")
                         .WithMany()
