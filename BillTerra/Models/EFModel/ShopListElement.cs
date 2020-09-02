@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 
 namespace BillTerra.Models
 {
-    public class ShopingList
+    public class ShopListElement
     {
         public int ID { get; set; }
         public User User { get; set; }
-        public string Name { get; set; }
-        public int Sequence { get; set; }
+        public string ListName { get; set; }
+        public string Title { get; set; }
+        public bool IsChecked { get; set; }
     }
+
+   
 }

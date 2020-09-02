@@ -43,6 +43,7 @@ namespace BillTerra
             services.AddTransient<ICategorieRepository, EFCategorieRepository>();
             services.AddTransient<IJarRepositorycs, EFJarRepositorycs>();
             services.AddTransient<INotificationRepository,EFNotificationRepository>();
+            services.AddTransient<IShopingListRepository, EFShopingListRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

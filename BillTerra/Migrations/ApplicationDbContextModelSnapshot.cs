@@ -111,15 +111,17 @@ namespace BillTerra.Migrations
                     b.ToTable("Notyfications");
                 });
 
-            modelBuilder.Entity("BillTerra.Models.ShopingList", b =>
+            modelBuilder.Entity("BillTerra.Models.ShopListElement", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<bool>("IsChecked");
 
-                    b.Property<int>("Sequence");
+                    b.Property<string>("ListName");
+
+                    b.Property<string>("Title");
 
                     b.Property<string>("UserId");
 
@@ -127,7 +129,7 @@ namespace BillTerra.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ShopingLists");
+                    b.ToTable("ShopListElements");
                 });
 
             modelBuilder.Entity("BillTerra.Models.Transaction", b =>
@@ -350,7 +352,7 @@ namespace BillTerra.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("BillTerra.Models.ShopingList", b =>
+            modelBuilder.Entity("BillTerra.Models.ShopListElement", b =>
                 {
                     b.HasOne("BillTerra.Models.User", "User")
                         .WithMany()

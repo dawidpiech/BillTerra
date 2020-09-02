@@ -224,20 +224,21 @@ namespace BillTerra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShopingLists",
+                name: "ShopListElements",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Sequence = table.Column<int>(nullable: false)
+                    ListName = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    IsChecked = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShopingLists", x => x.ID);
+                    table.PrimaryKey("PK_ShopListElements", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ShopingLists_AspNetUsers_UserId",
+                        name: "FK_ShopListElements_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -366,8 +367,8 @@ namespace BillTerra.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShopingLists_UserId",
-                table: "ShopingLists",
+                name: "IX_ShopListElements_UserId",
+                table: "ShopListElements",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -408,7 +409,7 @@ namespace BillTerra.Migrations
                 name: "Notyfications");
 
             migrationBuilder.DropTable(
-                name: "ShopingLists");
+                name: "ShopListElements");
 
             migrationBuilder.DropTable(
                 name: "Transactions");

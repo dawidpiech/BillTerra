@@ -1,0 +1,9 @@
+﻿@model IEnumerable<ShopListElement>
+<h1>ShopingList</h1>
+
+@foreach(var ele in Model)
+{
+    <h1>@ele.Title</h1>
+}
+    
+<a class="btn btn-primary" asp-action="Add">Add new ShopinglistElement</a>
