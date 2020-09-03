@@ -5,7 +5,8 @@ namespace BillTerra.Models
 {
     public interface ICategorieRepository
     {
-        Task Add(Categorie categorie);
+        Task SaveCategorie(Categorie categorie);
+        Categorie DeleteCategorie(Categorie categorie);
         Task<IEnumerable<Categorie>> Categories(User user);
     }
 }

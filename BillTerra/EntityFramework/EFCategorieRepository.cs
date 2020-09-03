@@ -17,7 +17,7 @@ namespace BillTerra.EntityFramework
             context = ctx;
         }
 
-        public async Task Add(Categorie categorie)
+        public async Task SaveCategory(Categorie categorie)
         {
             context.Categories.Add(categorie);
             await context.SaveChangesAsync();
@@ -25,11 +25,35 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Categorie>> Categories(User user)
         {
-            var sql = $"SELECT * FROM dbo.Categories WHERE UserId = '{user.Id}'";
+            return await context.Categories.Where(p => p.User.Id == user.Id).ToListAsync();               
+        }
 
-            return await context.Categories
-                .FromSql(sql)
-                .ToListAsync();
+        public async Task SaveCategorie(Categorie categorie)
+        {
+            if (categorie.ID == 0)
+                context.Categories.Add(categorie);
+            else
+            {
+                Categorie dbEntity = context.Categories.FirstOrDefault(p => p.ID == categorie.ID);
+                if (dbEntity != null)
+                {
+                    dbEntity.Name = categorie.Name;
+                    dbEntity.IsExpense = categorie.IsExpense;
+                }
+
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public Categorie DeleteCategorie(Categorie categorie)
+        {
+            Categorie dbEntity = context.Categories.FirstOrDefault(p => p.ID == categorie.ID);
+            if (dbEntity != null)
+            {
+                context.Categories.Remove(dbEntity);
+                context.SaveChanges();
+            }
+            return dbEntity;
         }
     }
 }

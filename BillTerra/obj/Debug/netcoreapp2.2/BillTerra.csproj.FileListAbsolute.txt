@@ -37,3 +37,4 @@ C:\Users\Bezi\Desktop\ProjektNaInzynierkeBillTerra\BillTerra\BillTerra\obj\Debug
 C:\Users\Bezi\Desktop\ProjektNaInzynierkeBillTerra\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\MainIndex.g.cshtml.cs
 C:\Users\Bezi\Desktop\ProjektNaInzynierkeBillTerra\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Edit.g.cshtml.cs
 C:\Users\Bezi\Desktop\ProjektNaInzynierkeBillTerra\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\ShopingList.g.cshtml.cs
+C:\Users\Bezi\Desktop\ProjektNaInzynierkeBillTerra\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Categorie.g.cshtml.cs
