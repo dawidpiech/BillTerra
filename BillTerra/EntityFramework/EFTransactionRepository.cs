@@ -21,11 +21,9 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Transaction>> Transactions(User user)
         {
-            var sql = $"SELECT * FROM dbo.Transactions WHERE UserId = '{user.Id}'";
 
-            return await context.Transactions
-                .FromSql(sql)
-                .ToListAsync();
+            return await context.Transactions.Where(p => p.User.Id == user.Id).ToListAsync();
+
         }
 
 
@@ -35,6 +33,38 @@ namespace BillTerra.EntityFramework
             context.Transactions.Add(transaction);
             await context.SaveChangesAsync();
 
+        }
+
+        public async Task SaveTransaction(Transaction transaction)
+        {
+            if (transaction.ID == 0)
+                context.Transactions.Add(transaction);
+            else
+            {
+                Transaction dbEntity = context.Transactions.FirstOrDefault(p => p.ID == transaction.ID);
+                if (dbEntity != null)
+                {
+                    dbEntity.Name = transaction.Name;
+                    dbEntity.Amount = transaction.Amount;
+                    dbEntity.Categorie = transaction.Categorie;
+                    dbEntity.Coment = transaction.Coment;
+                    dbEntity.Date = transaction.Date;
+
+                }
+
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public Transaction DeleteTransaction(Transaction transaction)
+        {
+            Transaction dbEntity = context.Transactions.FirstOrDefault(p => p.ID == transaction.ID);
+            if (dbEntity != null)
+            {
+                context.Transactions.Remove(dbEntity);
+                context.SaveChanges();
+            }
+            return dbEntity;
         }
     }
 }

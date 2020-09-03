@@ -45,7 +45,7 @@ namespace BillTerra.Controllers
 
 
             };
-            await repository.Add(transaction) ;
+            await repository.SaveTransaction(transaction) ;
         }
     }
 }
