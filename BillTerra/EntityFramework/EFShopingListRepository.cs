@@ -24,25 +24,40 @@ namespace BillTerra.EntityFramework
             await context.SaveChangesAsync();
         }
 
-        public async Task Delete(ShopListElement shopListElement)
+        public ShopListElement DeleteListElement(ShopListElement shopListElement)
         {
-            throw new NotImplementedException();
+            ShopListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);
+            if(dbEntity != null)
+            {
+                context.ShopListElements.Remove(dbEntity);
+                context.SaveChanges();
+            }
+            return dbEntity;
 
         }
 
-        public async Task Edit(ShopListElement shopListElement)
+        public async Task SaveListElement(ShopListElement shopListElement)
         {
-            throw new NotImplementedException();
-
+            if (shopListElement.ID == 0)
+                context.ShopListElements.Add(shopListElement);
+            else
+            {
+                ShopListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);
+                if(dbEntity != null)
+                {
+                    dbEntity.ListName = shopListElement.ListName;
+                    dbEntity.Title = shopListElement.Title;
+                    dbEntity.IsChecked = shopListElement.IsChecked;
+                }
+                
+            }
+            await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ShopListElement>> ShopListElements(User user)
         {
-            var sql = $"SELECT * FROM dbo.ShopListElements WHERE UserId = '{user.Id}'";
 
-            return await context.ShopListElements
-                .FromSql(sql)
-                .ToListAsync();
+            return await context.ShopListElements.Where(p => p.User.Id == user.Id).ToListAsync();
         }
     }
 }

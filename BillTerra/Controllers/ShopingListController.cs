@@ -29,7 +29,7 @@ namespace BillTerra.Controllers
         }
 
         [Authorize]
-        public async Task Add()
+        public async Task<IActionResult> Add()
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
             var shopinglistElement = new ShopListElement
@@ -40,7 +40,11 @@ namespace BillTerra.Controllers
                 IsChecked = true
 
             };
-            await shopingListRepository.Add(shopinglistElement);
+            await shopingListRepository.SaveListElement(shopinglistElement);
+            return RedirectToAction("Index");
         }
+
+      
+
     }
 }
