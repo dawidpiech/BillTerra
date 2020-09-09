@@ -73,7 +73,7 @@
 
                     svg{
                         font-size: 36px;
-                        color: red;
+                        color: $green; 
                         width: 100%;
 
                         @media (max-width: $mediaPhoneSize) {

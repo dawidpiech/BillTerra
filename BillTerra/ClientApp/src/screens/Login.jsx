@@ -87,7 +87,7 @@ export class Login extends Component {
                         <div className="authorization">
                             <p className="authorization__title">Login</p>
                             <p className="authorization__register">
-                                New on BillTerra? <span><Link to="/register"> Create an account</Link></span>
+                                New on BillTerra? <span><Link to="/registration"> Create an account</Link></span>
                             </p>
                             {
                                 this.state.error ? <Alert color="danger" isOpen={"visible"}>{this.state.errorMessage}</Alert> : null
