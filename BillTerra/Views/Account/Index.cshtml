@@ -1,4 +1,6 @@
 ﻿@model User
+@if(@Model != null)
+{ <img height="100" src="@Model.AvatarLink">}
 
 
 <a class="btn btn-primary" asp-action="Create">Dodaj użytkownika</a>

@@ -38,7 +38,9 @@ namespace BillTerra.Controllers
             User user = new User
             {
                 UserName = createUser.Name,
-                Email = createUser.Email
+                Email = createUser.Email,
+                AvatarLink = "https://static.fajnyzwierzak.pl/media/uploads/media_image/auto/entry-content/24/desktop/szary-kot-brytyjski.jpg"
+
             };
 
             IdentityResult result = await userManager.CreateAsync(user, createUser.Password);

@@ -164,6 +164,8 @@ namespace BillTerra.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("AvatarLink");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
