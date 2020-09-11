@@ -46,7 +46,7 @@ namespace BillTerra.Controllers
 
 
             };
-            await repository.Add(jar);
+            await repository.SaveJar(jar);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace BillTerra.Models
         public int ID { get; set; }
         public User User { get; set; }
         public string Name { get; set; }
-        public bool IsExpense { get; set; }
+      
 
     }
 }

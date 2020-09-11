@@ -17,11 +17,6 @@ namespace BillTerra.EntityFramework
             context = ctx;
         }
 
-        public async Task SaveCategory(Categorie categorie)
-        {
-            context.Categories.Add(categorie);
-            await context.SaveChangesAsync();
-        }
 
         public async Task<IEnumerable<Categorie>> Categories(User user)
         {
@@ -38,7 +33,7 @@ namespace BillTerra.EntityFramework
                 if (dbEntity != null)
                 {
                     dbEntity.Name = categorie.Name;
-                    dbEntity.IsExpense = categorie.IsExpense;
+                   
                 }
 
             }

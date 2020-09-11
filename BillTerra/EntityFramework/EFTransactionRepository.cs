@@ -44,7 +44,6 @@ namespace BillTerra.EntityFramework
                 Transaction dbEntity = context.Transactions.FirstOrDefault(p => p.ID == transaction.ID);
                 if (dbEntity != null)
                 {
-                    dbEntity.Name = transaction.Name;
                     dbEntity.Amount = transaction.Amount;
                     dbEntity.Categorie = transaction.Categorie;
                     dbEntity.Coment = transaction.Coment;

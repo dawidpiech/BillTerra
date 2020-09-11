@@ -11,10 +11,9 @@ namespace BillTerra.Models
         public User User { get; set; }
         public Categorie Categorie { get; set; }
         public DateTime Date { get; set; }
-        public string Name { get; set; }
         public string Coment { get; set; }
         public int Amount { get; set; }
-
+        public bool IsExpense { get; set; }
     }
 
    

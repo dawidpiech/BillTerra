@@ -18,12 +18,6 @@ namespace BillTerra.EntityFramework
         }
 
 
-        public async Task Add(ShopListElement shopListElement)
-        {
-            context.ShopListElements.Add(shopListElement);
-            await context.SaveChangesAsync();
-        }
-
         public ShopListElement DeleteListElement(ShopListElement shopListElement)
         {
             ShopListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);

@@ -37,11 +37,12 @@ namespace BillTerra.Controllers
             var transaction = new Transaction
             {
                 Amount = 100,
-                Name = "Kamil",
                 Coment = "Taaaaa",
                 Categorie = new Categorie { },
                 User = user,
-                Date = new DateTime(2000, 10, 10)
+                Date = new DateTime(2000, 10, 10),
+                IsExpense = true
+                
 
 
             };

@@ -25,11 +25,7 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<BudgetPlan>> BudgetPlans(User user)
         {
-            var sql = $"SELECT * FROM dbo.BudgetPlans WHERE UserId = '{user.Id}'";
-
-            return await context.BudgetPlans
-                .FromSql(sql)
-                .ToListAsync();
+            return await context.BudgetPlans.Where(p => p.User.Id == user.Id).ToListAsync();
         }
     }
 }

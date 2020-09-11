@@ -20,20 +20,43 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Jar>> Jars(User user)
         {
-            var sql = $"SELECT * FROM dbo.Jars WHERE UserId = '{user.Id}'";
+            return await context.Jars.Where(p => p.User.Id == user.Id).ToListAsync();
 
-            return await context.Jars
-                .FromSql(sql)
-                .ToListAsync();
         }
 
 
-        public async Task Add(Jar jar)
+        public async Task SaveJar(Jar jar)
         {
+            if (jar.ID == 0)
+                context.Jars.Add(jar);
+            else
+            {
+                Jar dbEntity = context.Jars.FirstOrDefault(p => p.ID == jar.ID);
+                if (dbEntity != null)
+                {
+                    dbEntity.Name = jar.Name;
+                    dbEntity.FinalAmmount = jar.FinalAmmount;
+                    dbEntity.AcumulatedAmmount = jar.AcumulatedAmmount;
+                    dbEntity.CreationDate = jar.CreationDate;
+                    dbEntity.MonthlyPayment = jar.MonthlyPayment;
+                    dbEntity.State = jar.State;
+                    dbEntity.EndDate = jar.EndDate;
+                    dbEntity.Sequence = jar.Sequence;
+                }
 
-            context.Jars.Add(jar);
+            }
             await context.SaveChangesAsync();
+        }
 
+        public Jar DeleteJar(Jar jar)
+        {
+            Jar dbEntity = context.Jars.FirstOrDefault(p => p.ID == jar.ID);
+            if (dbEntity != null)
+            {
+                context.Jars.Remove(dbEntity);
+                context.SaveChanges();
+            }
+            return dbEntity;
         }
     }
 }

@@ -6,7 +6,8 @@ namespace BillTerra.Models
 {
     public interface IJarRepositorycs
     {
-        Task Add(Jar jar);
+        Task SaveJar(Jar jar);
+        Jar DeleteJar(Jar jar);
         Task<IEnumerable<Jar>> Jars(User user);
     }
 }
