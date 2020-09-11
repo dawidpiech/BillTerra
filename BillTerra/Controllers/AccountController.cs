@@ -14,11 +14,14 @@ namespace BillTerra.Controllers
     {
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
+        private ICategorieRepository categorieRepository;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager , ICategorieRepository categorieRepository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.categorieRepository = categorieRepository;
+           
         }
 
         [AllowAnonymous]
@@ -42,7 +45,9 @@ namespace BillTerra.Controllers
 
             if (result.Succeeded)
             {
+                AddDefaultCaterories.Add(categorieRepository, user);
                 return RedirectToAction("Index");
+
             }
             else
             {
