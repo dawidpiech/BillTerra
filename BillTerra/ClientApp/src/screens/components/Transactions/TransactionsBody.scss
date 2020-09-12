@@ -1,6 +1,11 @@
 @import "../../../conf.scss";
 
-
+.rw-multiselect-tag{
+    background-color: rgba($green, 0.4) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    color: $gray !important;
+}
 .add-transactions-section{
     margin: 40px 0 10px 0;
     padding: 10px 0 0 0;
@@ -13,6 +18,18 @@
     .date{
         align-items: flex-end;
         display: flex;
+        margin: 5px 0;
+        
+
+        .react-datepicker-wrapper{
+            width: 100%;
+            input{
+                width: 100%;
+                border-radius: 5px;
+                border: 1px solid rgba($gray, 0.4);
+                color: rgba($gray, 1);
+            }
+        }
     }
 
     .add-transaction-buttons-container{
@@ -21,6 +38,7 @@
 
         @media (max-width: $mediaPhoneSize) {
             margin: 0 0 20px 0;
+            justify-content: center;
         }
 
         .add-transaction-button{

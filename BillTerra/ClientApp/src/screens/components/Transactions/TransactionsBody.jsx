@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
-import { Multiselect } from "multiselect-react-dropdown"
 import "./TransactionsBody.scss"
 import { TransactionsItem } from "./TransactionsItem"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import Multiselect from 'react-widgets/lib/Multiselect'
+import 'react-widgets/lib/scss/react-widgets.scss'
+import DropdownList from 'react-widgets/lib/DropdownList'
+import { Loader } from "./../Loader/Loader"
+
+
 
 let today = new Date()
-let data = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
+let data = (today.getDate() - 10) + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
+let data2 = (today.getDate() - 2) + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
+
+let kat1 = { ID: 22, name: "Income Category 2" }
+let kat2 = { ID: 3, name: "Expnse Category 3" }
 export class TransactionsBody extends Component {
 
 
@@ -13,64 +24,76 @@ export class TransactionsBody extends Component {
         super(props)
         this.state = {
             transactions: [
-                { id: 1234, category: "Kategoria", date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 12000 },
-                { id: 1235, category: "Kategoria", date: data, note: "Jakaś notatsdafk1234a sfsd xcz vzxc", amount: 12000 },
-                { id: 1236, category: "Kategoria", date: data, note: "Jakaś notatka sf3142sd xcz vasdfzxc", amount: 12000 },
-                { id: 1237, category: "Kategoria", date: data, note: "Jakaś notatkasdfa sf12#$sd xcz vzxc", amount: 12000 },
-                { id: 1238, category: "Kategoria", date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 12000 },
-                { id: 1239, category: "Kategoria", date: data, note: "Jakaś notatka s1234fsd xcz vzxc", amount: 12000 },
-                { id: 1231, category: "Kategoria", date: data, note: "Jakaś notatkavczx sfsd ##FD xcz vzxc", amount: 12000 },
-                { id: 1232, category: "Kategoria", date: data, note: "Jakaś notatka sfsd $%xcz vzxc", amount: 12000 }
+                { id: 1234, category: kat1, date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 12200 },
+                { id: 1235, category: kat1, date: data, note: "Jakaś notatsdafk1234a sfsd xcz vzxc", amount: 1200 },
+                { id: 1236, category: kat1, date: data, note: "Jakaś notatka sf3142sd xcz vasdfzxc", amount: 12070 },
+                { id: 1237, category: kat2, date: data2, note: "Jakaś notatkasdfa sf12#$sd xcz vzxc", amount: 120100 },
+                { id: 1238, category: kat2, date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 1203200 },
+                { id: 1239, category: kat2, date: data2, note: "Jakaś notatka s1234fsd xcz vzxc", amount: 1200120 },
+                { id: 1231, category: kat2, date: data, note: "Jakaś notatkavczx sfsd ##FD xcz vzxc", amount: 1212000 },
+                { id: 1232, category: kat2, date: data, note: "Jakaś notatka sfsd $%xcz vzxc", amount: 1204400 }
             ],
             visibleTransactions: [
-                { id: 1234, category: "Kategoria", date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 12000 },
-                { id: 1235, category: "Kategoria", date: data, note: "Jakaś notatsdafk1234a sfsd xcz vzxc", amount: 12000 },
-                { id: 1236, category: "Kategoria", date: data, note: "Jakaś notatka sf3142sd xcz vasdfzxc", amount: 12000 },
-                { id: 1231, category: "Kategoria", date: data, note: "Jakaś notatkavczx sfsd ##FD xcz vzxc", amount: 12000 },
-                { id: 1232, category: "Kategoria", date: data, note: "Jakaś notatka sfsd $%xcz vzxc", amount: 12000 }
+                { id: 1234, category: kat1, date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 12200 },
+                { id: 1235, category: kat1, date: data, note: "Jakaś notatsdafk1234a sfsd xcz vzxc", amount: 1200 },
+                { id: 1236, category: kat1, date: data, note: "Jakaś notatka sf3142sd xcz vasdfzxc", amount: 12070 },
+                { id: 1237, category: kat2, date: data2, note: "Jakaś notatkasdfa sf12#$sd xcz vzxc", amount: 120100 },
+                { id: 1232, category: kat2, date: data, note: "Jakaś notatka sfsd $%xcz vzxc", amount: 1204400 }
             ],
-            incomeCategory: [
-                { ID: 123, name: "Income Category 1" },
-                { ID: 12, name: "Income Category 2" },
-                { ID: 1, name: "Income Category 3" },
-                { ID: 2, name: "Income Category 4" },
-                { ID: 3, name: "Income Category 5" },
-                { ID: 4, name: "Income Category 6" },
-                { ID: 5, name: "Income Category 7" }
+            incomeCategory: [                           //expenses category from server
+                { ID: 223, name: "Income Category 1" },
+                { ID: 22, name: "Income Category 2" },
+                { ID: 6, name: "Income Category 3" },
+                { ID: 7, name: "Income Category 4" },
+                { ID: 8, name: "Income Category 5" },
+                { ID: 9, name: "Income Category 6" },
+                { ID: 15, name: "Income Category 7" }
             ],
-            expensesCategory: [
-                { ID: 223, name: "Expnse Category 1" },
-                { ID: 22, name: "Expnse Category 2" },
-                { ID: 6, name: "Expnse Category 3" },
-                { ID: 7, name: "Expnse Category 4" },
-                { ID: 8, name: "Expnse Category 5" },
-                { ID: 9, name: "Expnse Category 6" },
-                { ID: 15, name: "Expnse Category 7" }
+            expensesCategory: [                         //income category from server
+                { ID: 1, name: "Expnse Category 1" },
+                { ID: 2, name: "Expnse Category 2" },
+                { ID: 3, name: "Expnse Category 3" },
+                { ID: 4, name: "Expnse Category 4" },
+                { ID: 5, name: "Expnse Category 5" },
+                { ID: 10, name: "Expnse Category 6" },
+                { ID: 11, name: "Expnse Category 7" }
+            ],
+            selectedCategory: [                             //category which are selected in filters
+                { ID: 223, name: "Income Category 1" },
+                { ID: 22, name: "Income Category 2" },
+                { ID: 6, name: "Income Category 3" },
+                { ID: 7, name: "Income Category 4" },
+                { ID: 8, name: "Income Category 5" },
+                { ID: 9, name: "Income Category 6" },
+                { ID: 15, name: "Income Category 7" },
+                { ID: 1, name: "Expnse Category 1" },
+                { ID: 2, name: "Expnse Category 2" },
+                { ID: 3, name: "Expnse Category 3" },
+                { ID: 4, name: "Expnse Category 4" },
+                { ID: 5, name: "Expnse Category 5" },
+                { ID: 10, name: "Expnse Category 6" },
+                { ID: 11, name: "Expnse Category 7" }
             ],
             sortArrayValues: [
-                { id: 1, name: "Sort by date ascending" },
-                { id: 2, name: "Sort by date descending" },
-                { id: 3, name: "Sort by amount ascending" },
-                { id: 4, name: "Sort by amount ascending" }
-            ]
+                { ID: 1, name: "Sort by date descending" },
+                { ID: 2, name: "Sort by date ascending" },
+                { ID: 3, name: "Sort by amount descending" },
+                { ID: 4, name: "Sort by amount ascending" }
+            ],
+            startDate: null,
+            endDate: null,
+            sortBy: ""
         };
 
 
-        this.editTransaction = this.editTransaction.bind(this);
+        this.editTransaction = this.editTransaction.bind(this)
         this.deleteTransaction = this.deleteTransaction.bind(this)
+        this.changeCategory = this.changeCategory.bind(this)
     }
 
-
-    addCategoryToFilters(selectedList, selectedItem) {              //tutaj tylko filtrowanie to jest po twojej stronie nic nie wysyłasz do servera
-        console.log(selectedList)
-        console.log(selectedItem)
-    }
-
-    removeCategoryFromFilters(selectedList, selectedItem) {             //tutaj tylko filtrowanie to jest po twojej stronie nic nie wysyłasz do servera
-        console.log(selectedList)
-        console.log(selectedItem)
-    }
-
+    ////////////////////////////////////////////////
+    ///ADD EDIT AND DELETE TRANSACTIONS FUNCTIONS///
+    ////////////////////////////////////////////////
 
     editTransaction(transactionID) {                                          //tutaj musisz zrobić funkcję która prześle obiekt to komponentu do edycji
         let transactionIndexInArray = this.state.transactions.findIndex(obj => { //tutaj wywołać funkcję dziecka z poziomu rodzica aplikacji.
@@ -125,84 +148,194 @@ export class TransactionsBody extends Component {
         console.log(transaction)
     }
 
+    ////////////////////////////////////////////////
+    //FUNCTIONS TO MODIFICATE VISIBLE TRANSACTIONS//
+    ////////////////////////////////////////////////
+    filterTransactionsByDataFrom(transactions, date) {
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        let dateFrom = new Date(year, month, day)
+        let a = transactions.filter(d => {
+            let transactionDateSplit = d.date.split("/")
+            let year = transactionDateSplit[2]
+            let month = transactionDateSplit[1]
+            let day = transactionDateSplit[0]
+            let transactionDate = new Date(year, month, day)
+            return (transactionDate.getTime() >= dateFrom.getTime())
+        })
+        console.log(a)
+        return a
+    }
 
-    render() {
-        const sortStyle = {
-            searchBox: {
-                minHeight: "44px",
-            },
-            inputField: {
-                fontSize: "16px"
-            },
-            chips: {
-                color: "rgb(170, 170, 170)",
-                fontSize: "16px"
+
+    filterTransactionsByDataTo(transactions, date) {
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        let dateFrom = new Date(year, month, day)
+        let a = transactions.filter(d => {
+            let transactionDateSplit = d.date.split("/")
+            let year = transactionDateSplit[2]
+            let month = transactionDateSplit[1]
+            let day = transactionDateSplit[0]
+            let transactionDate = new Date(year, month, day)
+            return (transactionDate.getTime() <= dateFrom.getTime())
+        })
+        console.log(a)
+        return a
+    }
+
+    filterByCategory(transactions, categoryList) {
+        let data
+        let categoryID = []
+        for (let i = 0; i < categoryList.length; i++) {
+            categoryID.push(categoryList[i].ID)
+        }
+
+        data = transactions.filter(d => {
+            return (categoryID.includes(d.category.ID))
+        })
+
+        return data
+    }
+
+    sortTransactions(transactions, sortBy) {
+        let data
+        switch (sortBy) {
+            case 1: {
+                data = transactions.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))
+            }
+            case 2: {
+                data = transactions.sort((a, b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0))
+            }
+            case 3: {
+                data = transactions.sort((a, b) => (a.amount > b.amount) ? 1 : ((b.amount > a.amount) ? -1 : 0))
+            }
+            case 4: {
+                data = transactions.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0))
             }
         }
 
-        const categoryMultiselectStyle = {              //https://www.npmjs.com/package/multiselect-react-dropdown
-            searchBox: {
-                fontSize: "14px",
-                minHeight: "44px",
-                overflow: "hidden",
-            },
-            inputField: {
-                margin: "5px"
-            },
-            chips: {
-                background: "#12CEAD",
-                fontSize: "12px",
-                padding: "2px 5px"
-            },
-            optionContainer: {
-                border: "1px solid"
-            },
-            option: {
-                color: `rgba(18, 206, 173, 0.5)`,
-            }
-        };
+        return data
+    }
 
 
 
 
 
+    ////////////////////////////////////////////
+    /////HANDLERS TO FILTER TRANSACTIONS////////
+    ////////////////////////////////////////////
+
+    selectTransactionFrom = date => {
+        let transactionsFromState = this.state.transactions
+        let visibleData = this.filterTransactionsByDataFrom(transactionsFromState, date)
+        let finalData
+        if (this.state.endDate !== null)
+            finalData = this.filterTransactionsByDataTo(visibleData, this.state.endDate)
+        else
+            finalData = visibleData
+
+        this.setState({
+            startDate: date,
+            visibleTransactions: finalData
+        });
+    }
+
+    selectTransactionTo = date => {
+        let data = this.state.transactions
+        let visibleData = this.filterTransactionsByDataTo(data, date)
+        let finalData
+        if (this.state.startDate !== null)
+            finalData = this.filterTransactionsByDataFrom(visibleData, this.state.startDate)
+        else
+            finalData = visibleData
+
+        this.setState({
+            endDate: date,
+            visibleTransactions: visibleData
+        });
+    }
+
+    changeCategory(selectedCategory) {                          //dokończyć
+        let visibleData = this.filterByCategory(this.state.transactions, selectedCategory)
+
+
+        this.setState({
+            selectedCategory: selectedCategory,
+            visibleTransactions: visibleData
+        });
+    }
+
+    selectSortBy(selectedItem) {
+        let data = this.state.transactions
+        let visibleData = this.sortTransactions(data, selectedItem.ID)
+        console.log(selectedItem)
+        this.setState({
+            sortBy: selectedItem,
+            visibleTransactions: visibleData
+        });
+    }
+
+
+    render() {
         return (
             <div className="dashboard_body_container">
                 <Container>
                     <Row className="add-transactions-section">
-                        <Col className="add-transaction-buttons-container" sm={12} md={4}>
+                        <Col className="add-transaction-buttons-container" sm={12} md={6}>
                             <button className="add-transaction-button add-transaction-button-income">Add Income</button>
                             <button className="add-transaction-button add-transaction-button-expense">Add Expense</button>
                         </Col>
-                        <Col sm={12} md={4} lg={3} className="date">
-                            <input type="text" value="fasdfds" onfocus="(this.type='date')" onblur="(this.type='text')"></input>
+                        <Col md={3} className="date">
+                            <DatePicker
+                                selected={this.state.startDate}
+                                onChange={this.selectTransactionFrom}
+                                dateFormat={"dd/MM/yyyy"}
+                                placeholderText="Select transaction from"
+                                maxDate={new Date()}
+                                selectsStart
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                            />
 
                         </Col>
-                        <Col sm={12} md={4} lg={3} className="date">
-                            <input type="date"></input>
+                        <Col md={3} className="date">
+                            <DatePicker
+                                selected={this.state.endDate}
+                                onChange={this.selectTransactionTo}
+                                dateFormat={"dd/MM/yyyy"}
+                                placeholderText="Select transaction to"
+                                maxDate={new Date()}
+                                minDate={this.state.startDate}
+                                selectsEnd
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                            />
                         </Col>
+
+
                     </Row>
                     <Row className="filters-section">
                         <Col className="category-filter" sm={12} md={8}>
                             <Multiselect
-                                options={this.state.incomeCategory.concat(this.state.expensesCategory)}
-                                displayValue="name"
-                                style={categoryMultiselectStyle}
-                                placeholder=""
-                                selectedValues={this.state.incomeCategory.concat(this.state.expensesCategory)}
-                                onSelect={this.addCategoryToFilters}
-                                onRemove={this.removeCategoryFromFilters}
-                                closeOnSelect={false}
-
+                                data={this.state.incomeCategory.concat(this.state.expensesCategory)}
+                                valueField='ID'
+                                textField='name'
+                                defaultValue={this.state.incomeCategory.concat(this.state.expensesCategory)}
+                                onChange={this.changeCategory}
+                                placeholder="Select categories"
+                                showPlaceholderWithValues={false}
                             />
                         </Col>
                         <Col className="sort-filter" sm={12} md={4}>
-                            <Multiselect
-                                options={this.state.sortArrayValues}
-                                displayValue="name"
-                                style={sortStyle}
-                                placeholder={this.state.sortArrayValues[0].name}
-                                singleSelect
+                            <DropdownList
+                                data={this.state.sortArrayValues}
+                                valueField="ID"
+                                textField="name"
+                                defaultValue={this.state.sortArrayValues[0].name}
+                                onChange={this.selectSortBy}
                             />
                         </Col>
                     </Row>
