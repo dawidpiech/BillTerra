@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Nav } from 'reactstrap';
 import { Router, NavLink, Route } from "react-router-dom";
 import './Transactions.scss';
+import { DashboardMenu } from "./components/Dashboard/DashboardMenu"
+import { TransactionsBody } from "./components/Transactions/TransactionsBody"
+import "./Dashboard.scss"
+import { UserBar } from "./components/Dashboard/UserBar"
+import { Loader } from "./components/Loader/Loader"
 
 export class Transactions extends Component {
 
@@ -12,25 +17,18 @@ export class Transactions extends Component {
     }
 
 
+    componentDidMount() {
+        this.loader.hideLoader()
+    }
+
+
     render() {
         return (
-            <div className="dashboard_menu_container">
-                <div className="dashboard_menu">
-                    <ul>
-                        <li className="dashboard_menu_element">
-                            <a href=""></a>
-                        </li>
-                        <li className="dashboard_menu_element">
-
-                        </li>
-                        <li className="dashboard_menu_element">
-
-                        </li>
-                        <li className="dashboard_menu_element">
-
-                        </li>
-                    </ul>
-                </div>
+            <div className="dashboard_wrapper">
+                <Loader onRef={ref => (this.loader = ref)}></Loader>
+                <UserBar></UserBar>
+                <DashboardMenu></DashboardMenu>
+                <TransactionsBody></TransactionsBody>
             </div>
         )
     }
