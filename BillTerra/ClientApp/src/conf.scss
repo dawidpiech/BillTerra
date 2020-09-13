@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+    
+}
+
+// SECTION 
+// NOTE Used fonts
+// SECTION 
+
+
+$segoe: 'Segoe UI', 'Open Sans', Helvetica, sans-serif;
+$segoe-semibold: 'Segoe UI Semibold', 'Open Sans', Helvetica, sans-serif;
+$segoe-bold: 'Segoe UI Bold', 'Open Sans', Helvetica, sans-serif;
+$segoe-light: 'Segoe UI Light', 'Open Sans', Helvetica, sans-serif;
+
+// SECTION 
+// NOTE Used colours in scss
+// SECTION 
+
+$green: #12CEAD;
+$white: #ffffff;
+$gray: #707070;
+$black: #000000;
+
+$mediaPhoneSize: "768px";
+$mediaTabletSize: "1024px";
