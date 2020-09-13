@@ -1,0 +1,102 @@
+@import "./../../../conf.scss";
+
+.modal-row{
+    width: 100%;
+}
+
+
+.add-transaction-modal-wrapper{
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    
+    .add-transaction-modal-overlay{
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba($gray, 0.5);
+    }
+
+
+    .add-transaction-modal-body{
+        top: 50vh;
+        left: 50vw;
+        position: relative;
+        z-index: 11;
+        display: flex;
+        background: $white;
+        border-radius: 25px;
+        flex-wrap: wrap;
+        padding: 50px 20px;
+        transform: translateX(-50%) translateY(-50%);
+
+        .add-transaction-modal-category{
+            width: 100%;
+            margin: 10px 0;
+            
+        }
+
+        .add-transaction-modal-date{
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .add-transaction-modal-note{
+            margin: 10px 0;
+            .textarea {
+                border: 1px solid #ccc;
+                font-family: inherit;
+                font-size: inherit;
+                padding: 1px 6px;
+                display: block;
+                width: 100%;
+                overflow: hidden;
+                resize: both;
+                min-height: 40px;
+                line-height: 20px;
+            }
+
+            .textarea[contenteditable]:empty::before {
+                content: "Placeholder still possible";
+                color: $gray;
+            }
+        }
+
+        .add-transaction-amount{
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .add-transaction-modal-buttons{
+
+            .add-transaction-modal-button{
+                color: #fff;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 25px;
+                display: inline-block;
+                border: none;
+                margin: 0 10px;
+                transition: all 0.4s ease 0s;
+
+                &:hover{
+                    border-radius: 5px;
+                    background: $gray;
+                    padding: 10px 30px;
+                    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+                    transition: all 0.4s ease 0s;
+                } 
+            }
+
+            .add-button{
+                background: $green;
+            }
+        }
+    }
+}
+
+.transaction-modal-close{
+    display: none;
+}
