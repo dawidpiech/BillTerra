@@ -7,7 +7,10 @@ import "react-datepicker/dist/react-datepicker.css"
 import Multiselect from 'react-widgets/lib/Multiselect'
 import 'react-widgets/lib/scss/react-widgets.scss'
 import DropdownList from 'react-widgets/lib/DropdownList'
-import { AddTransactionModal } from "./AddTransactionModal"
+//import { AddTransactionModal } from "./AddTransactionModal"
+import { AddIncomeModal } from "./AddIncomeModal"
+import { AddExpenseModal } from "./AddExpenseModal"
+
 
 
 
@@ -85,8 +88,8 @@ export class TransactionsBody extends Component {
             sortBy: ""
         };
 
-        this.modal = React.createRef();
-
+        this.income = React.createRef();
+        this.expense = React.createRef();
         this.editTransaction = this.editTransaction.bind(this)
         this.deleteTransaction = this.deleteTransaction.bind(this)
         this.changeCategory = this.changeCategory.bind(this)
@@ -316,11 +319,11 @@ export class TransactionsBody extends Component {
     }
 
     showModalAddNewIncome = () => {
-        this.modal.current.showModal(true, this.state.incomeCategory)
+        this.income.current.showModal()
     }
 
     showModalAddNewExpense = () => {
-        this.modal.current.showModal(false, this.state.expensesCategory)
+        this.expense.current.showModal()
     }
 
 
@@ -330,7 +333,9 @@ export class TransactionsBody extends Component {
         return (
             <div className="dashboard_body_container">
                 <Container>
-                    <AddTransactionModal ref={this.modal} addNewTransaction={this.addNewTransaction}></AddTransactionModal>
+                    {/* <AddTransactionModal ref={this.modal} addNewTransaction={this.addNewTransaction}></AddTransactionModal> */}
+                    <AddIncomeModal ref={this.income} addNewTransaction={this.addNewTransaction} categories={this.state.incomeCategory}></AddIncomeModal>
+                    <AddExpenseModal ref={this.expense} addNewTransaction={this.addNewTransaction} categories={this.state.expensesCategory}></AddExpenseModal>
                     <Row className="add-transactions-section">
                         <Col className="add-transaction-buttons-container" sm={12} md={6}>
                             <button className="add-transaction-button add-transaction-button-income" onClick={this.showModalAddNewIncome}>Add Income</button>
