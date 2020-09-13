@@ -1,0 +1,51 @@
+@import "../../../../conf.scss";
+
+.notyfication-wrap{
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    padding: 10px;
+
+    .notification-avatar{
+        width: 100px;
+        height: 100px;
+        background-color: gray;
+        border-radius: 50px;
+        margin-left: 0;
+        align-self: center;
+    }
+
+    .notification-content{
+        width: calc(100% - 120px);
+        padding: 10px 20px 10px 50px;
+    }
+
+    .notification-close{
+        margin-right: 0;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        cursor: pointer;
+
+
+        &:before, &:after{
+            content: "";
+            display: block;
+            width: 2px;
+            height: 20px;
+            background-color: $green;
+            position: absolute;
+        }
+
+        &:before{
+            right: 9px;
+            transform: rotate(45deg);
+        }
+
+        &:after{
+            left: 9px;
+            transform: rotate(-45deg);
+        }
+    }
+}
+
