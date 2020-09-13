@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import Multiselect from 'react-widgets/lib/Multiselect'
 import 'react-widgets/lib/scss/react-widgets.scss'
 import DropdownList from 'react-widgets/lib/DropdownList'
-import { Loader } from "./../Loader/Loader"
+import { AddTransactionModal } from "./AddTransactionModal"
 
 
 
@@ -85,10 +85,12 @@ export class TransactionsBody extends Component {
             sortBy: ""
         };
 
+        this.modal = React.createRef();
 
         this.editTransaction = this.editTransaction.bind(this)
         this.deleteTransaction = this.deleteTransaction.bind(this)
         this.changeCategory = this.changeCategory.bind(this)
+        this.addNewTransaction = this.addNewTransaction.bind(this);
     }
 
     ////////////////////////////////////////////////
@@ -146,6 +148,43 @@ export class TransactionsBody extends Component {
         // })
 
         console.log(transaction)
+    }
+
+    addNewTransaction(category, date, note, amount) {
+        // let fromatedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+        // let transaction = { category, fromatedDate, note, amount }
+
+        // let transactions = this.state.transactions.unshift(transaction)
+        // let visibleTransactions = this.state.visibleTransactions.unshift(transaction)
+        // this.setState({
+        //     transaction: transactions,
+        //     visibleTransactions: visibleTransactions
+        // })
+
+        // this.modal.current.closeModal()
+
+
+        console.log("category: " + category)
+
+
+
+
+        // fetch('api/[nazwa kontrolera bez controlers]]/[nazwa funkcji]]', {  //funkcja usuwająca rekord z bazy danych
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         transaction
+        //     })
+        // }).then(responce => {
+        //     let transactions = this.state.transactions.unshift(transaction)
+        //     let visibleTransactions = this.state.visibleTransactions.unshift(transaction)
+        //     this.setState({
+        //         transaction: transactions,
+        //         visibleTransactions: visibleTransactions
+        //     })
+        //     console.log(responce)
+        // }).catch(error => {
+        //     console.log(error)
+        // })
     }
 
     ////////////////////////////////////////////////
@@ -221,9 +260,6 @@ export class TransactionsBody extends Component {
     }
 
 
-
-
-
     ////////////////////////////////////////////
     /////HANDLERS TO FILTER TRANSACTIONS////////
     ////////////////////////////////////////////
@@ -269,24 +305,36 @@ export class TransactionsBody extends Component {
     }
 
     selectSortBy(selectedItem) {
+        console.log(selectedItem)
         let data = this.state.transactions
         let visibleData = this.sortTransactions(data, selectedItem.ID)
-        console.log(selectedItem)
+
         this.setState({
             sortBy: selectedItem,
             visibleTransactions: visibleData
         });
     }
 
+    showModalAddNewIncome = () => {
+        this.modal.current.showModal(true, this.state.incomeCategory)
+    }
+
+    showModalAddNewExpense = () => {
+        this.modal.current.showModal(false, this.state.expensesCategory)
+    }
+
+
+
 
     render() {
         return (
             <div className="dashboard_body_container">
                 <Container>
+                    <AddTransactionModal ref={this.modal} addNewTransaction={this.addNewTransaction}></AddTransactionModal>
                     <Row className="add-transactions-section">
                         <Col className="add-transaction-buttons-container" sm={12} md={6}>
-                            <button className="add-transaction-button add-transaction-button-income">Add Income</button>
-                            <button className="add-transaction-button add-transaction-button-expense">Add Expense</button>
+                            <button className="add-transaction-button add-transaction-button-income" onClick={this.showModalAddNewIncome}>Add Income</button>
+                            <button className="add-transaction-button add-transaction-button-expense" onClick={this.showModalAddNewExpense}>Add Expense</button>
                         </Col>
                         <Col md={3} className="date">
                             <DatePicker

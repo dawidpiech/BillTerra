@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "canvasjs": "^1.8.3",
+    "globalize": "^1.6.0",
     "highcharts": "^8.2.0",
     "highcharts-react-official": "^3.0.0",
     "moment": "^2.27.0",
@@ -14,7 +15,8 @@
     "react-dom": "^16.13.1",
     "react-loader-spinner": "^3.1.14",
     "react-moment": "^0.9.7",
-    "react-widgets": "^4.6.0"
+    "react-widgets": "^4.6.0",
+    "react-widgets-globalize": "^5.0.22"
   },
   "devDependencies": {},
   "scripts": {
