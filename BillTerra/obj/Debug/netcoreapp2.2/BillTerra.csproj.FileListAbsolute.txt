@@ -78,3 +78,45 @@ C:\Users\Bezi\Desktop\Nowy folder (2)\BillTerra\BillTerra\obj\Debug\netcoreapp2.
 C:\Users\Bezi\Desktop\Nowy folder (2)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.dll
 C:\Users\Bezi\Desktop\Nowy folder (2)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.pdb
 C:\Users\Bezi\Desktop\Nowy folder (2)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.csproj.CopyComplete
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.dll
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.pdb
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\nunit.engine.dll
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\nunit.engine.api.dll
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.deps.json
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.runtimeconfig.json
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.runtimeconfig.dev.json
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.dll
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.pdb
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.Views.dll
+C:\Users\HP\Desktop\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.Views.pdb
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.csprojAssemblyReference.cache
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorAssemblyInfo.cache
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorAssemblyInfo.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.AssemblyInfo.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.TagHelpers.input.cache
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.TagHelpers.output.cache
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorCoreGenerate.cache
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Create.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Edit.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Index.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Categorie.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\MainIndex.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\ShopingList.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Transaction\List.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.cshtml.g.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorTargetAssemblyInfo.cache
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorTargetAssemblyInfo.cs
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.Views.pdb
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.dll
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.pdb
+C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.csproj.CopyComplete
