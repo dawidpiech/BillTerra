@@ -13763,11 +13763,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bezi\\Desktop\\Nowy folder (2)\\BillTerra\\BillTerra\\BillTerra.csproj",
+      "projectUniqueName": "C:\\Users\\Bezi\\Desktop\\Nowy folder (3)\\BillTerra\\BillTerra\\BillTerra.csproj",
       "projectName": "BillTerra",
-      "projectPath": "C:\\Users\\Bezi\\Desktop\\Nowy folder (2)\\BillTerra\\BillTerra\\BillTerra.csproj",
+      "projectPath": "C:\\Users\\Bezi\\Desktop\\Nowy folder (3)\\BillTerra\\BillTerra\\BillTerra.csproj",
       "packagesPath": "C:\\Users\\Bezi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bezi\\Desktop\\Nowy folder (2)\\BillTerra\\BillTerra\\obj\\",
+      "outputPath": "C:\\Users\\Bezi\\Desktop\\Nowy folder (3)\\BillTerra\\BillTerra\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
