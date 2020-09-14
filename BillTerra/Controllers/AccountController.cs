@@ -8,8 +8,10 @@ using BillTerra.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace BillTerra.Controllers
 {
+
     public class AccountController : Controller
     {
         private UserManager<User> userManager;
@@ -59,7 +61,8 @@ namespace BillTerra.Controllers
                 }
             }
 
-            return View(createUser);
+
+            return View("createUser");
         }
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
