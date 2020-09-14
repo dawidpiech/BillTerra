@@ -93,7 +93,6 @@ export class TransactionsBody extends Component {
         this.editTransaction = this.editTransaction.bind(this)
         this.deleteTransaction = this.deleteTransaction.bind(this)
         this.changeCategory = this.changeCategory.bind(this)
-        this.addNewTransaction = this.addNewTransaction.bind(this);
     }
 
     ////////////////////////////////////////////////
@@ -153,21 +152,31 @@ export class TransactionsBody extends Component {
         console.log(transaction)
     }
 
-    addNewTransaction(category, date, note, amount) {
-        // let fromatedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-        // let transaction = { category, fromatedDate, note, amount }
+    ////////////////////////////////////////////////
+    //////////ADD NEW TRANSACTIONS FUNCTIONS////////
+    ////////////////////////////////////////////////
 
-        // let transactions = this.state.transactions.unshift(transaction)
-        // let visibleTransactions = this.state.visibleTransactions.unshift(transaction)
+    addNewTransaction = (category, date, note, amount) => {
+        let fromatedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+        let transaction = { category, fromatedDate, note, amount }
+
+        let transactions = this.state.transactions
+        let visibleTransactions = this.state.visibleTransactions
+
+        transactions.unshift(transaction)
+        visibleTransactions.unshift(transaction)
+
         // this.setState({
         //     transaction: transactions,
         //     visibleTransactions: visibleTransactions
         // })
 
-        // this.modal.current.closeModal()
+        this.income.current.closeModal()
+        this.expense.current.closeModal()
 
 
-        console.log("category: " + category)
+        console.log(transactions)
+        console.log(visibleTransactions)
 
 
 
@@ -297,7 +306,7 @@ export class TransactionsBody extends Component {
         });
     }
 
-    changeCategory(selectedCategory) {                          //dokończyć
+    changeCategory(selectedCategory) {
         let visibleData = this.filterByCategory(this.state.transactions, selectedCategory)
 
 
@@ -333,9 +342,8 @@ export class TransactionsBody extends Component {
         return (
             <div className="dashboard_body_container">
                 <Container>
-                    {/* <AddTransactionModal ref={this.modal} addNewTransaction={this.addNewTransaction}></AddTransactionModal> */}
-                    <AddIncomeModal ref={this.income} addNewTransaction={this.addNewTransaction} categories={this.state.incomeCategory}></AddIncomeModal>
-                    <AddExpenseModal ref={this.expense} addNewTransaction={this.addNewTransaction} categories={this.state.expensesCategory}></AddExpenseModal>
+                    <AddIncomeModal ref={this.income} addNewTransaction={this.addNewTransaction.bind(this)} categories={this.state.incomeCategory}></AddIncomeModal>
+                    <AddExpenseModal ref={this.expense} addNewTransaction={this.addNewTransaction.bind(this)} categories={this.state.expensesCategory}></AddExpenseModal>
                     <Row className="add-transactions-section">
                         <Col className="add-transaction-buttons-container" sm={12} md={6}>
                             <button className="add-transaction-button add-transaction-button-income" onClick={this.showModalAddNewIncome}>Add Income</button>

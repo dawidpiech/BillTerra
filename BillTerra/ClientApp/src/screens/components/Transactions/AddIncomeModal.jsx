@@ -32,7 +32,7 @@ export class AddIncomeModal extends Component {
         let element = document.querySelector(".add-income-modal-wrapper")
         this.setState({
             category: '',
-            date: '',
+            date: today,
             note: '',
             amount: '',
             categories: this.props.categories,
@@ -40,9 +40,10 @@ export class AddIncomeModal extends Component {
         })
 
         element.classList.add("income-modal-close")
+
     }
 
-    addTransaction() {
+    addTransaction = () => {
         this.props.addNewTransaction(this.state.category, this.state.date, this.state.note, this.state.amount)
     }
 
@@ -55,11 +56,11 @@ export class AddIncomeModal extends Component {
                     <div className="modal-row">
                         <div className="add-income-modal-category">
                             <DropdownList
-                                selected={this.state.categories[0]}
+                                defaultValue={this.state.categories[0]}
                                 data={this.state.categories}
-                                allowCreate="onFilter"
                                 onChange={value => this.setState({ category: value })}
                                 textField="name"
+                                valueField='ID'
                                 placeholder="Select category"
                             />
                         </div>
@@ -73,7 +74,6 @@ export class AddIncomeModal extends Component {
                             />
                         </div>
                         <div className="add-income-modal-note">
-                            {/* <div className="textarea" role="textbox" contenteditable="true" aria-multiline="true" aria-labelledby="txtboxMultilineLabel" aria-required="false"></div> */}
                             <input type="text" placeholder="Enter note" onChange={value => this.setState({ note: value.target.value })}></input>
                         </div>
                         <div className="add-income-amount">

@@ -6,7 +6,6 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import { Container, Col, Row } from 'reactstrap'
 
 
 
@@ -33,17 +32,18 @@ export class AddExpenseModal extends Component {
         let element = document.querySelector(".add-expense-modal-wrapper")
         this.setState({
             category: '',
-            date: '',
+            date: today,
             note: '',
             amount: '',
-            categories: "",
+            categories: this.props.categories,
             expenseOrIncome: false
         })
 
         element.classList.add("expense-modal-close")
+
     }
 
-    addTransaction() {
+    addTransaction = () => {
         this.props.addNewTransaction(this.state.category, this.state.date, this.state.note, this.state.amount)
     }
 
@@ -52,15 +52,15 @@ export class AddExpenseModal extends Component {
         return (
             <div className="add-expense-modal-wrapper expense-modal-close" >
                 <div className="add-expense-modal-overlay" onClick={this.closeModal}></div>
-                <div className="add-expense-modal-body col-md-8 col-lg-10">
+                <div className="add-expense-modal-body col-md-8">
                     <div className="modal-row">
                         <div className="add-expense-modal-category">
                             <DropdownList
-                                selected={this.state.categories[0]}
+                                defaultValue={this.state.categories[0]}
                                 data={this.state.categories}
-                                allowCreate="onFilter"
                                 onChange={value => this.setState({ category: value })}
                                 textField="name"
+                                valueField='ID'
                                 placeholder="Select category"
                             />
                         </div>
@@ -74,7 +74,6 @@ export class AddExpenseModal extends Component {
                             />
                         </div>
                         <div className="add-expense-modal-note">
-                            {/* <div className="textarea" role="textbox" contenteditable="true" aria-multiline="true" aria-labelledby="txtboxMultilineLabel" aria-required="false"></div> */}
                             <input type="text" placeholder="Enter note" onChange={value => this.setState({ note: value.target.value })}></input>
                         </div>
                         <div className="add-expense-amount">
@@ -84,7 +83,7 @@ export class AddExpenseModal extends Component {
                     </div>
                     <div className="modal-row">
                         <div className="add-expense-modal-buttons">
-                            <button className="add-expense-modal-button add-button" onClick={this.addTransaction}>Add Expense</button>
+                            <button className="add-expense-modal-button add-button" onClick={this.addTransaction}>Add expense</button>
                         </div>
                     </div>
                 </div>
