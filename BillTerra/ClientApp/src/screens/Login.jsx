@@ -17,6 +17,7 @@ export class Login extends Component {
             errorMessage: "Error",
             emailValid: false,
             passwordValid: false,
+            buttonDisabled: true
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,18 +39,19 @@ export class Login extends Component {
         setTimeout(() => {
             this.setState({ emailValid: expression.test(String(this.state.email)) })
             this.setState({ passwordValid: (this.state.password.length > 0) ? true : false })
-            console.log(this.state.password.length)
+            this.setState({ buttonDisabled: (this.state.passwordValid && this.state.emailValid) ? false : true })
         }, 100);
 
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        this.setState({ buttonDisabled: true })
         if (this.state.email.length > 0 && this.state.password.length > 0) {
             fetch('api/[nazwa kontrolera bez controlers]]/[nazwa funkcji]]', {
                 method: 'POST',
                 body: JSON.stringify({
-                    username: this.state.email,
+                    email: this.state.email,
                     password: this.state.password,
                 })
             }).then(responce => {
@@ -61,7 +63,7 @@ export class Login extends Component {
                 this.setState({ username: "", password: "" })
                 this.setState({
                     error: true,
-                    errorMessage: "Jakiś error"
+                    errorMessage: "Coś poszło nie tak, spróbuj ponownie puźniej."
                 })
             })
         }
@@ -104,7 +106,7 @@ export class Login extends Component {
                                     <Input onChange={(e) => this.handleChange(e, 'password')} type="password" name="password" className="authorization__input" placeholder="Enter password" ></Input>
                                     <FormFeedback>To pole nie może być puste!</FormFeedback>
                                 </FormGroup>
-                                <Button className="authorization__button" disabled={(this.state.emailValid && this.state.passwordValid) ? false : true}>Login</Button>
+                                <Button className="authorization__button" disabled={this.state.buttonDisabled}>Login</Button>
                             </Form>
                         </div>
                     </main>
