@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BillTerra.Contexts;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using BillTerra.Models;
+using BillTerra.EntityFramework;
 
 namespace BillTerra
 {
@@ -19,14 +24,28 @@ namespace BillTerra
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        {  
 
-            // In production, the React files will be served from this directory
+            
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration["Data:BillTerra:ConnectionString"]));
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddTransient<ITransactionRepository, EFTransactionRepository>();
+            services.AddTransient<IBudgetPlanRepository, EFBudgetPlanRepository>();
+            services.AddTransient<ICategorieRepository, EFCategorieRepository>();
+            services.AddTransient<IJarRepositorycs, EFJarRepositorycs>();
+            services.AddTransient<INotificationRepository,EFNotificationRepository>();
+            services.AddTransient<IShopingListRepository, EFShopingListRepository>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,8 +62,11 @@ namespace BillTerra
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseStatusCodePages();
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
             app.UseSpaStaticFiles();
 
             app.UseMvc(routes =>

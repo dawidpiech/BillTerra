@@ -1,0 +1,9 @@
+﻿@model User
+@if(@Model != null)
+{ <img height="100" src="@Model.AvatarLink">}
+
+
+<a class="btn btn-primary" asp-action="Create">Dodaj użytkownika</a>
+<a class="btn btn-primary" asp-action="Login">Zaloguj się</a>
+<a class="btn btn-primary" asp-action="Edit">Edytuj</a>
+<a class="btn btn-primary" asp-action="Logout">Logout</a>

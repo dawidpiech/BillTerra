@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Nav } from 'reactstrap';
 import { Router, NavLink, Route } from "react-router-dom";
 import './Home.scss';
+import { Loader } from "./components/Loader/Loader"
 
 export class Home extends Component {
   static displayName = Home.name;
 
+
+  componentDidMount() {
+    this.loader.hideLoader()
+  }
+
   render() {
     return (
       <div className="wrapper">
+        <Loader onRef={(ref) => this.loader = ref}></Loader>
         <header>
           <div className="logo">
             Bill<span>Terra</span>

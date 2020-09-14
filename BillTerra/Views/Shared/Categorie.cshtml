@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Categorie>
+
+
+<h1>Categorie</h1>
+@foreach(var elm in Model)
+{
+    <h4>@elm.Name</h4>
+}
+
+    <a class="btn btn-primary" asp-action="Add">Add new Categorie</a>
