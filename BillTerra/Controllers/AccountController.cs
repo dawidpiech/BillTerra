@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace BillTerra.Controllers
 {
 
-
     public class AccountController : Controller
     {
         private UserManager<User> userManager;
@@ -36,7 +35,6 @@ namespace BillTerra.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("api/Account/Create")]
         public async Task<IActionResult> Create(CreateUser createUser)
         {
             User user = new User

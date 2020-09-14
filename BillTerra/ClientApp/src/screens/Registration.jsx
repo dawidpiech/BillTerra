@@ -54,12 +54,10 @@ export class Registration extends Component {
             Password: this.state.password
         }
         if (this.state.email.length > 0 && this.state.password.length > 0) {
-            fetch('api/Account/Create', {
-                method: 'post',
+            fetch('/Account/Create', {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    data: data
-                })
+                body: JSON.stringify(data)
             }).then(responce => {
                 //responce.json()
 
