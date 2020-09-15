@@ -26,11 +26,7 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Notification>> Notifications(User user)
         {
-            var sql = $"SELECT * FROM dbo.Notyfications WHERE UserId = '{user.Id}'";
-
-            return await context.Notyfications
-                .FromSql(sql)
-                .ToListAsync();
+            return await context.Notyfications.Where(p => p.User.Id == user.Id && p.IsVisible == true).ToListAsync();
         }
     }
 }

@@ -16,13 +16,14 @@ namespace BillTerra.Controllers
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
         private ICategorieRepository categorieRepository;
+        private INotificationRepository notificationRepository;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager , ICategorieRepository categorieRepository)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager , ICategorieRepository categorieRepository , INotificationRepository notificationRepository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.categorieRepository = categorieRepository;
-           
+            this.notificationRepository = notificationRepository;
         }
 
         [AllowAnonymous]
@@ -36,7 +37,7 @@ namespace BillTerra.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreateUser createUser)
         {
-            AutorisationState autorisationState = new AutorisationState();
+            AutorisationCreateUserState autorisationCreateUser = new AutorisationCreateUserState();
 
             User user = new User
             {
@@ -51,32 +52,31 @@ namespace BillTerra.Controllers
             if (result.Succeeded)
             {
                 AddDefaultCaterories.Add(categorieRepository, user);
-                autorisationState.CreateAccountSucceeded = true;
-                autorisationState.Errors = null;
-
+                await notificationRepository.Add(new Notification
+                {
+                    Title = $"Hello {user.UserName}",
+                    Describe = "Welcome in Biletera",
+                    User = user,
+                    IsVisible = true
+                });
+                autorisationCreateUser.CreateAccountSucceeded = true;
+                autorisationCreateUser.Errors = null;
             }
             else
             {
-                autorisationState.CreateAccountSucceeded = false;
-                autorisationState.Errors = result.Errors;
+                autorisationCreateUser.CreateAccountSucceeded = false;
+                autorisationCreateUser.Errors = result.Errors;
             }
 
-            return Json(autorisationState);
+            return Json(autorisationCreateUser);
         }
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
-        {
-            ViewBag.returnUrl = returnUrl;
-            return View();
-           
-        }
+      
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginUser userLogin,string returnUrl)
+        public async Task<IActionResult> Login([FromBody] LoginUser userLogin)
         {
-           
-            if (ModelState.IsValid)
-            {
+                AutorisationLoginState autorisationLogin = new AutorisationLoginState();
+                autorisationLogin.LoginAccountSucceeded = false;
                 User user = await userManager.FindByEmailAsync(userLogin.Email);
                 if (user != null)
                 {
@@ -86,14 +86,21 @@ namespace BillTerra.Controllers
                                 user, userLogin.Password, false, false);
                     if (result.Succeeded)
                     {
-
-                        return Redirect(returnUrl ?? "/");
+                        autorisationLogin.LoginAccountSucceeded = true;
+                    }
+                    else
+                    {
+                        autorisationLogin.Error = "Invalid email or password";
                     }
                 }
+                else
+                {
+                    autorisationLogin.Error = "Invalid email or password";
+                }
 
-              
-            }
-            return View(userLogin);
+
+
+            return Json(autorisationLogin);
         }
         [Authorize]
         public async Task<IActionResult> Edit()

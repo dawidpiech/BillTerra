@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BillTerra.Models.ViewModel
 {
-    public class AutorisationState
+    public class AutorisationCreateUserState
     {
 
         public bool CreateAccountSucceeded { get; set; }
