@@ -16,11 +16,12 @@ export class Registration extends Component {
             password_confirm: "",
             isAuthenticated: false,
             error: false,
-            errorMessage: "Error",
+            errorMessage: [],
             emailValid: false,
             nameValid: false,
             passwordValid: false,
-            buttonDisabled: true
+            buttonDisabled: true,
+            login: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -54,32 +55,66 @@ export class Registration extends Component {
             Password: this.state.password
         }
 
-      
-        console.log(data)
         if (this.state.email.length > 0 && this.state.password.length > 0) {
             fetch('/Account/Create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data )
-            }).then(responce => {
-                //responce.json()
+                body: JSON.stringify(data)
+            }).then(result => {
+                return result.json()
+            }).then(data => {
+                if (data.createAccountSucceeded === true) {
+                    this.setState({
+                        login: true
+                    })
+                }
+                else {
+                    let data
+                    data.errors.forEach(element => {
+                        data.push(element.description)
+                    })
 
-                console.log(responce)
-                // localStorage.setItem('BillTerra-email', this.state.email)
-                // this.setState({ isAuthenticated: true })       //musisz sprawdzać czy udało się zalogować czy nie i dopiero ustawiać tą flagę
-            }).catch(error => {
-                console.log(error.response.statusText)
-                this.setState({ username: "", password: "" })
-                this.setState({
-                    error: true,
-                    errorMessage: "Coś poszło nie tak, spróbuj ponownie później."                //do dopisania obsługa błędów ale to po spięciu
-                })
+                    this.setState({
+                        email: "",
+                        password: null,
+                        name: "",
+                        password_confirm: "",
+                        isAuthenticated: false,
+                        error: true,
+                        errorMessage: data,
+                        emailValid: false,
+                        nameValid: false,
+                        passwordValid: false,
+                        buttonDisabled: true
+                    })
+                }
             })
+                .catch(error => {
+                    this.setState({
+                        email: "",
+                        password: null,
+                        name: "",
+                        password_confirm: "",
+                        isAuthenticated: false,
+                        error: true,
+                        errorMessage: ["Something went wrong, please try agin later!"],
+                        emailValid: false,
+                        nameValid: false,
+                        passwordValid: false,
+                        buttonDisabled: true
+                    })
+                })
         }
     }
 
 
     render() {
+        if (this.state.login) {
+            return (
+                <Redirect to={{ pathname: "/login" }}></Redirect>
+            )
+        }
+
         return (
             <div className="wrapper-register">
                 <header>
@@ -93,9 +128,13 @@ export class Registration extends Component {
                         <p className="authorization__register">
                             Already have an account? <span><Link to="/login"> Login </Link></span>
                         </p>
-                        {
-                            this.state.error ? <Alert color="danger" isOpen={"visible"}>{this.state.errorMessage}</Alert> : null
-                        }
+                        {/* {
+                            this.state.error ? <Alert color="danger" isOpen={"visible"}>{
+                                this.state.errorMessage.map(line => (
+                                    <p>{line}</p>
+                                ))}
+                            </Alert> : null
+                        } */}
                         <br></br>
                         <Form className="authorization__form" onSubmit={this.handleSubmit}>
                             <FormGroup>

@@ -46,25 +46,23 @@ export class Login extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        let data = {
+            Email: this.state.email,
+            Password: this.state.password
+        }
         this.setState({ buttonDisabled: true })
         if (this.state.email.length > 0 && this.state.password.length > 0) {
-            fetch('api/[nazwa kontrolera bez controlers]]/[nazwa funkcji]]', {
+            fetch('/Account/Login', {
                 method: 'POST',
-                body: JSON.stringify({
-                    email: this.state.email,
-                    password: this.state.password,
-                })
-            }).then(responce => {
-                responce.json()
-                localStorage.setItem('BillTerra-email', this.state.email)
-                this.setState({ isAuthenticated: true })       //musisz sprawdzać czy udało się zalogować czy nie i dopiero ustawiać tą flagę
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(result => {
+                return result.json()
+            }).then(data => {
+                console.log(data)
             }).catch(error => {
-                console.log(error.response.statusText)
-                this.setState({ username: "", password: "" })
-                this.setState({
-                    error: true,
-                    errorMessage: "Coś poszło nie tak, spróbuj ponownie puźniej."
-                })
+                console.log("JAKIŚ ERROR:" + error)
+
             })
         }
     }

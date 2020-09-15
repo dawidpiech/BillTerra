@@ -100,10 +100,6 @@ C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.Assemb
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.TagHelpers.input.cache
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.TagHelpers.output.cache
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorCoreGenerate.cache
-C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Create.cshtml.g.cs
-C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Edit.cshtml.g.cs
-C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Index.cshtml.g.cs
-C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Categorie.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\MainIndex.cshtml.g.cs
