@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BillTerra.Models;
+using BillTerra.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
@@ -35,6 +36,8 @@ namespace BillTerra.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreateUser createUser)
         {
+            AutorisationState autorisationState = new AutorisationState();
+
             User user = new User
             {
                 UserName = createUser.Name,
@@ -48,18 +51,17 @@ namespace BillTerra.Controllers
             if (result.Succeeded)
             {
                 AddDefaultCaterories.Add(categorieRepository, user);
-                return RedirectToAction("Index");
+                autorisationState.CreateAccountSucceeded = true;
+                autorisationState.Errors = null;
 
             }
             else
             {
-                foreach (IdentityError error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
+                autorisationState.CreateAccountSucceeded = false;
+                autorisationState.Errors = result.Errors;
             }
 
-            return View(createUser);
+            return Json(autorisationState);
         }
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
