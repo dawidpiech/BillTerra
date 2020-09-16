@@ -31,7 +31,7 @@ export class AddExpenseModal extends Component {
     closeModal = () => {
         let element = document.querySelector(".add-expense-modal-wrapper")
         this.setState({
-            category: '',
+            category: this.props.categories[0],
             date: today,
             note: '',
             amount: '',
@@ -44,7 +44,7 @@ export class AddExpenseModal extends Component {
     }
 
     addTransaction = () => {
-        this.props.addNewTransaction(this.state.category, this.state.date, this.state.note, this.state.amount)
+        this.props.addNewTransaction(this.state.category, this.state.date, this.state.note, this.state.amount, this.state.expenseOrIncome)
     }
 
 

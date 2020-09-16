@@ -14,7 +14,7 @@ export class AddIncomeModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category: '',
+            category: this.props.categories[0],
             date: today,
             note: '',
             amount: '',
@@ -49,7 +49,7 @@ export class AddIncomeModal extends Component {
     }
 
     addTransaction = () => {
-        this.props.addNewTransaction(this.state.category, this.state.date, this.state.note, this.state.amount)
+        this.props.addNewTransaction(this.state.category, this.state.date, this.state.note, this.state.amount, this.state.expenseOrIncome)
     }
 
 

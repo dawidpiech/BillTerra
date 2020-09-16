@@ -18,7 +18,7 @@ let today = new Date()
 let data = (today.getDate() - 10) + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
 let data2 = (today.getDate() - 2) + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
 
-let kat1 = { ID: 22, name: "Income Category 2" }
+let kat1 = { ID: 7, name: "Income Category 4" }
 let kat2 = { ID: 3, name: "Expnse Category 3" }
 
 const sortedArray = [
@@ -108,11 +108,8 @@ export class TransactionsBody extends Component {
             method: 'POST',
         }).then(responce => {
             this.setState({
-                transactions: data,
-                visibleTransactions: visibleData
-            })
 
-            this.edit.current.closeModal()
+            })
         })
     }
 
@@ -214,8 +211,11 @@ export class TransactionsBody extends Component {
                 transaction
             })
         }).then(responce => {
-            transactions.unshift(responce)
+            transactions.unshift(responce)                      //to będzie generować błąd bo narazie nie dostajesz nic z servera
             visibleTransactions.unshift(responce)
+
+            console.log(transaction)
+            console.log(visibleTransactions)
 
             this.setState({
                 transaction: transactions,
@@ -280,28 +280,22 @@ export class TransactionsBody extends Component {
     }
 
     sortTransactions(transactions, sortBy) {
-        console.log(transactions)
-        console.log(sortBy)
         let data = transactions
         switch (sortBy) {
             case 1: {
                 data.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))
-                console.log("SORT 1: " + data)
                 break
             }
             case 2: {
                 data.sort((a, b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0))
-                console.log("SORT 2: " + data)
                 break
             }
             case 4: {
                 data.sort((a, b) => (a.amount > b.amount) ? 1 : ((b.amount > a.amount) ? -1 : 0))
-                console.log("SORT 3: " + data)
                 break
             }
             case 3: {
                 data.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0))
-                console.log("SORT 4: " + data)
                 break
             }
         }
@@ -390,8 +384,8 @@ export class TransactionsBody extends Component {
         return (
             <div className="dashboard_body_container">
                 <Container>
-                    <AddIncomeModal ref={this.income} addNewTransaction={this.addNewTransaction.bind(this)} categories={this.state.incomeCategory}></AddIncomeModal>
-                    <AddExpenseModal ref={this.expense} addNewTransaction={this.addNewTransaction.bind(this)} categories={this.state.expensesCategory}></AddExpenseModal>
+                    <AddIncomeModal ref={this.income} addNewTransaction={this.addNewTransaction} categories={this.state.incomeCategory}></AddIncomeModal>
+                    <AddExpenseModal ref={this.expense} addNewTransaction={this.addNewTransaction} categories={this.state.expensesCategory}></AddExpenseModal>
                     <EditTransactionModal ref={this.edit} editTransaction={this.editTransactionOnDatabase}></EditTransactionModal>
                     <Row className="add-transactions-section">
                         <Col className="add-transaction-buttons-container" sm={12} md={6}>

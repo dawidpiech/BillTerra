@@ -12,7 +12,6 @@ export class TransactionsItem extends Component {
 
 
     editThisTransaction(key) {
-        console.log("IN TTANS:" + key)
         this.props.editTransaction(key)
     }
 

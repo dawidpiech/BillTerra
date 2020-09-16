@@ -55,7 +55,6 @@ export class EditTransactionModal extends Component {
 
     editTransactionHandler = () => {
         let date = (this.state.date.getDate()) + "/" + (this.state.date.getMonth() + 1) + "/" + this.state.date.getFullYear()
-        console.log("DATA PO KLIKNIĘCIU EDIT: " + date)
         let transaction = { ID: this.state.ID, category: this.state.category, date: date, note: this.state.note, amount: this.state.amount }
         this.props.editTransaction(transaction)
     }
