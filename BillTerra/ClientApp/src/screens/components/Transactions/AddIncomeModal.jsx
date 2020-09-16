@@ -30,6 +30,9 @@ export class AddIncomeModal extends Component {
 
     closeModal = () => {
         let element = document.querySelector(".add-income-modal-wrapper")
+        let note = document.querySelector(".add-income-modal-note > input")
+        let amount = document.querySelector(".add-income-amount > input")
+
         this.setState({
             category: '',
             date: today,
@@ -39,6 +42,8 @@ export class AddIncomeModal extends Component {
             expenseOrIncome: true
         })
 
+        note.value = ""
+        amount.value = ""
         element.classList.add("income-modal-close")
 
     }
