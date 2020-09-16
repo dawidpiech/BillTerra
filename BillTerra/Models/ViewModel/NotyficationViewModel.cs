@@ -10,6 +10,6 @@ namespace BillTerra.Models.ViewModel
         public int ID { get; set; }
         public string Title { get; set; }
         public string Describe { get; set; }
-        public bool IsVisible { get; set; }
+        public string Image { get; set; }
     }
 }

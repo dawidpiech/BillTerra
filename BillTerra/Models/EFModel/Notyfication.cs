@@ -11,6 +11,7 @@ namespace BillTerra.Models
         public User User { get; set; }
         public string Title { get; set; }
         public string Describe { get; set; }
+        public string Image { get; set; }
         public bool IsVisible { get; set; }
     }
 }

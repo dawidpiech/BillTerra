@@ -42,7 +42,9 @@ namespace BillTerra.Controllers
                 ID = notyficationViewModel.ID,
                 Describe = notyficationViewModel.Describe,
                 Title = notyficationViewModel.Title,
-                IsVisible = false
+                IsVisible = false,
+                Image =  notyficationViewModel.Image
+                
             };
 
             await repository.SaveNotyfication(notyfication);
