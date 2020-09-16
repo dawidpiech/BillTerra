@@ -7,7 +7,8 @@ namespace BillTerra.Models
 {
     public interface INotificationRepository
     {
-        Task Add(Notification notification);
+        Task SaveNotyfication(Notification notification);
         Task<IEnumerable<Notification>> Notifications(User user);
+        
     }
 }

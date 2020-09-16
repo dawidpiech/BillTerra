@@ -26,15 +26,6 @@ namespace BillTerra.EntityFramework
 
         }
 
-
-        public async Task Add( Transaction transaction)
-        {
-
-            context.Transactions.Add(transaction);
-            await context.SaveChangesAsync();
-
-        }
-
         public async Task SaveTransaction(Transaction transaction)
         {
             if (transaction.ID == 0)

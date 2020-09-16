@@ -52,7 +52,7 @@ namespace BillTerra.Controllers
             if (result.Succeeded)
             {
                 AddDefaultCaterories.Add(categorieRepository, user);
-                await notificationRepository.Add(new Notification
+                await notificationRepository.SaveNotyfication(new Notification
                 {
                     Title = $"Hello {user.UserName}",
                     Describe = "Welcome in Biletera",
