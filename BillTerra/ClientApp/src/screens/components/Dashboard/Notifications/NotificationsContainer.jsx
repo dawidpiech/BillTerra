@@ -3,19 +3,6 @@ import "./NotificationsContainer.scss"
 import { ListGroupItem } from 'reactstrap';
 import { NotificationsItem } from './NotificationsItem'
 
-
-// let transactions = [
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 1000, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 354, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 234124, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 2341, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 789, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 34543, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 1234, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 1012300, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 213, 1]
-// ]
-
 export class NotificationsContainer extends Component {
 
     constructor(props) {
