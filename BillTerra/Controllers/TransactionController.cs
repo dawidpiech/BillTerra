@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BillTerra.Models;
+using BillTerra.Models.ViewModel;
 using BillTerra.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -30,18 +31,19 @@ namespace BillTerra.Controllers
 
         }
         [Authorize]
-        public async Task Add()
+        [HttpPost]
+        public async Task Add(TransactionViewModel transactionViewModel)
         {
             
             User user = await userManager.GetUserAsync(HttpContext.User);
             var transaction = new Transaction
             {
-                Amount = 100,
-                Coment = "Taaaaa",
-                Categorie = new Categorie { },
+                Amount = transactionViewModel.Amount,
+                Coment = transactionViewModel.Coment,
+                Categorie = new Categorie { ID = 10 , Name = "Home" , User = user},
                 User = user,
-                Date = new DateTime(2000, 10, 10),
-                IsExpense = true
+                Date = transactionViewModel.Date,
+                IsExpense = transactionViewModel.IsExpense
                 
 
 

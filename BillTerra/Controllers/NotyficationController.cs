@@ -18,7 +18,7 @@ namespace BillTerra.Controllers
         public NotyficationController(INotificationRepository notificationRepository, UserManager<User> userManager)
         {
             repository = notificationRepository;
-            userManager = userManager;
+            this.userManager = userManager;
         }
 
         [Authorize]
@@ -45,9 +45,7 @@ namespace BillTerra.Controllers
                 IsVisible = false
             };
 
-            
-
-            repository.SaveNotyfication(Notification)
+            await repository.SaveNotyfication(notyfication);
 
         }
 
