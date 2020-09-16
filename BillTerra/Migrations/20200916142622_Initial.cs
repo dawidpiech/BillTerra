@@ -210,6 +210,7 @@ namespace BillTerra.Migrations
                     UserId = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Describe = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
                     IsVisible = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

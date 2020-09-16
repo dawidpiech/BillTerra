@@ -96,6 +96,8 @@ namespace BillTerra.Migrations
 
                     b.Property<string>("Describe");
 
+                    b.Property<string>("Image");
+
                     b.Property<bool>("IsVisible");
 
                     b.Property<string>("Title");

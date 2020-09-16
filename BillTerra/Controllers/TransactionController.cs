@@ -14,24 +14,27 @@ namespace BillTerra.Controllers
     public class TransactionController : Controller
     {
         private ITransactionRepository repository;
+        private ICategorieRepository categorieRepository;
         private UserManager<User> userManager;
 
-        public TransactionController(ITransactionRepository repository, UserManager<User> userManager)
+        public TransactionController(ITransactionRepository repository, ICategorieRepository categorieRepository, UserManager<User> userManager)
         {
             this.userManager = userManager;
             this.repository = repository;
+            this.categorieRepository = categorieRepository;
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Index()
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
 
-            return View("List", repository.Transactions(user).Result);
+
+            return Json(repository.Transactions(user).Result);
 
         }
         [Authorize]
-        [HttpPost]
         public async Task Add(TransactionViewModel transactionViewModel)
         {
             
@@ -40,7 +43,7 @@ namespace BillTerra.Controllers
             {
                 Amount = transactionViewModel.Amount,
                 Coment = transactionViewModel.Coment,
-                Categorie = new Categorie { ID = 10 , Name = "Home" , User = user},
+                Categorie = categorieRepository.Categories(user).Result.ElementAt(0),
                 User = user,
                 Date = transactionViewModel.Date,
                 IsExpense = transactionViewModel.IsExpense

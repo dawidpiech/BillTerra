@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BillTerra.Models.ViewModel
 {
-    public class NotyficationViewModel
+    public class NotificationViewModel
     {
         public int ID { get; set; }
         public string Title { get; set; }

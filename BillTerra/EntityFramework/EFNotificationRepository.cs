@@ -1,5 +1,6 @@
 ﻿using BillTerra.Contexts;
 using BillTerra.Models;
+using BillTerra.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,8 +41,19 @@ namespace BillTerra.EntityFramework
             return await context.Notyfications.Where(p => p.User.Id == user.Id && p.IsVisible == true).ToListAsync();
         }
 
+        public async Task EnableNotyfication(Notification notification)
+        {
 
+            await SaveNotyfication( new Notification
+            {
+                User = notification.User,
+                ID = notification.ID,
+                Describe = notification.Describe,
+                Title = notification.Title,
+                IsVisible = false,
+                Image = notification.Image
 
-
+            });
+        }
     }
 }

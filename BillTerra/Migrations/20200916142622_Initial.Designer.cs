@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BillTerra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200915192131_Initial")]
+    [Migration("20200916142622_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,6 +97,8 @@ namespace BillTerra.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Describe");
+
+                    b.Property<string>("Image");
 
                     b.Property<bool>("IsVisible");
 

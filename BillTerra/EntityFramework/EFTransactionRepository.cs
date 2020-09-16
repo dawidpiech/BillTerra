@@ -22,7 +22,8 @@ namespace BillTerra.EntityFramework
         public async Task<IEnumerable<Transaction>> Transactions(User user)
         {
 
-            return await context.Transactions.Where(p => p.User.Id == user.Id).ToListAsync();
+            return await context.Transactions.Include(d => d.Categorie)
+                .Where(p => p.User.Id == user.Id).ToListAsync();
 
         }
 
@@ -32,7 +33,7 @@ namespace BillTerra.EntityFramework
                 context.Transactions.Add(transaction);
             else
             {
-                Transaction dbEntity = context.Transactions.FirstOrDefault(p => p.ID == transaction.ID);
+                Transaction dbEntity = context.Transactions.Include(d => d.Categorie).FirstOrDefault(p => p.ID == transaction.ID);
                 if (dbEntity != null)
                 {
                     dbEntity.Amount = transaction.Amount;
@@ -48,13 +49,23 @@ namespace BillTerra.EntityFramework
 
         public Transaction DeleteTransaction(Transaction transaction)
         {
-            Transaction dbEntity = context.Transactions.FirstOrDefault(p => p.ID == transaction.ID);
+            Transaction dbEntity = context.Transactions.Include(d => d.Categorie).FirstOrDefault(p => p.ID == transaction.ID);
             if (dbEntity != null)
             {
                 context.Transactions.Remove(dbEntity);
                 context.SaveChanges();
             }
             return dbEntity;
+        }
+
+        public async Task<IEnumerable<Transaction>> GetIncomes(User user)
+        {
+            return await context.Transactions.Include(d => d.Categorie).Where(p => p.User.Id == user.Id && p.IsExpense == false).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Transaction>> GetExpenses(User user)
+        {
+            return await context.Transactions.Include(d => d.Categorie).Where(p => p.User.Id == user.Id && p.IsExpense == true).ToListAsync();
         }
     }
 }

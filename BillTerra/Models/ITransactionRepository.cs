@@ -9,5 +9,8 @@ namespace BillTerra.Models
         Task SaveTransaction(Transaction transaction);
         Transaction DeleteTransaction(Transaction transaction);
         Task<IEnumerable<Transaction>> Transactions(User user);
+        Task<IEnumerable<Transaction>> GetIncomes(User user);
+        Task<IEnumerable<Transaction>> GetExpenses(User user);
+
     }
 }
