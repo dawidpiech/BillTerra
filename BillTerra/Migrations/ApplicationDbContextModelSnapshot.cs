@@ -119,11 +119,11 @@ namespace BillTerra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Content");
+
                     b.Property<bool>("IsChecked");
 
-                    b.Property<string>("ListName");
-
-                    b.Property<string>("Title");
+                    b.Property<int>("PositionInList");
 
                     b.Property<string>("UserId");
 

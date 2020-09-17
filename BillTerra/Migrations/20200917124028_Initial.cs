@@ -232,9 +232,9 @@ namespace BillTerra.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: true),
-                    ListName = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    IsChecked = table.Column<bool>(nullable: false)
+                    Content = table.Column<string>(nullable: true),
+                    IsChecked = table.Column<bool>(nullable: false),
+                    PositionInList = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

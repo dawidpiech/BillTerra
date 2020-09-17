@@ -12,46 +12,47 @@ namespace BillTerra.EntityFramework
     {
         private ApplicationDbContext context;
 
+
         public EFShopingListRepository(ApplicationDbContext ctx)
         {
             context = ctx;
         }
 
+        public async Task<IEnumerable<ShopListElement>> ShopListElements(User user)
+        {
+            return await context.ShopListElements.Where(p => p.User.Id == user.Id).OrderBy(x => x.PositionInList).ToListAsync();
+        }
 
-        public ShopListElement DeleteListElement(ShopListElement shopListElement)
+
+        public async Task<ShopListElement> AddListElement(ShopListElement shopListElement)
+        {
+            context.ShopListElements.Add(shopListElement);
+            ShopListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);
+
+            await context.SaveChangesAsync();
+            return dbEntity;
+        }
+
+        public bool DeleteListElement(ShopListElement shopListElement)
         {
             ShopListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);
             if(dbEntity != null)
             {
                 context.ShopListElements.Remove(dbEntity);
                 context.SaveChanges();
+                return true;
             }
-            return dbEntity;
+            return false;
 
         }
 
         public async Task SaveListElement(ShopListElement shopListElement)
         {
-            if (shopListElement.ID == 0)
-                context.ShopListElements.Add(shopListElement);
-            else
-            {
-                ShopListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);
-                if(dbEntity != null)
-                {
-                    dbEntity.ListName = shopListElement.ListName;
-                    dbEntity.Title = shopListElement.Title;
-                    dbEntity.IsChecked = shopListElement.IsChecked;
-                }
-                
-            }
+            context.ShopListElements.Add(shopListElement);         
             await context.SaveChangesAsync();
+
         }
 
-        public async Task<IEnumerable<ShopListElement>> ShopListElements(User user)
-        {
-
-            return await context.ShopListElements.Where(p => p.User.Id == user.Id).ToListAsync();
-        }
+       
     }
 }

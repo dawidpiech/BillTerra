@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BillTerra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200917115114_Initial")]
+    [Migration("20200917124028_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,11 +121,11 @@ namespace BillTerra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Content");
+
                     b.Property<bool>("IsChecked");
 
-                    b.Property<string>("ListName");
-
-                    b.Property<string>("Title");
+                    b.Property<int>("PositionInList");
 
                     b.Property<string>("UserId");
 

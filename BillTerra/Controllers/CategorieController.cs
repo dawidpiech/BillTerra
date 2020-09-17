@@ -36,7 +36,8 @@ namespace BillTerra.Controllers
             {
 
                 Name = "Home",
-                User = user
+                User = user,
+                IsExpense =  true
                 
 
             };
