@@ -21,23 +21,32 @@ export class NotificationsContainer extends Component {
 
     deleteNotification(id) {
         let arr = this.state.visibleNotyfications;
+        let idInArray
         for (let i = 0; i < arr.length; i++) {
             if (arr[i].id == id) {
-                arr.splice(i, 1)
+                idInArray = i
             }
         }
-        this.setState({
-            visibleNotyfications: arr
-        })
 
-        this.deleteNotyficationFromDatabase(id);
+        let notyfication = {
+            ID: this.state.visibleNotyfications[idInArray].id,
+            Title: this.state.visibleNotyfications[idInArray].title,
+            Describe: this.state.visibleNotyfications[idInArray].describe,
+            Image: this.state.visibleNotyfications[idInArray].image
+        }
+
+        this.deleteNotyficationFromDatabase(notyfication, idInArray)
     }
 
-    deleteNotyficationFromDatabase(id) {
-        fetch('/Databoard/DeleteNotyfication', {
+    deleteNotyficationFromDatabase(id, idInArray) {
+        fetch('/Notyfication/EnableNotyfication', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(id)
+        }).then(result => {
+            this.setState({
+                visibleNotyfications: this.state.visibleNotyfications.splice(idInArray, 1)
+            })
         })
     }
 

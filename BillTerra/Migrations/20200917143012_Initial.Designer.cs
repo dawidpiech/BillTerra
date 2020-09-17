@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BillTerra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200917124028_Initial")]
+    [Migration("20200917143012_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

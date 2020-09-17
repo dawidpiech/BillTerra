@@ -14,12 +14,26 @@ export class Transactions extends Component {
         };
     }
 
-    componentWillReceiveProps() {
+    componentWillMount() {
         this.init()
     }
 
     init() {
-
+        fetch('/Transaction/Index', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        }).then(result => {
+            return result.json()
+        }).then(data => {
+            this.setState({
+                avatar: data.avatar,
+                email: data.email,
+                userName: data.userName,
+                expensesCategory: data.expensesCategory,
+                incomesCategory: data.incomeCategory,
+                transactions: data.transactions
+            })
+        })
     }
 
     componentDidMount() {
@@ -33,7 +47,7 @@ export class Transactions extends Component {
                 <Loader onRef={ref => (this.loader = ref)}></Loader>
                 <UserBar avatar={this.state.avatar} email={this.state.email} userName={this.state.userName}></UserBar>
                 <DashboardMenu></DashboardMenu>
-                <TransactionsBody></TransactionsBody>
+                <TransactionsBody expensesCategory={this.state.expensesCategory} incomesCategory={this.state.incomesCategory} transactions={this.state.transactions}></TransactionsBody>
             </div>
         )
     }

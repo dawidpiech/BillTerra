@@ -14,13 +14,6 @@ import { EditTransactionModal } from "./EditTransactionModal"
 
 
 
-let today = new Date()
-let data = (today.getDate() - 10) + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
-let data2 = (today.getDate() - 2) + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
-
-let kat1 = { ID: 7, name: "Income Category 4" }
-let kat2 = { ID: 3, name: "Expnse Category 3" }
-
 const sortedArray = [
     { ID: 1, name: "Sort by date descending" },
     { ID: 2, name: "Sort by date ascending" },
@@ -33,60 +26,6 @@ export class TransactionsBody extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            transactions: [
-                { ID: 1234, category: kat1, date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 1, IncomeOrExpenseFlag: true },
-                { ID: 1235, category: kat1, date: data, note: "Jakaś notatsdafk1234a sfsd xcz vzxc", amount: 2, IncomeOrExpenseFlag: true },
-                { ID: 1236, category: kat1, date: data, note: "Jakaś notatka sf3142sd xcz vasdfzxc", amount: 3, IncomeOrExpenseFlag: false },
-                { ID: 1237, category: kat2, date: data2, note: "Jakaś notatkasdfa sf12#$sd xcz vzxc", amount: 4, IncomeOrExpenseFlag: false },
-                { ID: 1238, category: kat2, date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 5, IncomeOrExpenseFlag: true },
-                { ID: 1239, category: kat2, date: data2, note: "Jakaś notatka s1234fsd xcz vzxc", amount: 6, IncomeOrExpenseFlag: true },
-                { ID: 1231, category: kat2, date: data, note: "Jakaś notatkavczx sfsd ##FD xcz vzxc", amount: 7, IncomeOrExpenseFlag: false },
-                { ID: 1232, category: kat2, date: data, note: "Jakaś notatka sfsd $%xcz vzxc", amount: 8, IncomeOrExpenseFlag: true }
-            ],
-            visibleTransactions: [
-                { ID: 1234, category: kat1, date: data, note: "Jakaś notatka sfsd xcz vzxc", amount: 1, IncomeOrExpenseFlag: true },
-                { ID: 1235, category: kat1, date: data, note: "Jakaś notatsdafk1234a sfsd xcz vzxc", amount: 2, IncomeOrExpenseFlag: true },
-                { ID: 1237, category: kat2, date: data2, note: "Jakaś notatkasdfa sf12#$sd xcz vzxc", amount: 4, IncomeOrExpenseFlag: false },
-                { ID: 1231, category: kat2, date: data, note: "Jakaś notatkavczx sfsd ##FD xcz vzxc", amount: 7, IncomeOrExpenseFlag: false },
-                { ID: 1232, category: kat2, date: data, note: "Jakaś notatka sfsd $%xcz vzxc", amount: 8, IncomeOrExpenseFlag: true }
-            ],
-            incomeCategory: [                           //expenses category from server
-                { ID: 223, name: "Income Category 1" },
-                { ID: 22, name: "Income Category 2" },
-                { ID: 6, name: "Income Category 3" },
-                { ID: 7, name: "Income Category 4" },
-                { ID: 8, name: "Income Category 5" },
-                { ID: 9, name: "Income Category 6" },
-                { ID: 15, name: "Income Category 7" }
-            ],
-            expensesCategory: [                         //income category from server
-                { ID: 1, name: "Expnse Category 1" },
-                { ID: 2, name: "Expnse Category 2" },
-                { ID: 3, name: "Expnse Category 3" },
-                { ID: 4, name: "Expnse Category 4" },
-                { ID: 5, name: "Expnse Category 5" },
-                { ID: 10, name: "Expnse Category 6" },
-                { ID: 11, name: "Expnse Category 7" }
-            ],
-            selectedCategory: [                             //category which are selected in filters
-                { ID: 223, name: "Income Category 1" },
-                { ID: 22, name: "Income Category 2" },
-                { ID: 6, name: "Income Category 3" },
-                { ID: 7, name: "Income Category 4" },
-                { ID: 8, name: "Income Category 5" },
-                { ID: 9, name: "Income Category 6" },
-                { ID: 15, name: "Income Category 7" },
-                { ID: 1, name: "Expnse Category 1" },
-                { ID: 2, name: "Expnse Category 2" },
-                { ID: 3, name: "Expnse Category 3" },
-                { ID: 4, name: "Expnse Category 4" },
-                { ID: 5, name: "Expnse Category 5" },
-                { ID: 10, name: "Expnse Category 6" },
-                { ID: 11, name: "Expnse Category 7" }
-            ],
-            startDate: null,
-            endDate: null,
-            sortBy: sortedArray[0]
         };
 
         this.income = React.createRef();
@@ -98,18 +37,18 @@ export class TransactionsBody extends Component {
         this.editTransactionOnDatabase = this.editTransactionOnDatabase.bind(this)
     }
 
-    componentWillReceiveProps() {
-        this.init()
-    }
-
-
-    init() {
-        fetch('api/[nazwa kontrolera bez controlers]]/[nazwa funkcji]]', {
-            method: 'POST',
-        }).then(responce => {
-            this.setState({
-
-            })
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
+        this.setState({
+            transactions: nextProps.transactions,
+            visibleTransactions: nextProps.transactions,
+            incomeCategory: nextProps.incomesCategory,
+            expensesCategory: nextProps.expensesCategory,
+            selectedCategory: nextProps.expensesCategory.concat(nextProps.incomesCategory),
+            allCategory: nextProps.expensesCategory.concat(nextProps.incomesCategory),
+            startDate: null,
+            endDate: null,
+            sortBy: sortedArray[0]
         })
     }
 
@@ -213,9 +152,6 @@ export class TransactionsBody extends Component {
         }).then(responce => {
             transactions.unshift(responce)                      //to będzie generować błąd bo narazie nie dostajesz nic z servera
             visibleTransactions.unshift(responce)
-
-            console.log(transaction)
-            console.log(visibleTransactions)
 
             this.setState({
                 transaction: transactions,
@@ -424,10 +360,10 @@ export class TransactionsBody extends Component {
                     <Row className="filters-section">
                         <Col className="category-filter" sm={12} md={8}>
                             <Multiselect
-                                data={this.state.incomeCategory.concat(this.state.expensesCategory)}
+                                data={this.state.allCategory}
                                 valueField='ID'
                                 textField='name'
-                                defaultValue={this.state.incomeCategory.concat(this.state.expensesCategory)}
+                                defaultValue={this.state.selectedCategory}
                                 onChange={this.changeCategory}
                                 placeholder="Select categories"
                                 showPlaceholderWithValues={false}
@@ -438,14 +374,14 @@ export class TransactionsBody extends Component {
                                 data={sortedArray}
                                 valueField="ID"
                                 textField="name"
-                                defaultValue={this.state.sortBy.name}
+                                defaultValue={sortedArray[0]}
                                 onChange={this.selectSortBy}
                             />
                         </Col>
                     </Row>
                     <Row className="transactions-section">
                         <Col>
-                            {this.state.visibleTransactions.map((d) => <TransactionsItem
+                            {(this.state.visibleTransactions !== undefined) ? this.state.visibleTransactions.map((d) => <TransactionsItem
                                 key={d.ID}
                                 id={d.ID}
                                 date={d.date}
@@ -455,7 +391,9 @@ export class TransactionsBody extends Component {
                                 editTransaction={this.editTransaction}
                                 deleteTransaction={this.deleteTransaction}
                                 showEditModal={this.showEditModal}>
-                            </TransactionsItem>)}
+                            </TransactionsItem>)
+                                : "NIE MASZ TRANSAKCJI"
+                            }
                         </Col>
                     </Row>
                 </Container>

@@ -14,13 +14,18 @@ export class AddExpenseModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category: '',
             date: today,
             note: '',
             amount: '',
-            categories: this.props.categories,
             expenseOrIncome: false
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            categories: nextProps.categories,
+            category: nextProps.categories[0]
+        })
     }
 
     showModal = () => {
@@ -56,7 +61,7 @@ export class AddExpenseModal extends Component {
                     <div className="modal-row">
                         <div className="add-expense-modal-category">
                             <DropdownList
-                                defaultValue={this.state.categories[0]}
+                                defaultValue={this.state.category}
                                 data={this.state.categories}
                                 onChange={value => this.setState({ category: value })}
                                 textField="name"

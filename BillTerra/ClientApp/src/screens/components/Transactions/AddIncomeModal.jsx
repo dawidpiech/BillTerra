@@ -14,14 +14,25 @@ export class AddIncomeModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category: this.props.categories[0],
             date: today,
             note: '',
             amount: '',
-            categories: this.props.categories,
             expenseOrIncome: true
         }
     }
+
+    static componentWillReceiveProps(nextProps) {
+        this.setState({
+            //categories: nextProps.categories
+        })
+    }
+
+    componentDidMount() {
+        this.setState({
+            category: this.state.categories[0]
+        })
+    }
+
 
     showModal = () => {
         let element = document.querySelector(".add-income-modal-wrapper")
@@ -61,12 +72,12 @@ export class AddIncomeModal extends Component {
                     <div className="modal-row">
                         <div className="add-income-modal-category">
                             <DropdownList
-                                defaultValue={this.state.categories[0]}
                                 data={this.state.categories}
                                 onChange={value => this.setState({ category: value })}
                                 textField="name"
-                                valueField='ID'
+                                valueField="ID"
                                 placeholder="Select category"
+                                defaultValue={this.state.category}
                             />
                         </div>
                         <div className="add-income-modal-date">
