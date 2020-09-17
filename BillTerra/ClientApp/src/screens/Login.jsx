@@ -59,7 +59,6 @@ export class Login extends Component {
             }).then(result => {
                 return result.json()
             }).then(data => {
-                console.log(data.loginAccountSucceeded)
                 if (data.loginAccountSucceeded) {
                     this.setState({
                         email: "",

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import "./NotificationsContainer.scss"
-import { ListGroupItem } from 'reactstrap';
 import { NotificationsItem } from './NotificationsItem'
 
 export class NotificationsContainer extends Component {
@@ -8,21 +7,27 @@ export class NotificationsContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            a: props.notyfications
+            visibleNotyfications: []
         }
 
         this.deleteNotification = this.deleteNotification.bind(this)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            visibleNotyfications: nextProps.notyfications
+        })
+    }
+
     deleteNotification(id) {
-        let arr = this.state.notifications;
+        let arr = this.state.visibleNotyfications;
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i][0] == id) {
-                arr.splice(i, 1);
+            if (arr[i].id == id) {
+                arr.splice(i, 1)
             }
         }
         this.setState({
-            a: arr
+            visibleNotyfications: arr
         })
 
         this.deleteNotyficationFromDatabase(id);
@@ -38,7 +43,7 @@ export class NotificationsContainer extends Component {
 
 
     render() {
-        if (this.state.a.length < 1) {
+        if (this.state.visibleNotyfications.length < 1) {
             return (
                 <div className="notifications-container">
                     <h1>Currently you haven't any notifications</h1>
@@ -48,7 +53,7 @@ export class NotificationsContainer extends Component {
         else {
             return (
                 <div className="notifications-container">
-                    {this.state.a.map((d) => <NotificationsItem title={d.title} content={d.describe} avatar={d.image} id={d.id} deleteNotificationFromState={this.deleteNotification}></NotificationsItem>)}
+                    {this.state.visibleNotyfications.map((d) => <NotificationsItem title={d.title} content={d.describe} avatar={d.image} id={d.id} deleteNotificationFromState={this.deleteNotification}></NotificationsItem>)}
                 </div>
             )
         }

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Nav } from 'reactstrap'
-import { Router, NavLink, Route } from "react-router-dom"
 import { DashboardMenu } from "./components/Dashboard/DashboardMenu"
 import { DashboardBody } from "./components/Dashboard/DashboardBody"
 import "./Dashboard.scss"
@@ -19,12 +17,12 @@ export class Dashboard extends Component {
             avatar: "",
             email: "",
             finance: "",
-            notyfication: "",
+            notyfication: [],
             userName: ""
         };
     }
 
-    componentWillReceiveProps() {
+    componentWillMount() {
         this.init()
     }
 

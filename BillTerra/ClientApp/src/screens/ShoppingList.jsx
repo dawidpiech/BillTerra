@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Nav } from 'reactstrap'
-import { Router, NavLink, Route } from "react-router-dom"
 import './ShoppingList.scss'
 
 export class ShoppingList extends Component {
