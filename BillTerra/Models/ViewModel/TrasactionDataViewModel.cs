@@ -5,19 +5,14 @@ using System.Threading.Tasks;
 
 namespace BillTerra.Models.ViewModel
 {
-    public class DataboardViewModel
+    public class TrasactionDataViewModel
     {
         public string UserName { get; set; }
         public string Avatar { get; set; }
         public string Email { get; set; }
-        public List<NotificationViewModel>  Notyfication { get; set; }
-        public Finance Finance { get; set; }
+        public List<TransactionViewModel> Transactions { get; set; }
+        public List<CategoryViewModel> IncomeCategory { get; set; }
+        public List<CategoryViewModel> ExpensesCategory { get; set; }
+
     }
-
-
-
-
-
-  
-
 }

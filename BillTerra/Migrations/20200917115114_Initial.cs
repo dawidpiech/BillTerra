@@ -161,7 +161,8 @@ namespace BillTerra.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    IsExpense = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

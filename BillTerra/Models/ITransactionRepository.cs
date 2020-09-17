@@ -6,8 +6,9 @@ namespace BillTerra.Models
 {
     public interface ITransactionRepository
     {
-        Task SaveTransaction(Transaction transaction);
-        Transaction DeleteTransaction(Transaction transaction);
+        Task<Transaction> AddTransaction(Transaction transaction);
+        Task<bool> EditTransaction(Transaction transaction);
+        bool DeleteTransaction(Transaction transaction);
         Task<IEnumerable<Transaction>> Transactions(User user);
         Task<IEnumerable<Transaction>> GetIncomes(User user);
         Task<IEnumerable<Transaction>> GetExpenses(User user);

@@ -50,5 +50,16 @@ namespace BillTerra.EntityFramework
             }
             return dbEntity;
         }
+
+        public async Task<IEnumerable<Categorie>> GetIncomes(User user)
+        {
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == false ).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Categorie>> GetExpenses(User user)
+        {
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == true).ToListAsync();
+
+        }
     }
 }

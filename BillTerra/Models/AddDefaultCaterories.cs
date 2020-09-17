@@ -9,9 +9,9 @@ namespace BillTerra.Models
     {
         public static void Add(ICategorieRepository categorieRepository, User user)
         {
-            categorieRepository.SaveCategorie(new Categorie { Name = "Dom", User = user });
-            categorieRepository.SaveCategorie(new Categorie { Name = "Wydatki", User = user });
-            categorieRepository.SaveCategorie(new Categorie { Name = "Dochody", User = user });
+            categorieRepository.SaveCategorie(new Categorie { Name = "Home", User = user , IsExpense = true });
+            categorieRepository.SaveCategorie(new Categorie { Name = "Expense", User = user , IsExpense = true });
+            categorieRepository.SaveCategorie(new Categorie { Name = "Income", User = user , IsExpense = false});
         }
     }
 }

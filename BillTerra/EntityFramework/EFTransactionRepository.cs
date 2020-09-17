@@ -27,35 +27,42 @@ namespace BillTerra.EntityFramework
 
         }
 
-        public async Task SaveTransaction(Transaction transaction)
+        public async Task<Transaction> AddTransaction(Transaction transaction)
         {
-            if (transaction.ID == 0)
-                context.Transactions.Add(transaction);
-            else
-            {
-                Transaction dbEntity = context.Transactions.Include(d => d.Categorie).FirstOrDefault(p => p.ID == transaction.ID);
-                if (dbEntity != null)
-                {
-                    dbEntity.Amount = transaction.Amount;
-                    dbEntity.Categorie = transaction.Categorie;
-                    dbEntity.Coment = transaction.Coment;
-                    dbEntity.Date = transaction.Date;
-
-                }
-
-            }
+            context.Transactions.Add(transaction);
+            Transaction dbEntity = context.Transactions.Include(d => d.Categorie).FirstOrDefault(p => p.ID == transaction.ID);
             await context.SaveChangesAsync();
+
+            return dbEntity;
         }
 
-        public Transaction DeleteTransaction(Transaction transaction)
+        public async Task<bool> EditTransaction(Transaction transaction)
+        {
+            Transaction dbEntity = context.Transactions.Include(d => d.Categorie).FirstOrDefault(p => p.ID == transaction.ID);
+            if (dbEntity != null)
+            {
+                dbEntity.Amount = transaction.Amount;
+                dbEntity.Categorie = transaction.Categorie;
+                dbEntity.Coment = transaction.Coment;
+                dbEntity.Date = transaction.Date;
+                await context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+            
+            
+        }
+
+        public bool DeleteTransaction(Transaction transaction)
         {
             Transaction dbEntity = context.Transactions.Include(d => d.Categorie).FirstOrDefault(p => p.ID == transaction.ID);
             if (dbEntity != null)
             {
                 context.Transactions.Remove(dbEntity);
                 context.SaveChanges();
+                return true;
             }
-            return dbEntity;
+            return false;
         }
 
         public async Task<IEnumerable<Transaction>> GetIncomes(User user)

@@ -49,7 +49,7 @@ namespace BillTerra.Controllers
             ));
 
 
-            DataboardViewModel databoardViewModel = new DataboardViewModel
+            DashboardDataViewModel dashboardDataViewModel = new DashboardDataViewModel
             {
                  
                 UserName = user.UserName,
@@ -72,7 +72,7 @@ namespace BillTerra.Controllers
 
             };
 
-            return Json(databoardViewModel); 
+            return Json(dashboardDataViewModel); 
         }
 
 
