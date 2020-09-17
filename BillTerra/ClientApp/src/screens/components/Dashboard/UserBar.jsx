@@ -39,7 +39,10 @@ export class UserBar extends Component {
     }
 
     logout() {
-        console.log("asdfsda")
+        fetch('/Account/Logout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        })
     }
 
 

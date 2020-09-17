@@ -9,6 +9,5 @@ namespace BillTerra.Models.ViewModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public bool IsExpense { get; set; }
     }
 }

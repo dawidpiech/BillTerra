@@ -38,7 +38,6 @@ export class TransactionsBody extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         this.setState({
             transactions: nextProps.transactions,
             visibleTransactions: nextProps.transactions,
@@ -138,23 +137,26 @@ export class TransactionsBody extends Component {
 
     // FIXME
     addNewTransaction = (category, date, note, amount, IncomeOrExpenseFlag) => {
-        let fromatedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-        let transaction = { ID: null, category: category, date: fromatedDate, note: note, amount: amount, IncomeOrExpenseFlag: IncomeOrExpenseFlag }
+        let transaction = { ID: 0, Category: category, Date: date, Coment: note, Amount: amount, IsExpense: IncomeOrExpenseFlag }
         let transactions = this.state.transactions
         let visibleTransactions = this.state.visibleTransactions
 
 
-        fetch('api/[nazwa kontrolera bez controlers]]/[nazwa funkcji]]', {  //funkcja usuwająca rekord z bazy danych
+        fetch('/Transaction/AddTransactioin', {  //funkcja usuwająca rekord z bazy danych
             method: 'POST',
-            body: JSON.stringify({
-                transaction
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(transaction)
+        }).then(result => {
+            console.log("result")
+            console.log(result)
+            return result.json()
         }).then(responce => {
+            console.log(responce)
             transactions.unshift(responce)                      //to będzie generować błąd bo narazie nie dostajesz nic z servera
             visibleTransactions.unshift(responce)
 
             this.setState({
-                transaction: transactions,
+                transactions: transactions,
                 visibleTransactions: visibleTransactions
             })
 
@@ -317,6 +319,7 @@ export class TransactionsBody extends Component {
     }
 
     render() {
+
         return (
             <div className="dashboard_body_container">
                 <Container>
@@ -361,8 +364,8 @@ export class TransactionsBody extends Component {
                         <Col className="category-filter" sm={12} md={8}>
                             <Multiselect
                                 data={this.state.allCategory}
-                                valueField='ID'
-                                textField='name'
+                                valueField="id"
+                                textField="name"
                                 defaultValue={this.state.selectedCategory}
                                 onChange={this.changeCategory}
                                 placeholder="Select categories"
@@ -381,18 +384,19 @@ export class TransactionsBody extends Component {
                     </Row>
                     <Row className="transactions-section">
                         <Col>
-                            {(this.state.visibleTransactions !== undefined) ? this.state.visibleTransactions.map((d) => <TransactionsItem
-                                key={d.ID}
-                                id={d.ID}
-                                date={d.date}
-                                category={d.category}
-                                note={d.note}
-                                amount={d.amount}
-                                editTransaction={this.editTransaction}
-                                deleteTransaction={this.deleteTransaction}
-                                showEditModal={this.showEditModal}>
-                            </TransactionsItem>)
-                                : "NIE MASZ TRANSAKCJI"
+                            {
+                                (this.state.visibleTransactions !== undefined) ? this.state.visibleTransactions.map((d) => <TransactionsItem
+                                    key={d.ID}
+                                    id={d.ID}
+                                    date={d.date}
+                                    category={d.category.name}
+                                    note={d.note}
+                                    amount={d.amount}
+                                    editTransaction={this.editTransaction}
+                                    deleteTransaction={this.deleteTransaction}
+                                    showEditModal={this.showEditModal}>
+                                </TransactionsItem>)
+                                    : "NIE MASZ TRANSAKCJI"
                             }
                         </Col>
                     </Row>

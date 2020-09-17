@@ -23,7 +23,7 @@ namespace BillTerra.Controllers
 
         [Authorize]
         [HttpPost]
-        public async void EnableNotyfication ([FromBody]NotificationViewModel notyficationViewModel)
+        public async Task EnableNotyfication([FromBody] NotificationViewModel notyficationViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
 

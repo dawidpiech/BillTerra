@@ -86,7 +86,7 @@ namespace BillTerra.Controllers
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddTransactioin([FromBody] TransactionViewModel transactionViewModel)     
+        public async Task<IActionResult> AddTransactioin([FromBody] TransactionViewModel transactionViewModel)
         {
 
             User user = await userManager.GetUserAsync(HttpContext.User);
@@ -98,7 +98,6 @@ namespace BillTerra.Controllers
                 {
                     ID = transactionViewModel.Category.ID,
                     Name = transactionViewModel.Category.Name,
-                    IsExpense = transactionViewModel.Category.IsExpense,
                     User = user,
                 },
                 User = user,
@@ -107,18 +106,18 @@ namespace BillTerra.Controllers
             };
 
 
-            
-
-            var tmp =  transactionRepository.AddTransaction(transaction).Result;
 
 
-            return Json(new TransactionViewModel {
+            var tmp = transactionRepository.AddTransaction(transaction).Result;
+
+
+            return Json(new TransactionViewModel
+            {
                 Amount = tmp.Amount,
                 Category = new CategoryViewModel
                 {
-                    ID  = tmp.Categorie.ID,
+                    ID = tmp.Categorie.ID,
                     Name = tmp.Categorie.Name,
-                    IsExpense = tmp.Categorie.IsExpense
                 },
                 Date = tmp.Date,
                 IsExpense = tmp.IsExpense,
@@ -129,7 +128,7 @@ namespace BillTerra.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> EditTrasactioin([FromBody]TransactionViewModel transactionViewModel)
+        public async Task<IActionResult> EditTrasactioin([FromBody] TransactionViewModel transactionViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
 
@@ -141,7 +140,6 @@ namespace BillTerra.Controllers
                 {
                     ID = transactionViewModel.Category.ID,
                     Name = transactionViewModel.Category.Name,
-                    IsExpense = transactionViewModel.Category.IsExpense,
                     User = user,
                 },
                 User = user,
@@ -150,7 +148,7 @@ namespace BillTerra.Controllers
             };
 
 
-            return Json(new { succeed = transactionRepository.EditTransaction(transaction)  });
+            return Json(new { succeed = transactionRepository.EditTransaction(transaction) });
         }
 
         [Authorize]
@@ -160,13 +158,12 @@ namespace BillTerra.Controllers
             User user = await userManager.GetUserAsync(HttpContext.User);
             var transaction = new Transaction
             {
-                Amount = transactionViewModel.Amount, 
+                Amount = transactionViewModel.Amount,
                 Coment = transactionViewModel.Coment,
                 Categorie = new Categorie
                 {
                     ID = transactionViewModel.Category.ID,
                     Name = transactionViewModel.Category.Name,
-                    IsExpense = transactionViewModel.Category.IsExpense,
                     User = user,
                 },
                 User = user,

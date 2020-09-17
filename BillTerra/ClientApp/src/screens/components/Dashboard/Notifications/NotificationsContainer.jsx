@@ -36,6 +36,10 @@ export class NotificationsContainer extends Component {
         }
 
         this.deleteNotyficationFromDatabase(notyfication, idInArray)
+
+        this.setState({
+            visibleNotyfications: this.state.visibleNotyfications.splice(idInArray, 1)
+        })
     }
 
     deleteNotyficationFromDatabase(id, idInArray) {
@@ -43,10 +47,6 @@ export class NotificationsContainer extends Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(id)
-        }).then(result => {
-            this.setState({
-                visibleNotyfications: this.state.visibleNotyfications.splice(idInArray, 1)
-            })
         })
     }
 

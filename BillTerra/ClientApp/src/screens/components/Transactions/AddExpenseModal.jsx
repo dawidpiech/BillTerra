@@ -61,12 +61,12 @@ export class AddExpenseModal extends Component {
                     <div className="modal-row">
                         <div className="add-expense-modal-category">
                             <DropdownList
-                                defaultValue={this.state.category}
                                 data={this.state.categories}
                                 onChange={value => this.setState({ category: value })}
                                 textField="name"
-                                valueField='ID'
+                                valueField="id"
                                 placeholder="Select category"
+                                defaultValue={this.state.category}
                             />
                         </div>
                         <div className="add-expense-modal-date">

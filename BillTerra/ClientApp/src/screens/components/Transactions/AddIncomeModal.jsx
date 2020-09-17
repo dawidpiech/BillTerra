@@ -21,17 +21,13 @@ export class AddIncomeModal extends Component {
         }
     }
 
-    static componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            //categories: nextProps.categories
+            categories: nextProps.categories,
+            category: nextProps.categories[0]
         })
     }
 
-    componentDidMount() {
-        this.setState({
-            category: this.state.categories[0]
-        })
-    }
 
 
     showModal = () => {
@@ -75,7 +71,7 @@ export class AddIncomeModal extends Component {
                                 data={this.state.categories}
                                 onChange={value => this.setState({ category: value })}
                                 textField="name"
-                                valueField="ID"
+                                valueField="id"
                                 placeholder="Select category"
                                 defaultValue={this.state.category}
                             />
