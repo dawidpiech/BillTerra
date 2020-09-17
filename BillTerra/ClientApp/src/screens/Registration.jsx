@@ -11,7 +11,7 @@ export class Registration extends Component {
         super(props);
         this.state = {
             email: "",
-            password: null,
+            password: "",
             name: "",
             password_confirm: "",
             isAuthenticated: false,
@@ -63,25 +63,25 @@ export class Registration extends Component {
             }).then(result => {
                 return result.json()
             }).then(data => {
-                if (data.createAccountSucceeded === true) {
+                if (data.createAccountSucceeded) {
                     this.setState({
                         login: true
                     })
                 }
                 else {
-                    let data
+                    let errorsList = []
                     data.errors.forEach(element => {
-                        data.push(element.description)
+                        errorsList.push(element.description)
                     })
 
                     this.setState({
                         email: "",
-                        password: null,
+                        password: "",
                         name: "",
                         password_confirm: "",
                         isAuthenticated: false,
                         error: true,
-                        errorMessage: data,
+                        errorMessage: errorsList,
                         emailValid: false,
                         nameValid: false,
                         passwordValid: false,
@@ -90,9 +90,10 @@ export class Registration extends Component {
                 }
             })
                 .catch(error => {
+                    console.log(error)
                     this.setState({
                         email: "",
-                        password: null,
+                        password: "",
                         name: "",
                         password_confirm: "",
                         isAuthenticated: false,
@@ -128,33 +129,33 @@ export class Registration extends Component {
                         <p className="authorization__register">
                             Already have an account? <span><Link to="/login"> Login </Link></span>
                         </p>
-                        {/* {
+                        {
                             this.state.error ? <Alert color="danger" isOpen={"visible"}>{
                                 this.state.errorMessage.map(line => (
                                     <p>{line}</p>
                                 ))}
-                            </Alert> : null
-                        } */}
+                            </Alert> : ""
+                        }
                         <br></br>
                         <Form className="authorization__form" onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Label className="authorization__label">E-mail</Label>
-                                <Input invalid={!this.state.emailValid} onChange={(e) => this.handleChange(e, 'email')} type="e-mail" name="email" className="authorization__input" placeholder="Enter e-mail" />
+                                <Input invalid={!this.state.emailValid} onChange={(e) => this.handleChange(e, 'email')} type="e-mail" value={this.state.email} name="email" className="authorization__input" placeholder="Enter e-mail" />
                                 <FormFeedback>Ten e-mail jest niepoprawny!</FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label className="authorization__label">Username</Label>
-                                <Input invalid={!this.state.nameValid} onChange={(e) => this.handleChange(e, 'name')} type="e-mail" name="email" className="authorization__input" placeholder="Enter username" />
+                                <Input invalid={!this.state.nameValid} onChange={(e) => this.handleChange(e, 'name')} type="e-mail" name="email" value={this.state.name} className="authorization__input" placeholder="Enter username" />
                                 <FormFeedback>To pole nie może być puste!</FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label className="authorization__label">Password</Label>
-                                <Input onChange={(e) => this.handleChange(e, 'password')} type="password" name="password" className="authorization__input" placeholder="Enter password" ></Input>
+                                <Input onChange={(e) => this.handleChange(e, 'password')} type="password" name="password" className="authorization__input" value={this.state.password} placeholder="Enter password" ></Input>
                                 <FormFeedback>To pole nie może być puste!</FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label className="authorization__label">Password connfirmation</Label>
-                                <Input invalid={!this.state.passwordValid && this.state.password_confirm.length > 0} onChange={(e) => this.handleChange(e, 'password_confirm')} type="password" name="password_confirm" className="authorization__input" placeholder="Enter password" ></Input>
+                                <Input invalid={!this.state.passwordValid && this.state.password_confirm.length > 0} onChange={(e) => this.handleChange(e, 'password_confirm')} value={this.state.password_confirm} type="password" name="password_confirm" className="authorization__input" placeholder="Enter password" ></Input>
                                 <FormFeedback>Hasła muszą być takie same!</FormFeedback>
                             </FormGroup>
                             <Button className="authorization__button" disabled={this.state.buttonDisabled}>Sign Up</Button>

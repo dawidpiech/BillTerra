@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from "react-router-dom"
 import './UserBar.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faHome, faCreditCard, faPiggyBank, faClipboardList } from '@fortawesome/free-solid-svg-icons'
 
 
 export class UserBar extends Component {
@@ -11,30 +9,55 @@ export class UserBar extends Component {
         super(props)
         this.state = {
         };
+
+        this.wrapperRef = React.createRef()
+        this.handleClickOutsideAvatar = this.handleClickOutsideAvatar.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutsideAvatar);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutsideAvatar);
+    }
+
+    handleClickOutsideAvatar(event) {
+        let avatar = document.querySelector(".user-avatar")
+        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target) && !avatar.contains(event.target)) {
+            let avatarHandler = document.querySelector(".user-menu")
+            avatarHandler.classList.add("inactive")
+            avatarHandler.classList.remove("active")
+        }
     }
 
 
     clickAvatar() {
-        let avatar = document.querySelector(".userMenu")
-        avatar.classList.toggle("active")
-        avatar.classList.toggle("inactive")
+        let avatarHandler = document.querySelector(".user-menu")
+        avatarHandler.classList.toggle("active")
+        avatarHandler.classList.toggle("inactive")
+    }
+
+    logout() {
+        console.log("asdfsda")
     }
 
 
     render() {
         return (
-            <div className="dashboard_userbar_container">
+            <div className="dashboard-userbar-container">
                 <div className="logo">
                     <NavLink to="/dashboard">Bill<span>Terra</span></NavLink>
                 </div>
-                <div className="userAvatar" onClick={this.clickAvatar}>
-                    <img src="https://techforum.wpcdn.pl/original/3X/8/e/8e616c62c78783aef2b1ea8e44d25f825f08bee5.jpeg" alt="Avatar" />
+                <div className="user-name">Hi, {this.props.userName}</div>
+                <div className="user-avatar" onClick={this.clickAvatar}>
+                    <img src={this.props.avatar} alt="Avatar" />
                 </div>
 
-                <div className="userMenu inactive">
-                    <img src="https://techforum.wpcdn.pl/original/3X/8/e/8e616c62c78783aef2b1ea8e44d25f825f08bee5.jpeg" alt="Avatar" />
-                    <p>asdffasdf@fsadfsda.pl</p>
-                    <NavLink to="/login">Wyloguj</NavLink>
+                <div ref={this.wrapperRef} className="user-menu inactive">
+                    <img src={this.props.avatar} alt="Avatar" />
+                    <p>{this.props.email}</p>
+                    <NavLink to="/login" onClick={this.logout}>Wyloguj</NavLink>
                 </div>
             </div>
         )

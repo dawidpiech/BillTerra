@@ -98,7 +98,7 @@ export class TransactionsBody extends Component {
         this.editTransactionOnDatabase = this.editTransactionOnDatabase.bind(this)
     }
 
-    componentWillMount() {
+    componentWillReceiveProps() {
         this.init()
     }
 

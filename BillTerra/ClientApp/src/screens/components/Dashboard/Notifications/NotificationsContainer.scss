@@ -1,3 +1,5 @@
+@import "./../../../../conf.scss";
+
 .notifications-container{
     width: 100%;
     min-height: 200px;
@@ -7,5 +9,9 @@
     padding: 30px 50px;
     box-shadow: 0px 0px 16px -3px rgba(158,158,158,1);
     margin-top: 10px;
+
+    @media (max-width: $mediaPhoneSize) {
+        padding: 15px 5px;
+    }
 }
 

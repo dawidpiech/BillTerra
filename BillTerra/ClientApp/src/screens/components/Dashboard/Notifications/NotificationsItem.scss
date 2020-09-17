@@ -13,11 +13,33 @@
         border-radius: 50px;
         margin-left: 0;
         align-self: center;
+
+        @media (max-width: $mediaPhoneSize) {
+            width: 70px;
+            height: 70px;
+        }
     }
 
     .notification-content{
         width: calc(100% - 120px);
         padding: 10px 20px 10px 50px;
+
+        @media (max-width: $mediaPhoneSize) {
+            width: calc(100% - 70px);
+            padding: 10px 0 10px 10px;
+        }
+
+        p{
+            font-size: 24px;
+            font-weight: 700;
+
+            @media (max-width: $mediaPhoneSize) {
+                font-size: 24px;
+                line-height: 1;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+        }
     }
 
     .notification-close{

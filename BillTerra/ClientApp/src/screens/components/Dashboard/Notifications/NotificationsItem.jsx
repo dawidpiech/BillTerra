@@ -9,7 +9,7 @@ export class NotificationsItem extends Component {
 
     }
 
-    deleteNotification(e, id) {
+    deleteNotification(id) {
         this.props.deleteNotificationFromState(id);
     }
 
@@ -17,8 +17,11 @@ export class NotificationsItem extends Component {
         return (
             <div className="notyfication-wrap" id={this.props.id}>
                 <div className={`notification-avatar avatar-${this.props.avatar}`}></div>
-                <div className="notification-content">{this.props.content}</div>
-                <div className="notification-close" onClick={(e) => this.deleteNotification(e.target, this.props.id)}></div>
+                <div className="notification-content">
+                    <p>{this.props.title}</p>
+                    {this.props.content}
+                </div>
+                <div className="notification-close" onClick={(e) => this.deleteNotification(this.props.id)}></div>
             </div>
         )
     }

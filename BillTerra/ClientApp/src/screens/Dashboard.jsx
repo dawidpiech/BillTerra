@@ -16,7 +16,34 @@ export class Dashboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            avatar: "",
+            email: "",
+            finance: "",
+            notyfication: "",
+            userName: ""
         };
+    }
+
+    componentWillReceiveProps() {
+        this.init()
+    }
+
+    init() {
+        fetch('/Databoard/Index', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        }).then(result => {
+            return result.json()
+        }).then(data => {
+            console.log(data)
+            this.setState({
+                avatar: data.avatar,
+                email: data.email,
+                finance: data.finance,
+                notyfication: data.notyfication,
+                userName: data.userName
+            })
+        })
     }
 
     componentDidMount() {
@@ -27,9 +54,9 @@ export class Dashboard extends Component {
         return (
             <div className="dashboard_wrapper">
                 <Loader onRef={ref => (this.loader = ref)}></Loader>
-                <UserBar></UserBar>
+                <UserBar avatar={this.state.avatar} email={this.state.email} userName={this.state.userName}></UserBar>
                 <DashboardMenu></DashboardMenu>
-                <DashboardBody></DashboardBody>
+                <DashboardBody finance={this.state.finance} notyfications={this.state.notyfication} ></DashboardBody>
             </div>
         )
     }

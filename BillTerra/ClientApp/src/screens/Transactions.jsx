@@ -16,6 +16,13 @@ export class Transactions extends Component {
         };
     }
 
+    componentWillReceiveProps() {
+        this.init()
+    }
+
+    init() {
+
+    }
 
     componentDidMount() {
         this.loader.hideLoader()
@@ -26,7 +33,7 @@ export class Transactions extends Component {
         return (
             <div className="dashboard_wrapper">
                 <Loader onRef={ref => (this.loader = ref)}></Loader>
-                <UserBar></UserBar>
+                <UserBar avatar={this.state.avatar} email={this.state.email} userName={this.state.userName}></UserBar>
                 <DashboardMenu></DashboardMenu>
                 <TransactionsBody></TransactionsBody>
             </div>

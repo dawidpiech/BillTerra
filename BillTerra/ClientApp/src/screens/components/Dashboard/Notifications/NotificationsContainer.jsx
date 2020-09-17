@@ -8,12 +8,8 @@ export class NotificationsContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            notifications: [
-                [1, "Jakieś powiadomienie nume 1 asdf asdfsdafsdaf sadfsda sad fasd fsad fsafsd afsadf asdf asdfj asdf asdjfk sdf kljsdak fjlsdakjl fhasdkj sjklda fkjlsadklfj sakjlfklasdklj fasdj", "Avatar"],
-                [2, "Jakieś powiadomienie numero 2", "Avatar"],
-                [3, "Lorem asdf asdf asdf sadf sdf sdf sdafsad fsadf sda", "Avatar"]
-            ]
-        };
+            a: props.notyfications
+        }
 
         this.deleteNotification = this.deleteNotification.bind(this)
     }
@@ -26,21 +22,23 @@ export class NotificationsContainer extends Component {
             }
         }
         this.setState({
-            notifications: arr
+            a: arr
         })
 
         this.deleteNotyficationFromDatabase(id);
     }
 
     deleteNotyficationFromDatabase(id) {
-        //tutaj dopisać usuwanie powiadomienia z bazy danych
+        fetch('/Databoard/DeleteNotyfication', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(id)
+        })
     }
 
 
-
     render() {
-
-        if (this.state.notifications.length < 1) {
+        if (this.state.a.length < 1) {
             return (
                 <div className="notifications-container">
                     <h1>Currently you haven't any notifications</h1>
@@ -50,7 +48,7 @@ export class NotificationsContainer extends Component {
         else {
             return (
                 <div className="notifications-container">
-                    {this.state.notifications.map((d) => <NotificationsItem content={d[1]} avatar={d[2]} id={d[0]} deleteNotificationFromState={this.deleteNotification}></NotificationsItem>)}
+                    {this.state.a.map((d) => <NotificationsItem title={d.title} content={d.describe} avatar={d.image} id={d.id} deleteNotificationFromState={this.deleteNotification}></NotificationsItem>)}
                 </div>
             )
         }

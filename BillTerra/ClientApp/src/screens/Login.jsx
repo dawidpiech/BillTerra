@@ -59,9 +59,44 @@ export class Login extends Component {
             }).then(result => {
                 return result.json()
             }).then(data => {
-                console.log(data)
+                console.log(data.loginAccountSucceeded)
+                if (data.loginAccountSucceeded) {
+                    this.setState({
+                        email: "",
+                        password: "",
+                        isAuthenticated: true,
+                        error: false,
+                        errorMessage: "",
+                        emailValid: false,
+                        passwordValid: false,
+                        buttonDisabled: true
+                    })
+                }
+                else {
+                    this.setState({
+                        email: "",
+                        password: "",
+                        isAuthenticated: false,
+                        error: true,
+                        errorMessage: data.error,
+                        emailValid: false,
+                        passwordValid: false,
+                        buttonDisabled: true
+                    })
+                }
+
+
             }).catch(error => {
-                console.log("JAKIŚ ERROR:" + error)
+                this.setState({
+                    email: "",
+                    password: "",
+                    isAuthenticated: false,
+                    error: true,
+                    errorMessage: "Something went wrong, please try again later",
+                    emailValid: false,
+                    passwordValid: false,
+                    buttonDisabled: true
+                })
 
             })
         }
@@ -90,18 +125,18 @@ export class Login extends Component {
                                 New on BillTerra? <span><Link to="/registration"> Create an account</Link></span>
                             </p>
                             {
-                                this.state.error ? <Alert color="danger" isOpen={"visible"}>{this.state.errorMessage}</Alert> : null
+                                this.state.error ? <Alert color="danger" isOpen={"visible"}>{this.state.errorMessage}</Alert> : ""
                             }
                             <br></br>
                             <Form className="authorization__form" onSubmit={this.handleSubmit}>
                                 <FormGroup>
                                     <Label className="authorization__label">E-mail</Label>
-                                    <Input invalid={!this.state.emailValid && this.state.email.length > 0} onChange={(e) => this.handleChange(e, 'email')} type="e-mail" name="email" className="authorization__input" placeholder="Enter e-mail" />
+                                    <Input invalid={!this.state.emailValid && this.state.email.length > 0} onChange={(e) => this.handleChange(e, 'email')} type="e-mail" name="email" value={this.state.email} className="authorization__input" placeholder="Enter e-mail" />
                                     <FormFeedback>Ten e-mail jest niepoprawny!</FormFeedback>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label className="authorization__label">Password <span><Link to="/">Forgot password?</Link></span></Label>
-                                    <Input onChange={(e) => this.handleChange(e, 'password')} type="password" name="password" className="authorization__input" placeholder="Enter password" ></Input>
+                                    <Input onChange={(e) => this.handleChange(e, 'password')} type="password" name="password" className="authorization__input" placeholder="Enter password" value={this.state.password}></Input>
                                     <FormFeedback>To pole nie może być puste!</FormFeedback>
                                 </FormGroup>
                                 <Button className="authorization__button" disabled={this.state.buttonDisabled}>Login</Button>
