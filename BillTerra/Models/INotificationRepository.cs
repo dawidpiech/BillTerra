@@ -10,6 +10,5 @@ namespace BillTerra.Models
     {
         Task SaveNotyfication(Notification notification);
         Task<IEnumerable<Notification>> Notifications(User user);
-        Task EnableNotyfication(Notification notification);
     }
 }
