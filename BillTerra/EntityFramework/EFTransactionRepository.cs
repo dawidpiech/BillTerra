@@ -30,10 +30,9 @@ namespace BillTerra.EntityFramework
         public async Task<Transaction> AddTransaction(Transaction transaction)
         {
             context.Transactions.Add(transaction);
-            Transaction dbEntity = context.Transactions.Include(d => d.Categorie).FirstOrDefault(p => p.ID == transaction.ID);
             await context.SaveChangesAsync();
 
-            return dbEntity;
+            return transaction;
         }
 
         public async Task<bool> EditTransaction(Transaction transaction)

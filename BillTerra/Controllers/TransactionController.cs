@@ -86,7 +86,7 @@ namespace BillTerra.Controllers
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddTrasactioin([FromBody] TransactionViewModel transactionViewModel)
+        public async Task<IActionResult> AddTransactioin([FromBody] TransactionViewModel transactionViewModel)     
         {
 
             User user = await userManager.GetUserAsync(HttpContext.User);
@@ -94,11 +94,20 @@ namespace BillTerra.Controllers
             {
                 Amount = transactionViewModel.Amount,
                 Coment = transactionViewModel.Coment,
-                Categorie = categorieRepository.Categories(user).Result.ElementAt(0),
+                Categorie = new Categorie
+                {
+                    ID = transactionViewModel.Category.ID,
+                    Name = transactionViewModel.Category.Name,
+                    IsExpense = transactionViewModel.Category.IsExpense,
+                    User = user,
+                },
                 User = user,
                 Date = transactionViewModel.Date,
                 IsExpense = transactionViewModel.IsExpense
             };
+
+
+            
 
             var tmp =  transactionRepository.AddTransaction(transaction).Result;
 
@@ -151,7 +160,7 @@ namespace BillTerra.Controllers
             User user = await userManager.GetUserAsync(HttpContext.User);
             var transaction = new Transaction
             {
-                Amount = transactionViewModel.Amount,
+                Amount = transactionViewModel.Amount, 
                 Coment = transactionViewModel.Coment,
                 Categorie = new Categorie
                 {
