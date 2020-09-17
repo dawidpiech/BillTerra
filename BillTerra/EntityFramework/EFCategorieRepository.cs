@@ -23,6 +23,11 @@ namespace BillTerra.EntityFramework
             return await context.Categories.Where(p => p.User.Id == user.Id).ToListAsync();               
         }
 
+        public  Categorie GetCategoryByID(int id)
+        {
+            return  context.Categories.FirstOrDefault(x => x.ID == id);
+        }
+
         public async Task SaveCategorie(Categorie categorie)
         {
             if (categorie.ID == 0)
@@ -61,5 +66,7 @@ namespace BillTerra.EntityFramework
             return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == true).ToListAsync();
 
         }
+
+       
     }
 }

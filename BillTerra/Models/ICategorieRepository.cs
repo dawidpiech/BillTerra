@@ -7,6 +7,7 @@ namespace BillTerra.Models
     {
         Task SaveCategorie(Categorie categorie);
         Categorie DeleteCategorie(Categorie categorie);
+        Categorie GetCategoryByID(int id);
         Task<IEnumerable<Categorie>> Categories(User user);
         Task<IEnumerable<Categorie>> GetIncomes(User user);
         Task<IEnumerable<Categorie>> GetExpenses(User user);

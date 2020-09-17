@@ -94,12 +94,7 @@ namespace BillTerra.Controllers
             {
                 Amount = transactionViewModel.Amount,
                 Coment = transactionViewModel.Coment,
-                Categorie = new Categorie
-                {
-                    ID = transactionViewModel.Category.ID,
-                    Name = transactionViewModel.Category.Name,
-                    User = user,
-                },
+                Categorie = categorieRepository.GetCategoryByID(transactionViewModel.Category.ID),
                 User = user,
                 Date = transactionViewModel.Date,
                 IsExpense = transactionViewModel.IsExpense
@@ -134,14 +129,10 @@ namespace BillTerra.Controllers
 
             var transaction = new Transaction
             {
+                ID  = transactionViewModel.ID,
                 Amount = transactionViewModel.Amount,
                 Coment = transactionViewModel.Coment,
-                Categorie = new Categorie
-                {
-                    ID = transactionViewModel.Category.ID,
-                    Name = transactionViewModel.Category.Name,
-                    User = user,
-                },
+                Categorie = categorieRepository.GetCategoryByID(transactionViewModel.Category.ID),
                 User = user,
                 Date = transactionViewModel.Date,
                 IsExpense = transactionViewModel.IsExpense
@@ -158,14 +149,10 @@ namespace BillTerra.Controllers
             User user = await userManager.GetUserAsync(HttpContext.User);
             var transaction = new Transaction
             {
+                ID = transactionViewModel.ID,
                 Amount = transactionViewModel.Amount,
                 Coment = transactionViewModel.Coment,
-                Categorie = new Categorie
-                {
-                    ID = transactionViewModel.Category.ID,
-                    Name = transactionViewModel.Category.Name,
-                    User = user,
-                },
+                Categorie = categorieRepository.GetCategoryByID(transactionViewModel.Category.ID),
                 User = user,
                 Date = transactionViewModel.Date,
                 IsExpense = transactionViewModel.IsExpense
