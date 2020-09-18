@@ -67,7 +67,7 @@ export class TransactionsBody extends Component {
     }
 
     editTransactionOnDatabase(transaction) {
-        console.log(transaction)
+
         let data = this.state.transactions
         let visibleData = this.state.visibleTransactions
         let transactionIndexInArray = data.findIndex(obj => {
@@ -80,7 +80,7 @@ export class TransactionsBody extends Component {
 
         data[transactionIndexInArray] = transaction
         visibleData[transactionIndexInVisibleArray] = transaction
-
+        console.log(transaction)
         fetch('/Transaction/EditTrasactioin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -119,6 +119,7 @@ export class TransactionsBody extends Component {
             visibleTransactions: updatedVisibleTransactionArray,
             transactions: updatedTransactionArray
         })
+
 
         let category = {
             ID: deletedTransaction.category.id,
