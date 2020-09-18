@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
+import { Input, FormGroup, FormFeedback } from 'reactstrap'
 
 
 
@@ -17,7 +18,10 @@ export class AddExpenseModal extends Component {
             date: today,
             note: '',
             amount: '',
-            expenseOrIncome: false
+            expenseOrIncome: false,
+            amountValidate: false,
+            dateValidate: true,
+            buttonDisabled: false
         }
     }
 
@@ -35,6 +39,7 @@ export class AddExpenseModal extends Component {
 
     closeModal = () => {
         let element = document.querySelector(".add-expense-modal-wrapper")
+
         let note = document.querySelector(".add-expense-modal-note > input")
         let amount = document.querySelector(".add-expense-amount > input")
         this.setState({
@@ -75,7 +80,15 @@ export class AddExpenseModal extends Component {
                         <div className="add-expense-modal-date">
                             <DatePicker
                                 selected={this.state.date}
-                                onChange={value => this.setState({ date: value })}
+                                onChange={value => {
+                                    let dateFlag = (value !== null) ? true : false
+                                    let buttonFlag = (dateFlag && this.state.amountValidate) ? true : false
+                                    this.setState({
+                                        date: value,
+                                        dateValidate: dateFlag,
+                                        buttonDisabled: buttonFlag
+                                    })
+                                }}
                                 dateFormat={"dd/MM/yyyy"}
                                 placeholderText="Select date"
                                 maxDate={new Date()}
@@ -85,7 +98,16 @@ export class AddExpenseModal extends Component {
                             <input type="text" placeholder="Enter note" onChange={value => this.setState({ note: value.target.value })}></input>
                         </div>
                         <div className="add-expense-amount">
-                            <input type="text" placeholder="Enter amount" onChange={value => this.setState({ amount: value.target.value })}></input>
+                            <Input invalid={!this.state.amountValidate} type="number" placeholder="Enter amount" onChange={value => {
+                                let amountFlag = (value.target.value.length > 0) ? true : false
+                                let buttonFlag = (amountFlag && this.state.dateValidate) ? true : false
+                                this.setState({
+                                    amount: value.target.value,
+                                    amountValidate: amountFlag,
+                                    buttonDisabled: buttonFlag
+                                })
+                            }}></Input>
+                            <FormFeedback></FormFeedback>
                             <FontAwesomeIcon icon={faDollarSign}></FontAwesomeIcon>
                         </div>
                     </div>

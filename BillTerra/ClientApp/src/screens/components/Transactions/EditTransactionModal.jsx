@@ -87,7 +87,7 @@ export class EditTransactionModal extends Component {
                             <input type="text" placeholder="Enter note" onChange={value => this.setState({ note: value.target.value })} value={this.state.note}></input>
                         </div>
                         <div className="edit-transaction-amount">
-                            <input type="text" placeholder="Enter amount" onChange={value => this.setState({ amount: value.target.value })} value={this.state.amount}></input>
+                            <input type="number" placeholder="Enter amount" onChange={value => this.setState({ amount: value.target.value })} value={this.state.amount}></input>
                             <FontAwesomeIcon icon={faDollarSign}></FontAwesomeIcon>
                         </div>
                     </div>

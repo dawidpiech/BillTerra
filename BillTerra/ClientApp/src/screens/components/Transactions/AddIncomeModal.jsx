@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
+import { Form, Input, FormGroup, FormFeedback } from 'reactstrap'
 
 
 
@@ -17,7 +18,10 @@ export class AddIncomeModal extends Component {
             date: today,
             note: '',
             amount: '',
-            expenseOrIncome: true
+            expenseOrIncome: true,
+            amountValidate: false,
+            dateValidate: true,
+            buttonDisabled: false
         }
     }
 
@@ -37,8 +41,8 @@ export class AddIncomeModal extends Component {
 
     closeModal = () => {
         let element = document.querySelector(".add-income-modal-wrapper")
-        let note = document.querySelector(".add-income-modal-note > input")
-        let amount = document.querySelector(".add-income-amount > input")
+        let note = document.querySelector(".add-expense-modal-note > input")
+        let amount = document.querySelector(".add-expense-amount > input")
 
         this.setState({
             date: today,
@@ -78,7 +82,17 @@ export class AddIncomeModal extends Component {
                         <div className="add-income-modal-date">
                             <DatePicker
                                 selected={this.state.date}
-                                onChange={value => this.setState({ date: value })}
+                                onChange={value => {
+                                    let dateFlag = (value !== null) ? true : false
+                                    let buttonFlag = (dateFlag && this.state.amountValidate) ? true : false
+                                    this.setState({
+                                        date: value,
+                                        dateValidate: dateFlag,
+                                        buttonDisabled: buttonFlag
+                                    })
+                                }
+                                }
+                                className={(this.state.dateValidate) ? "red-border" : ""}
                                 dateFormat={"dd/MM/yyyy"}
                                 placeholderText="Select date"
                                 maxDate={new Date()}
@@ -88,13 +102,22 @@ export class AddIncomeModal extends Component {
                             <input type="text" placeholder="Enter note" onChange={value => this.setState({ note: value.target.value })}></input>
                         </div>
                         <div className="add-income-amount">
-                            <input type="text" placeholder="Enter amount" onChange={value => this.setState({ amount: value.target.value })}></input>
+                            <Input invalid={!this.state.amountValidate} type="number" placeholder="Enter amount" onChange={value => {
+                                let amountFlag = (value.target.value.length > 0) ? true : false
+                                let buttonFlag = (amountFlag && this.state.dateValidate) ? true : false
+                                this.setState({
+                                    amount: value.target.value,
+                                    amountValidate: amountFlag,
+                                    buttonDisabled: buttonFlag
+                                })
+                            }}></Input>
+                            <FormFeedback></FormFeedback>
                             <FontAwesomeIcon icon={faDollarSign}></FontAwesomeIcon>
                         </div>
                     </div>
                     <div className="modal-row">
                         <div className="add-income-modal-buttons">
-                            <button className="add-income-modal-button add-button" onClick={this.addTransaction}>Add income</button>
+                            <button disabled={!this.state.buttonDisabled} className="add-income-modal-button add-button" onClick={this.addTransaction}>Add income</button>
                         </div>
                     </div>
                 </div>

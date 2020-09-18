@@ -129,12 +129,12 @@ export class TransactionsBody extends Component {
             ID: deletedTransaction.id,
             Category: category,
             Date: deletedTransaction.date,
-            Coment: deletedTransaction.Coment,
+            Coment: deletedTransaction.coment,
             Amount: deletedTransaction.amount,
             IsExpense: deletedTransaction.isExpense
         }
 
-        console.log(typeof formatedTransaction.date)
+        console.log(formatedTransaction)
         this.deleteTransactionFromDatabase(formatedTransaction)
     }
 
@@ -154,6 +154,7 @@ export class TransactionsBody extends Component {
 
     addNewTransaction = (category, date, note, amount, IncomeOrExpenseFlag) => {
         let transaction = { ID: 0, Category: category, Date: date, Coment: note, Amount: amount, IsExpense: IncomeOrExpenseFlag }
+        console.log(transaction)
         let transactions = this.state.transactions
         let visibleTransactions = this.state.visibleTransactions
 
