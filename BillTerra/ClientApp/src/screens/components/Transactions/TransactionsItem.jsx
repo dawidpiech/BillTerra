@@ -22,10 +22,14 @@ export class TransactionsItem extends Component {
 
 
     render() {
-
+        let date = new Date(this.props.date)
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let formatedDate = day + "/" + month + "/" + year
         return (
             <Row className="transaction-wrapper row" id={this.props.id}>
-                <Col className="transaction-date" xs={{ size: 12, order: 1 }} md={{ order: 1 }}>{this.props.date}</Col>
+                <Col className="transaction-date" xs={{ size: 12, order: 1 }} md={{ order: 1 }}>{formatedDate}</Col>
                 <Col className="transaction-category" xs={{ size: 8, order: 2 }} md={{ size: 2, order: 2 }}>{this.props.category}</Col>
                 <Col className="transaction-note" xs={{ size: 12, order: 4 }} md={{ size: 8, order: 3 }}>{this.props.note}</Col>
                 <Col className="transaction-amount" xs={{ size: 4, order: 3 }} md={{ size: 2, order: 4 }}>{this.props.amount + " $"}</Col>

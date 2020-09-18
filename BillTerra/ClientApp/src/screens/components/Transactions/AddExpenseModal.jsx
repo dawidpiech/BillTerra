@@ -35,15 +35,18 @@ export class AddExpenseModal extends Component {
 
     closeModal = () => {
         let element = document.querySelector(".add-expense-modal-wrapper")
+        let note = document.querySelector(".add-expense-modal-note > input")
+        let amount = document.querySelector(".add-expense-amount > input")
         this.setState({
-            category: this.props.categories[0],
             date: today,
             note: '',
             amount: '',
-            categories: this.props.categories,
+            categories: this.state.categories,
             expenseOrIncome: false
         })
 
+        note.value = ""
+        amount.value = ""
         element.classList.add("expense-modal-close")
 
     }
@@ -66,7 +69,7 @@ export class AddExpenseModal extends Component {
                                 textField="name"
                                 valueField="id"
                                 placeholder="Select category"
-                                defaultValue={this.state.category}
+                                value={this.state.category}
                             />
                         </div>
                         <div className="add-expense-modal-date">

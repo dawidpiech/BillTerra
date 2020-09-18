@@ -41,11 +41,10 @@ export class AddIncomeModal extends Component {
         let amount = document.querySelector(".add-income-amount > input")
 
         this.setState({
-            category: '',
             date: today,
             note: '',
             amount: '',
-            categories: this.props.categories,
+            categories: this.state.categories,
             expenseOrIncome: true
         })
 
@@ -70,10 +69,10 @@ export class AddIncomeModal extends Component {
                             <DropdownList
                                 data={this.state.categories}
                                 onChange={value => this.setState({ category: value })}
-                                textField="name"
-                                valueField="id"
+                                textField='name'
+                                valueField='id'
                                 placeholder="Select category"
-                                defaultValue={this.state.category}
+                                value={this.state.category}
                             />
                         </div>
                         <div className="add-income-modal-date">

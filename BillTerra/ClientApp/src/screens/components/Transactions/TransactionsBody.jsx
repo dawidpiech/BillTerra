@@ -55,12 +55,14 @@ export class TransactionsBody extends Component {
     ///ADD EDIT AND DELETE TRANSACTIONS FUNCTIONS///
     ////////////////////////////////////////////////
 
-    editTransaction(transactionID) {                                          //tutaj musisz zrobić funkcję która prześle obiekt to komponentu do edycji
+    editTransaction(transactionID) {
+        console.log(transactionID)                                  //tutaj musisz zrobić funkcję która prześle obiekt to komponentu do edycji
         let transactionIndexInArray = this.state.transactions.findIndex(obj => {
-            return obj.ID === transactionID
+            return obj.id === transactionID
         })
 
-        let categories = (this.state.transactions[transactionIndexInArray].IncomeOrExpenseFlag) ? this.state.incomeCategory : this.state.expensesCategory
+        console.log(transactionIndexInArray)
+        let categories = (this.state.transactions[transactionIndexInArray].isExpense) ? this.state.expensesCategory : this.state.incomeCategory
 
 
         this.showEditModal(this.state.transactions[transactionIndexInArray], categories)
@@ -96,13 +98,14 @@ export class TransactionsBody extends Component {
         })
     }
 
-    deleteTransaction(transactionID) {                                    //tutaj polecenie dusunięcia do servera i usuwasz z widoku 
+    deleteTransaction(transactionID) {
+
         let transactionIndexInArray = this.state.transactions.findIndex(obj => {
-            return obj.ID === transactionID
+            return obj.id === transactionID
         })
 
         let transactionIndexInVisibleArray = this.state.visibleTransactions.findIndex(obj => {
-            return obj.ID === transactionID
+            return obj.id === transactionID
         })
 
         let deletedTransaction = this.state.transactions[transactionIndexInArray]
@@ -118,12 +121,21 @@ export class TransactionsBody extends Component {
             transactions: updatedTransactionArray
         })
 
-        this.deleteTransactionFromDatabase(deletedTransaction)
+        let formatedTransaction = {
+            ID: deletedTransaction.id,
+            Category: deletedTransaction.category,
+            Date: deletedTransaction.date.toString(),
+            Coment: deletedTransaction.Coment,
+            Amount: deletedTransaction.amount,
+            IsExpense: deletedTransaction.isExpense
+        }
+
+        this.deleteTransactionFromDatabase(formatedTransaction)
     }
 
     // FIXME
     deleteTransactionFromDatabase(transaction) {
-        fetch('api/[nazwa kontrolera bez controlers]]/[nazwa funkcji]]', {  //funkcja usuwająca rekord z bazy danych
+        fetch('/Transaction/DeleteTrasactioin', {  //funkcja usuwająca rekord z bazy danych
             method: 'POST',
             body: JSON.stringify({
                 transaction
@@ -141,20 +153,15 @@ export class TransactionsBody extends Component {
         let transactions = this.state.transactions
         let visibleTransactions = this.state.visibleTransactions
 
-
         fetch('/Transaction/AddTransactioin', {  //funkcja usuwająca rekord z bazy danych
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(transaction)
         }).then(result => {
-            console.log("result")
-            console.log(result)
             return result.json()
         }).then(responce => {
-            console.log(responce)
             transactions.unshift(responce)                      //to będzie generować błąd bo narazie nie dostajesz nic z servera
             visibleTransactions.unshift(responce)
-
             this.setState({
                 transactions: transactions,
                 visibleTransactions: visibleTransactions
@@ -163,7 +170,7 @@ export class TransactionsBody extends Component {
             this.income.current.closeModal()
             this.expense.current.closeModal()
         }).catch(error => {
-            console.log(error)
+            console.log("ERROR: " + error)
         })
     }
 
@@ -171,34 +178,18 @@ export class TransactionsBody extends Component {
     //FUNCTIONS TO MODIFICATE VISIBLE TRANSACTIONS//
     ////////////////////////////////////////////////
     filterTransactionsByDataFrom(transactions, date) {
-        let year = date.getFullYear()
-        let month = date.getMonth() + 1
-        let day = date.getDate()
-        let dateFrom = new Date(year, month, day)
         let a = transactions.filter(d => {
-            let transactionDateSplit = d.date.split("/")
-            let year = transactionDateSplit[2]
-            let month = transactionDateSplit[1]
-            let day = transactionDateSplit[0]
-            let transactionDate = new Date(year, month, day)
-            return (transactionDate.getTime() >= dateFrom.getTime())
+            let transactionDate = new Date(d.date)
+            return (transactionDate.getTime() >= date.getTime())
         })
         return a
     }
 
 
     filterTransactionsByDataTo(transactions, date) {
-        let year = date.getFullYear()
-        let month = date.getMonth() + 1
-        let day = date.getDate()
-        let dateFrom = new Date(year, month, day)
         let a = transactions.filter(d => {
-            let transactionDateSplit = d.date.split("/")
-            let year = transactionDateSplit[2]
-            let month = transactionDateSplit[1]
-            let day = transactionDateSplit[0]
-            let transactionDate = new Date(year, month, day)
-            return (transactionDate.getTime() <= dateFrom.getTime())
+            let transactionDate = new Date(d.date)
+            return (transactionDate.getTime() <= date.getTime())
         })
         return a
     }
@@ -207,11 +198,11 @@ export class TransactionsBody extends Component {
         let data
         let categoryID = []
         for (let i = 0; i < categoryList.length; i++) {
-            categoryID.push(categoryList[i].ID)
+            categoryID.push(categoryList[i].id)
         }
 
         data = transactions.filter(d => {
-            return (categoryID.includes(d.category.ID))
+            return (categoryID.includes(d.category.id))
         })
 
         return data
@@ -281,7 +272,6 @@ export class TransactionsBody extends Component {
 
     changeCategory(selectedCategory) {
         let visibleData = this.filterByCategory(this.state.transactions, selectedCategory)
-
         if (this.state.startDate !== null)
             visibleData = this.filterTransactionsByDataFrom(visibleData, this.state.startDate)
         if (this.state.endDate !== null)
@@ -366,7 +356,7 @@ export class TransactionsBody extends Component {
                                 data={this.state.allCategory}
                                 valueField="id"
                                 textField="name"
-                                defaultValue={this.state.selectedCategory}
+                                value={this.state.selectedCategory}
                                 onChange={this.changeCategory}
                                 placeholder="Select categories"
                                 showPlaceholderWithValues={false}
@@ -386,8 +376,8 @@ export class TransactionsBody extends Component {
                         <Col>
                             {
                                 (this.state.visibleTransactions !== undefined) ? this.state.visibleTransactions.map((d) => <TransactionsItem
-                                    key={d.ID}
-                                    id={d.ID}
+                                    key={d.id}
+                                    id={d.id}
                                     date={d.date}
                                     category={d.category.name}
                                     note={d.note}
@@ -396,7 +386,7 @@ export class TransactionsBody extends Component {
                                     deleteTransaction={this.deleteTransaction}
                                     showEditModal={this.showEditModal}>
                                 </TransactionsItem>)
-                                    : "NIE MASZ TRANSAKCJI"
+                                    : <h1>Currently you haven't any transactions</h1>
                             }
                         </Col>
                     </Row>
