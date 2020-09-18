@@ -55,21 +55,19 @@ export class TransactionsBody extends Component {
     ///ADD EDIT AND DELETE TRANSACTIONS FUNCTIONS///
     ////////////////////////////////////////////////
 
-    editTransaction(transactionID) {
-        console.log(transactionID)                                  //tutaj musisz zrobić funkcję która prześle obiekt to komponentu do edycji
+    editTransaction(transactionID) {                              //tutaj musisz zrobić funkcję która prześle obiekt to komponentu do edycji
         let transactionIndexInArray = this.state.transactions.findIndex(obj => {
             return obj.id === transactionID
         })
 
-        console.log(transactionIndexInArray)
         let categories = (this.state.transactions[transactionIndexInArray].isExpense) ? this.state.expensesCategory : this.state.incomeCategory
 
 
         this.showEditModal(this.state.transactions[transactionIndexInArray], categories)
     }
 
-    // FIXME 
     editTransactionOnDatabase(transaction) {
+        console.log(transaction)
         let data = this.state.transactions
         let visibleData = this.state.visibleTransactions
         let transactionIndexInArray = data.findIndex(obj => {
@@ -83,18 +81,19 @@ export class TransactionsBody extends Component {
         data[transactionIndexInArray] = transaction
         visibleData[transactionIndexInVisibleArray] = transaction
 
-
-        // FIXME
-        fetch('api/[nazwa kontrolera bez controlers]]/[nazwa funkcji]]', {
+        fetch('/Transaction/EditTrasactioin', {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: transaction
-        }).then(responce => {
+        }).then(() => {
             this.setState({
                 transactions: data,
                 visibleTransactions: visibleData
             })
 
             this.edit.current.closeModal()
+        }).catch(error => {
+            console.log(error)
         })
     }
 
@@ -121,22 +120,28 @@ export class TransactionsBody extends Component {
             transactions: updatedTransactionArray
         })
 
+        let category = {
+            ID: deletedTransaction.category.id,
+            Name: deletedTransaction.category.name
+        }
+
         let formatedTransaction = {
             ID: deletedTransaction.id,
-            Category: deletedTransaction.category,
-            Date: deletedTransaction.date.toString(),
+            Category: category,
+            Date: deletedTransaction.date,
             Coment: deletedTransaction.Coment,
             Amount: deletedTransaction.amount,
             IsExpense: deletedTransaction.isExpense
         }
 
+        console.log(typeof formatedTransaction.date)
         this.deleteTransactionFromDatabase(formatedTransaction)
     }
 
-    // FIXME
     deleteTransactionFromDatabase(transaction) {
         fetch('/Transaction/DeleteTrasactioin', {  //funkcja usuwająca rekord z bazy danych
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 transaction
             })
@@ -147,7 +152,6 @@ export class TransactionsBody extends Component {
     //////////ADD NEW TRANSACTIONS FUNCTIONS////////
     ////////////////////////////////////////////////
 
-    // FIXME
     addNewTransaction = (category, date, note, amount, IncomeOrExpenseFlag) => {
         let transaction = { ID: 0, Category: category, Date: date, Coment: note, Amount: amount, IsExpense: IncomeOrExpenseFlag }
         let transactions = this.state.transactions
@@ -380,7 +384,7 @@ export class TransactionsBody extends Component {
                                     id={d.id}
                                     date={d.date}
                                     category={d.category.name}
-                                    note={d.note}
+                                    note={d.coment}
                                     amount={d.amount}
                                     editTransaction={this.editTransaction}
                                     deleteTransaction={this.deleteTransaction}

@@ -22,16 +22,12 @@ export class EditTransactionModal extends Component {
     }
 
     showModal = (transaction, categories) => {
-        let reciveDate = transaction.date.split("/")
-        let day = reciveDate[0]
-        let month = reciveDate[1]
-        let year = reciveDate[2]
-        let date = new Date(year, month - 1, day)
+        let date = new Date(transaction.date)
         this.setState({
-            ID: transaction.ID,
+            ID: transaction.id,
             category: transaction.category,
             date: date,
-            note: transaction.note,
+            note: transaction.coment,
             amount: transaction.amount,
             categories: categories
         })
@@ -54,8 +50,8 @@ export class EditTransactionModal extends Component {
     }
 
     editTransactionHandler = () => {
-        let date = (this.state.date.getDate()) + "/" + (this.state.date.getMonth() + 1) + "/" + this.state.date.getFullYear()
-        let transaction = { ID: this.state.ID, category: this.state.category, date: date, note: this.state.note, amount: this.state.amount }
+        let date = this.state.date
+        let transaction = { id: this.state.ID, category: this.state.category, date: date, note: this.state.note, amount: this.state.amount }
         this.props.editTransaction(transaction)
     }
 
