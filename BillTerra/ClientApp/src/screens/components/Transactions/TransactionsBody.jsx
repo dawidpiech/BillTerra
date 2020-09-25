@@ -84,7 +84,7 @@ export class TransactionsBody extends Component {
         fetch('/Transaction/EditTrasactioin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: transaction
+            body: JSON.stringify(transaction)
         }).then(() => {
             this.setState({
                 transactions: data,
@@ -134,8 +134,6 @@ export class TransactionsBody extends Component {
             Amount: deletedTransaction.amount,
             IsExpense: deletedTransaction.isExpense
         }
-
-        console.log(formatedTransaction)
         this.deleteTransactionFromDatabase(formatedTransaction)
     }
 
@@ -143,9 +141,7 @@ export class TransactionsBody extends Component {
         fetch('/Transaction/DeleteTrasactioin', {  //funkcja usuwająca rekord z bazy danych
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                transaction
-            })
+            body: JSON.stringify(transaction)
         })
     }
 
