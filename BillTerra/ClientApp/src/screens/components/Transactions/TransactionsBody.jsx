@@ -60,7 +60,7 @@ export class TransactionsBody extends Component {
             return obj.id === transactionID
         })
 
-        let categories = (this.state.transactions[transactionIndexInArray].isExpense) ? this.state.expensesCategory : this.state.incomeCategory
+        let categories = (this.state.transactions[transactionIndexInArray].isExpense) ? this.state.incomeCategory : this.state.expensesCategory
 
 
         this.showEditModal(this.state.transactions[transactionIndexInArray], categories)
@@ -71,15 +71,15 @@ export class TransactionsBody extends Component {
         let data = this.state.transactions
         let visibleData = this.state.visibleTransactions
         let transactionIndexInArray = data.findIndex(obj => {
-            return obj.ID === transaction.ID
+            return obj.id === transaction.id
         })
 
         let transactionIndexInVisibleArray = visibleData.findIndex(obj => {
-            return obj.ID === transaction.ID
+            return obj.id === transaction.id
         })
-
         data[transactionIndexInArray] = transaction
         visibleData[transactionIndexInVisibleArray] = transaction
+
         fetch('/Transaction/EditTrasactioin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -97,28 +97,22 @@ export class TransactionsBody extends Component {
     }
 
     deleteTransaction(transactionID) {
-
         let transactionIndexInArray = this.state.transactions.findIndex(obj => {
-            return obj.id === transactionID
-        })
-
-        let transactionIndexInVisibleArray = this.state.visibleTransactions.findIndex(obj => {
             return obj.id === transactionID
         })
 
         let deletedTransaction = this.state.transactions[transactionIndexInArray]
 
-        let updatedTransactionArray = this.state.transactions;
-        updatedTransactionArray.splice(transactionIndexInArray, 1)
-
-        let updatedVisibleTransactionArray = this.state.visibleTransactions;
-        updatedVisibleTransactionArray.splice(transactionIndexInVisibleArray, 1)
-
-        this.setState({
-            visibleTransactions: updatedVisibleTransactionArray,
-            transactions: updatedTransactionArray
+        let updatedTransactionArray = this.state.transactions
+        updatedTransactionArray = updatedTransactionArray.filter(obj => {
+            return obj.id !== transactionID
         })
 
+
+        let updatedVisibleTransactionArray = this.state.visibleTransactions
+        updatedVisibleTransactionArray = updatedVisibleTransactionArray.filter(obj => {
+            return obj.id !== transactionID
+        })
 
         let category = {
             ID: deletedTransaction.category.id,
@@ -133,16 +127,21 @@ export class TransactionsBody extends Component {
             Amount: deletedTransaction.amount,
             IsExpense: deletedTransaction.isExpense
         }
-        this.deleteTransactionFromDatabase(formatedTransaction)
-    }
 
-    deleteTransactionFromDatabase(transaction) {
-        fetch('/Transaction/DeleteTrasactioin', {  //funkcja usuwająca rekord z bazy danych
+        fetch('/Transaction/DeleteTrasactioin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(transaction)
+            body: JSON.stringify(formatedTransaction)
+        }).then(() => {
+            this.setState({
+                visibleTransactions: updatedVisibleTransactionArray,
+                transactions: updatedTransactionArray
+            })
+        }).catch(error => {
+            console.log(error)
         })
     }
+
 
     ////////////////////////////////////////////////
     //////////ADD NEW TRANSACTIONS FUNCTIONS////////
@@ -153,18 +152,19 @@ export class TransactionsBody extends Component {
         let transactions = this.state.transactions
         let visibleTransactions = this.state.visibleTransactions
 
-        fetch('/Transaction/AddTransactioin', {  //funkcja usuwająca rekord z bazy danych
+        fetch('/Transaction/AddTransactioin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(transaction)
         }).then(result => {
             return result.json()
         }).then(responce => {
-            transactions.unshift(responce)                      //to będzie generować błąd bo narazie nie dostajesz nic z servera
-            visibleTransactions.unshift(responce)
+            let responceVisibleTransactions = [responce].concat(visibleTransactions)
+            let responceTransactions = [responce].concat(transactions)
+
             this.setState({
-                transactions: transactions,
-                visibleTransactions: visibleTransactions
+                transactions: responceTransactions,
+                visibleTransactions: responceVisibleTransactions
             })
 
             this.income.current.closeModal()

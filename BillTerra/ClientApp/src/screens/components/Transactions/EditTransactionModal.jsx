@@ -6,18 +6,18 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
+import { Input, FormFeedback } from 'reactstrap'
 
 
 export class EditTransactionModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ID: "",
-            category: "",
-            date: "",
-            note: "",
-            amount: "",
-            categories: ""
+            amountValidate: true,
+            dateValidate: true,
+            buttonDisabled: true,
+            note: '',
+            amount: ''
         }
     }
 
@@ -51,7 +51,7 @@ export class EditTransactionModal extends Component {
 
     editTransactionHandler = () => {
         let date = this.state.date
-        let transaction = { id: this.state.ID, category: this.state.category, date: date, note: this.state.note, amount: this.state.amount }
+        let transaction = { id: this.state.ID, category: this.state.category, date: date, coment: this.state.note, amount: this.state.amount }
         this.props.editTransaction(transaction)
     }
 
@@ -65,11 +65,11 @@ export class EditTransactionModal extends Component {
                         <div className="edit-transaction-modal-category">
                             {this.state && this.state.category &&
                                 < DropdownList
-                                    defaultValue={this.state.category}
+                                    value={this.state.category}
                                     data={this.state.categories}
                                     onChange={value => this.setState({ category: value })}
                                     textField="name"
-                                    valueField="ID"
+                                    valueField="id"
                                     placeholder="Select category"
                                 />
                             }
@@ -77,23 +77,41 @@ export class EditTransactionModal extends Component {
                         <div className="edit-transaction-modal-date">
                             <DatePicker
                                 selected={this.state.date}
-                                onChange={value => this.setState({ date: value })}
+                                onChange={value => {
+                                    let dateFlag = (value !== null) ? true : false
+                                    let buttonFlag = (dateFlag && this.state.amountValidate) ? true : false
+                                    this.setState({
+                                        date: value,
+                                        dateValidate: dateFlag,
+                                        buttonDisabled: buttonFlag
+                                    })
+                                }
+                                }
                                 dateFormat={"dd/MM/yyyy"}
                                 placeholderText="Select date"
                                 maxDate={new Date()}
                             />
                         </div>
                         <div className="edit-transaction-modal-note">
-                            <input type="text" placeholder="Enter note" onChange={value => this.setState({ note: value.target.value })} value={this.state.note}></input>
+                            <Input type="text" placeholder="Enter note" onChange={value => this.setState({ note: value.target.value })} value={this.state.note}></Input>
                         </div>
                         <div className="edit-transaction-amount">
-                            <input type="number" placeholder="Enter amount" onChange={value => this.setState({ amount: value.target.value })} value={this.state.amount}></input>
+                            <Input invalid={!this.state.amountValidate} type="number" placeholder="Enter amount" value={this.state.amount} onChange={value => {
+                                let amountFlag = (value.target.value.length > 0) ? true : false
+                                let buttonFlag = (amountFlag && this.state.dateValidate) ? true : false
+                                this.setState({
+                                    amount: value.target.value,
+                                    amountValidate: amountFlag,
+                                    buttonDisabled: buttonFlag
+                                })
+                            }}></Input>
+                            <FormFeedback></FormFeedback>
                             <FontAwesomeIcon icon={faDollarSign}></FontAwesomeIcon>
                         </div>
                     </div>
                     <div className="modal-row">
                         <div className="edit-transaction-modal-buttons">
-                            <button className="edit-transaction-modal-button edit-button" onClick={this.editTransactionHandler}>Edit transaction</button>
+                            <button disabled={!this.state.buttonDisabled} className="edit-transaction-modal-button edit-button" onClick={this.editTransactionHandler}>Add income</button>
                         </div>
                     </div>
                 </div>
