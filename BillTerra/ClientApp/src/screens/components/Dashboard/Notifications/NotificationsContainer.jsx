@@ -23,7 +23,7 @@ export class NotificationsContainer extends Component {
         let arr = this.state.visibleNotyfications;
         let idInArray
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i].id == id) {
+            if (arr[i].id === id) {
                 idInArray = i
             }
         }

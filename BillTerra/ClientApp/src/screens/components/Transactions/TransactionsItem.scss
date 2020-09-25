@@ -24,6 +24,9 @@
     }   
 
     .transaction-category{
+        @media (max-width: $mediaPhoneSize) {
+            padding: 5px;
+        }
 
     }
 
@@ -34,6 +37,7 @@
     .transaction-amount{
         @media (max-width: $mediaPhoneSize) {
             text-align: end;
+            padding: 5px;
         }
     }   
 
@@ -41,6 +45,11 @@
         display: flex;
         justify-content: center;
         margin: 10px;
+        
+        @media (max-width: $mediaPhoneSize) {
+            padding: 0;
+            margin: 10px 0;
+        }
 
         .transaction-button{
             margin: 0 20px;

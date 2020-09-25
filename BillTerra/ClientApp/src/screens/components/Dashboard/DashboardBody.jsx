@@ -4,8 +4,6 @@ import "./DashboardBody.scss"
 import { PieChart } from "../Charts/PieCharts"
 import { NotificationsContainer } from "./Notifications/NotificationsContainer"
 import { FinanceBlock } from "./FinanceBlock/FinanceBlock"
-
-
 import Highcharts, { find } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 

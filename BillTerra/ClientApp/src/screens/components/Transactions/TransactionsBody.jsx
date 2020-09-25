@@ -189,7 +189,13 @@ export class TransactionsBody extends Component {
     filterTransactionsByDataTo(transactions, date) {
         let a = transactions.filter(d => {
             let transactionDate = new Date(d.date)
-            return (transactionDate.getTime() <= date.getTime())
+            let currentTime = date.getTime() + 86399999
+            console.log(transactionDate)
+            console.log(transactionDate.getTime())
+            console.log(date)
+            console.log(currentTime)
+
+            return (transactionDate.getTime() <= currentTime)
         })
         return a
     }
@@ -225,6 +231,10 @@ export class TransactionsBody extends Component {
             }
             case 3: {
                 data.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0))
+                break
+            }
+            default: {
+                data.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))
                 break
             }
         }

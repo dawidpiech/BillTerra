@@ -111,7 +111,7 @@ export class EditTransactionModal extends Component {
                     </div>
                     <div className="modal-row">
                         <div className="edit-transaction-modal-buttons">
-                            <button disabled={!this.state.buttonDisabled} className="edit-transaction-modal-button edit-button" onClick={this.editTransactionHandler}>Add income</button>
+                            <button disabled={!this.state.buttonDisabled} className="edit-transaction-modal-button edit-button" onClick={this.editTransactionHandler}>Edit transaction</button>
                         </div>
                     </div>
                 </div>
