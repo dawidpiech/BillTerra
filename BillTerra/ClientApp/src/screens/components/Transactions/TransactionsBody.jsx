@@ -80,7 +80,6 @@ export class TransactionsBody extends Component {
 
         data[transactionIndexInArray] = transaction
         visibleData[transactionIndexInVisibleArray] = transaction
-        console.log(transaction)
         fetch('/Transaction/EditTrasactioin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -151,7 +150,6 @@ export class TransactionsBody extends Component {
 
     addNewTransaction = (category, date, note, amount, IncomeOrExpenseFlag) => {
         let transaction = { ID: 0, Category: category, Date: date, Coment: note, Amount: amount, IsExpense: IncomeOrExpenseFlag }
-        console.log(transaction)
         let transactions = this.state.transactions
         let visibleTransactions = this.state.visibleTransactions
 
