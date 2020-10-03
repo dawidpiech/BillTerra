@@ -19,7 +19,13 @@ export class DashboardBody extends Component {
     render() {
 
         //poniższe zmienne są do wykresu
-        const colors = ['#012DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        const colors = ['#012000', '#aaa432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        const data = [
+            { name: "Income", y: 23 },
+            { name: "asdf", y: 45 },
+            { name: "Incafsdfome", y: 12 },
+            { name: "Incoasfdasdfasdfasdme", y: 20 }
+        ]
 
         return (
 
@@ -45,7 +51,7 @@ export class DashboardBody extends Component {
                     </Row>
                     <Row>
                         <Col style={{ height: "400px", background: "#aaaaaa" }} sm={12} lg={6}>
-                            {/* <PieChart title={"Chart of your incomes"} data={this.props.finance.charts.incomes} colors={colors}></PieChart> */}
+                            <PieChart title={"Chart of your incomes"} data={data} colors={colors}></PieChart>
                             <h1>TUTAJ BEDZIE WYKRES</h1>
                         </Col>
                         <Col style={{ height: "400px", background: "#444444" }} sm={12} lg={6}>

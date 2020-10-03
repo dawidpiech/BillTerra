@@ -1,0 +1,29 @@
+@import "/../../../conf.scss";
+
+.shopping-list-body-wrapper{
+    position: relative;
+    float: right;
+    width: calc(100% - 100px);
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 40px 0;
+
+    @media (max-width: $mediaPhoneSize) {
+        float: none;
+        width: 100%;
+        padding-bottom: 100px;
+    }
+
+
+    .shopping-list-input{
+        height: 100px;
+        background: red;
+
+    }
+
+    .shopping-list-elements{
+        height: 200px;
+        background: blue;
+    }
+}

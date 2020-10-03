@@ -405,3 +405,11 @@ export class TransactionsBody extends Component {
         )
     }
 }
+
+
+
+window.React2 = require('react')
+console.log(window.React1 === window.React2)
+console.log(window.React1)
+console.log(window.React2)
+console.log("Asdfsadfasd")
