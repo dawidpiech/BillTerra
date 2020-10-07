@@ -4,8 +4,6 @@ import "./DashboardBody.scss"
 import { PieChart } from "../Charts/PieCharts"
 import { NotificationsContainer } from "./Notifications/NotificationsContainer"
 import { FinanceBlock } from "./FinanceBlock/FinanceBlock"
-import Highcharts, { find } from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
 
 export class DashboardBody extends Component {
 
@@ -16,21 +14,19 @@ export class DashboardBody extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+
+        })
+    }
+
     render() {
-
-        //poniższe zmienne są do wykresu
-        const colors = ['#012000', '#aaa432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
-        const data = [
-            { name: "Income", y: 23 },
-            { name: "asdf", y: 45 },
-            { name: "Incafsdfome", y: 12 },
-            { name: "Incoasfdasdfasdfasdme", y: 20 }
-        ]
-
+        const colors = ['#6146E8', '#FF5959', '#ED561B', '#E8B646', '#84FF4D', '#12CEAD', '#FF9655', '#FFF263', '#6AF9C4']
+        console.log(this.props)
         return (
 
 
-            <div className="dashboard_body_container">
+            < div className="dashboard_body_container" >
                 <Container>
                     <Row>
                         <Col>
@@ -50,17 +46,15 @@ export class DashboardBody extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col style={{ height: "400px", background: "#aaaaaa" }} sm={12} lg={6}>
-                            <PieChart title={"Chart of your incomes"} data={data} colors={colors}></PieChart>
-                            <h1>TUTAJ BEDZIE WYKRES</h1>
+                        <Col sm={12} lg={6}>
+                            <PieChart title={"Chart of your incomes"} data={(typeof this.props.finance.charts !== "undefined") ? this.props.finance.charts.incomes : ""} colors={colors}></PieChart>
                         </Col>
-                        <Col style={{ height: "400px", background: "#444444" }} sm={12} lg={6}>
-                            {/* <PieChart title={"Chart of your expenses"} data={this.props.finance.charts.expenses} colors={colors}></PieChart> */}
-                            <h1>TUTAJ BEDZIE WYKRES</h1>
+                        <Col sm={12} lg={6}>
+                            <PieChart title={"Chart of your expenses"} data={(typeof this.props.finance.charts !== "undefined") ? this.props.finance.charts.expenses : ""} colors={colors}></PieChart>
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </div >
         )
     }
 }

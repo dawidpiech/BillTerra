@@ -9,30 +9,9 @@ export class PieChart extends Component {
         super(props)
     }
 
+
     render() {
-
-        const data = [{
-            name: 'Chrome',
-            y: 61.41,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Internet Explorer',
-            y: 11.84
-        }, {
-            name: 'Firefox',
-            y: 10.85
-        }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Other',
-            y: 7.05
-        }]
-
+        console.log(this.props.data)
         const options = {
             chart: {
                 plotBackgroundColor: null,
@@ -77,15 +56,17 @@ export class PieChart extends Component {
                 enabled: false
             }
         }
+        if (typeof this.props.data !== "undefined") {
+            return (
+                <div>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={options}
+                    />
+                </div>
 
-        return (
-            <div>
-                <HighchartsReact
-                    highcharts={Highcharts}
-                    options={options}
-                />
-            </div>
-        )
+            )
+        }
     }
 }
 

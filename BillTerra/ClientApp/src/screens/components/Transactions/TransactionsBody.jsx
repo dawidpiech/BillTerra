@@ -190,11 +190,6 @@ export class TransactionsBody extends Component {
         let a = transactions.filter(d => {
             let transactionDate = new Date(d.date)
             let currentTime = date.getTime() + 86399999
-            console.log(transactionDate)
-            console.log(transactionDate.getTime())
-            console.log(date)
-            console.log(currentTime)
-
             return (transactionDate.getTime() <= currentTime)
         })
         return a
@@ -405,11 +400,3 @@ export class TransactionsBody extends Component {
         )
     }
 }
-
-
-
-window.React2 = require('react')
-console.log(window.React1 === window.React2)
-console.log(window.React1)
-console.log(window.React2)
-console.log("Asdfsadfasd")
