@@ -13,34 +13,35 @@ namespace BillTerra.Controllers
 {
     public class JarController : Controller
     {
-        private IJarRepositorycs jarRepositorycs;
-        private UserManager<User> userManager;
+        private IJarRepositorycs _jarRepositorycs;
+        private readonly INotificationRepository _notificationRepository;
+        private UserManager<User> _userManager;
 
-        public JarController(IJarRepositorycs repository, UserManager<User> userManager)
+        public JarController(IJarRepositorycs jarRepositorycs, INotificationRepository notificationRepository, UserManager<User> userManager)
         {
-            this.userManager = userManager;
-            this.jarRepositorycs = repository;
+            _jarRepositorycs = jarRepositorycs;
+            _notificationRepository = notificationRepository;
+            _userManager = userManager;
         }
 
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            User user = await userManager.GetUserAsync(HttpContext.User);
+            User user = await _userManager.GetUserAsync(HttpContext.User);
             List<JarViewModel> jars = new List<JarViewModel>();
 
-            jarRepositorycs.Jars(user).Result.ToList().ForEach(
+            _jarRepositorycs.Jars(user).Result.ToList().ForEach(
                 x =>
                 {
                     jars.Add(new JarViewModel
                     {
                         Name = x.Name,
-                        Goal = x.AcumulatedAmmount,
-                        PercentageOfIncomes = x.MonthlyPayment,
-                        State = x.State,
-                        Sequence = x.Sequence
-                        
+                        Goal = x.Goal,
+                        CurrentAmount = x.CurrentAmount,
+                        ID = x.ID,
+                        State = x.State
 
-                    });
+                    }); 
 
                 });
 
@@ -60,78 +61,101 @@ namespace BillTerra.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> DeleteJar([FromBody] JarViewModel jarViewModel)
         {
-            User user = await userManager.GetUserAsync(HttpContext.User);
+            User user = await _userManager.GetUserAsync(HttpContext.User);
             var jar = new Jar
             {
-                ID = jarViewModel.Id,
+                ID = jarViewModel.ID,
                 Name = jarViewModel.Name,
-                State = jarViewModel.State,
-                AcumulatedAmmount = jarViewModel.Goal,
-                MonthlyPayment = jarViewModel.PercentageOfIncomes
+                State = State.NotReached,
+                Goal = jarViewModel.Goal,
+                CurrentAmount = jarViewModel.CurrentAmount,
+                User = user
                 
 
             };
-            return Json(new { succeed = jarRepositorycs.DeleteJar(jar) });
+
+            return Json(new { succeed = _jarRepositorycs.EditJar(jar) });
         }
-
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> EditJar([FromBody] JarViewModel jarViewModel)
-        {
-            User user = await userManager.GetUserAsync(HttpContext.User);
-
-            var jar = new Jar
-            {
-                ID = jarViewModel.Id,
-                Name = jarViewModel.Name,
-                State = jarViewModel.State,
-                AcumulatedAmmount = jarViewModel.Goal,
-                MonthlyPayment = jarViewModel.PercentageOfIncomes,
-                Sequence =  jarViewModel.Sequence
-            };
-
-            return Json(new { succeed = jarRepositorycs.EditJar(jar) });
-        }
-
 
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddJar([FromBody] JarViewModel jarViewModel)
         {
 
-            User user = await userManager.GetUserAsync(HttpContext.User);
+            User user = await _userManager.GetUserAsync(HttpContext.User);
             var jar = new Jar
             {
                 User = user,
                 Name = jarViewModel.Name,
-                FinalAmmount = 0,
-                AcumulatedAmmount = jarViewModel.Goal,
-                CreationDate = DateTime.Now,
-                MonthlyPayment = jarViewModel.PercentageOfIncomes,
+                CurrentAmount = jarViewModel.CurrentAmount,
+                Goal = jarViewModel.Goal,
                 State = jarViewModel.State,
-                EndDate = DateTime.Now,
-                Sequence = jarViewModel.Sequence
-
 
             };
-            Jar tmp = jarRepositorycs.AddJar(jar).Result;
+            Jar tmp = _jarRepositorycs.AddJar(jar).Result;
 
             return Json(new JarViewModel
             {
-                Id = tmp.ID,
-                Goal = tmp.AcumulatedAmmount,
+                ID = tmp.ID,
+                Goal = tmp.Goal,
                 Name = tmp.Name,
                 State = tmp.State,
-                PercentageOfIncomes = tmp.MonthlyPayment
+                CurrentAmount = tmp.CurrentAmount
             }) ;
 
 
         }
-        
+
+        [Authorize]
+        [HttpPost]
+        public async Task EndJar([FromBody] JarViewModel jarViewModel)
+        {
+            User user = await _userManager.GetUserAsync(HttpContext.User);
+            await _notificationRepository.SaveNotyfication(new Notification
+            {
+                Title = $"Jar {jarViewModel.Name}",
+                Describe = $"Jar state is {jarViewModel.State}",
+                User = user,
+                IsVisible = true
+            });
+        }
+        public async Task AddMoneyToJar([FromBody] JarViewModel jarViewModel , int money)
+        {
+            User user = await _userManager.GetUserAsync(HttpContext.User);
+
+            var jar = new Jar
+            {
+                User = user,
+                Name = jarViewModel.Name,
+                CurrentAmount = jarViewModel.CurrentAmount,
+                Goal = jarViewModel.Goal,
+                State = jarViewModel.State,
+
+            };
+
+            if (jar.CurrentAmount + money >= jar.Goal)
+            {
+                jar.State = State.Reached;
+
+                await _notificationRepository.SaveNotyfication(new Notification
+                {
+                    Title = $"End jar {jarViewModel.Name}",
+                    Describe = $"Congratulations The jar is full",
+                    User = user,
+                    IsVisible = true
+                });
+
+
+            }
+
+            jar.CurrentAmount += money;
+
+            await _jarRepositorycs.EditJar(jar);
+
+        }
 
     }
 }

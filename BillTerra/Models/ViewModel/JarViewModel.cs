@@ -9,11 +9,10 @@ namespace BillTerra.Models.ViewModel
 {
     public class JarViewModel
     {
-        public int Id { get; set; }
-        public int Sequence { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public int Goal { get; set; }
-        public int PercentageOfIncomes { get; set; }
+        public int CurrentAmount { get; set; }
         public State State { get; set; }
     }
 }

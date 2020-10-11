@@ -13,10 +13,10 @@ namespace BillTerra.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<User> userManager;
-        private SignInManager<User> signInManager;
-        private ICategorieRepository categorieRepository;
-        private INotificationRepository notificationRepository;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
+        private readonly ICategorieRepository categorieRepository;
+        private readonly INotificationRepository notificationRepository;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager , ICategorieRepository categorieRepository , INotificationRepository notificationRepository)
         {
@@ -75,9 +75,11 @@ namespace BillTerra.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginUser userLogin)
         {
-                AutorisationLoginState autorisationLogin = new AutorisationLoginState();
-                autorisationLogin.LoginAccountSucceeded = false;
-                User user = await userManager.FindByEmailAsync(userLogin.Email);
+            AutorisationLoginState autorisationLogin = new AutorisationLoginState
+            {
+                LoginAccountSucceeded = false
+            };
+            User user = await userManager.FindByEmailAsync(userLogin.Email);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
