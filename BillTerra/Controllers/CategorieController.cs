@@ -43,7 +43,16 @@ namespace BillTerra.Controllers
 
 
             };
-            return Json(await categorieRepository.AddCategorie(categorie));
+            var newcategorie = await categorieRepository.AddCategorie(categorie);
+            
+
+
+            return Json(new CategorieViewModel
+            {
+                ID= newcategorie.ID,
+                IsExpense = newcategorie.IsExpense,
+                Name = newcategorie.Name
+            });
         }
 
         [Authorize]
