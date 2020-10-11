@@ -8,6 +8,7 @@ using BillTerra.Models;
 using BillTerra.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BillTerra.Controllers
 {
@@ -27,7 +28,7 @@ namespace BillTerra.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index() => View();
+        public async Task<IActionResult>  Index() =>   View();
 
 
         [AllowAnonymous]

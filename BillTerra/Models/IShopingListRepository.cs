@@ -7,8 +7,9 @@ namespace BillTerra.Models
 {
     public interface IShopingListRepository
     {      
-        Task<ShopListElement> AddListElement(ShopListElement shopListElement);
-        bool DeleteListElement(ShopListElement shopListElement);
-        Task<IEnumerable<ShopListElement>> ShopListElements(User user);
+        Task<ShoppListElement> AddListElement(ShoppListElement shopListElement);
+        Task<bool> DeleteListElement(ShoppListElement shopListElement);
+        Task<bool> EditListElement(ShoppListElement shopListElement);
+        Task<IEnumerable<ShoppListElement>> ShopListElements(User user);
     }
 }

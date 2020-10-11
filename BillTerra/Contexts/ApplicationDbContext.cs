@@ -17,7 +17,7 @@ namespace BillTerra.Contexts
         public DbSet<Transaction> Transactions { get; set; }  
         public DbSet<BudgetPlan> BudgetPlans { get; set; }
         public DbSet<Notification> Notyfications { get; set; }
-        public DbSet<ShopListElement> ShopListElements { get; set; }
+        public DbSet<ShoppListElement> ShopListElements { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

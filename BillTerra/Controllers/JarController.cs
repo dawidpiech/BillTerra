@@ -38,8 +38,7 @@ namespace BillTerra.Controllers
                         PercentageOfIncomes = x.MonthlyPayment,
                         State = x.State,
                         Sequence = x.Sequence
-                        
-
+                       
                     });
 
                 });

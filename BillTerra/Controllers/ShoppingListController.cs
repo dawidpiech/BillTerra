@@ -8,15 +8,16 @@ using BillTerra.Models.ViewModel;
 using BillTerra.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel;
 
 namespace BillTerra.Controllers
 {
-    public class ShopingListController : Controller
+    public class ShoppingListController : Controller
     {
         private IShopingListRepository shopingListRepository;
         private UserManager<User> userManager;
 
-        public ShopingListController(IShopingListRepository shopingListRepository, UserManager<User> userManager)
+        public ShoppingListController(IShopingListRepository shopingListRepository, UserManager<User> userManager)
         {
             this.shopingListRepository = shopingListRepository;
             this.userManager = userManager;
@@ -26,14 +27,13 @@ namespace BillTerra.Controllers
         public async Task<IActionResult> Index()
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
-            List<ShopListElementViewModel> shopListElementViewModel = new List<ShopListElementViewModel>();
+            List<ShoppingListElementViewModel> shopListElementViewModel = new List<ShoppingListElementViewModel>();
 
             shopingListRepository.ShopListElements(user).Result.ToList().ForEach(x =>
            {
-               shopListElementViewModel.Add(new ShopListElementViewModel
+               shopListElementViewModel.Add(new ShoppingListElementViewModel
                {
                    ID = x.ID,
-                   IsChecked = x.IsChecked,
                    PositionInList = x.PositionInList,
                    Content = x.Content
                });
@@ -44,47 +44,65 @@ namespace BillTerra.Controllers
 
         }
 
+
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddShopingListElement([FromBody] ShopListElementViewModel shopListElementViewModel)
+        public async Task<IActionResult> AddShopingListElement([FromBody] ShoppingListElementViewModel shopListElementViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
-            var shopinglistElement = new ShopListElement
+            var shopinglistElement = new ShoppListElement
             {
                 User = user,
-                IsChecked = shopListElementViewModel.IsChecked,
                 Content = shopListElementViewModel.Content,
                 PositionInList = shopingListRepository.ShopListElements(user).Result.Last().PositionInList + 1
 
             };
             var tmp =  shopingListRepository.AddListElement(shopinglistElement).Result;
 
-            return Json(new ShopListElementViewModel
+            return Json(new ShoppingListElementViewModel
             {
                 ID = tmp.ID,
                 Content = tmp.Content,
                 PositionInList = tmp.PositionInList,
-                IsChecked = tmp.IsChecked
 
             });
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> DeleteShopingListElement([FromBody] ShopListElementViewModel shopListElementViewModel)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteShopingListElement([FromBody] ShoppingListElementViewModel shopListElementViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
 
-            ShopListElement shopListElement = new ShopListElement
+            ShoppListElement shopListElement = new ShoppListElement
             {
                 Content = shopListElementViewModel.Content,
                 ID = shopListElementViewModel.ID,
-                IsChecked = shopListElementViewModel.IsChecked,
                 PositionInList = shopListElementViewModel.PositionInList,
                 User = user
             };
 
             return Json(new { succeed = shopingListRepository.DeleteListElement(shopListElement) });
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task EditShopingList([FromBody] ShoppingListElementViewModel [] shoppListElements)
+        {
+            User user = await userManager.GetUserAsync(HttpContext.User);
+
+            foreach(var shoppingListElemnet in shoppListElements)
+            {
+                ShoppListElement newShoppingListElement = new ShoppListElement
+                {
+                    Content = shoppingListElemnet.Content,
+                    ID = shoppingListElemnet.ID,
+                    PositionInList = shoppingListElemnet.PositionInList,
+                    User = user
+                };
+                await shopingListRepository.EditListElement(newShoppingListElement);
+            }
         }
 
     }

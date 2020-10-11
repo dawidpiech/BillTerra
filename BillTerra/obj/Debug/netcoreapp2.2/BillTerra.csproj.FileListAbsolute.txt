@@ -184,7 +184,6 @@ C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\P
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Categorie.cshtml.g.cs
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\MainIndex.cshtml.g.cs
-C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\ShopingList.cshtml.g.cs
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.cshtml.g.cs
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
