@@ -3,16 +3,20 @@ import "./ShoppingListBody.scss"
 import { Container, Row, Col, Button, Input, Form } from 'reactstrap'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { DraggableContent } from "./DraggableContent"
+import { DeletedItem } from './DeletedItem'
 
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: "none",
-    padding: 8 * 2,
+    padding: 8,
     margin: `0 0 ${8}px 0`,
+    borderRadius: 25,
+    boxShadow: "rgba(158, 158, 158, 0.5) 0px 7px 13px -3px",
+
 
     // change background colour if dragging
-    background: isDragging ? "lightgreen" : "grey",
+    background: isDragging ? "rgba(18, 206, 173, 0.2)" : "#ffffff",
 
     // styles we need to apply on draggables
     ...draggableStyle
@@ -20,7 +24,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? "lightblue" : "lightgrey",
+    background: isDraggingOver ? "rgba(112, 112, 112, 0.05)" : "#ffffff",
+    borderRadius: "30px",
     padding: 8,
     width: "100%"
 })
@@ -47,24 +52,22 @@ export class ShoppingListBody extends Component {
                 { content: "item 3", id: "item-3" },
                 { content: "item 4", id: "item-4" }
             ],
-            visibleDeletedElements: [
-
-            ],
             items: [
-                { content: "item 1", id: "item-1" },
-                { content: "item 2", id: "item-2" },
-                { content: "item 3", id: "item-3" },
-                { content: "item 4", id: "item-4" },
-                { content: "item 5", id: "item-5" },
-                { content: "item 6", id: "item-6" },
-                { content: "item 7", id: "item-7" },
-                { content: "item 8", id: "item-8" },
-                { content: "item 9", id: "item-9" }
+                { content: "item 1 Content sdfgdsfgdsfg Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis perferendis rerum quis quasi debitis iusto, distinctio amet natus exercitationem nam eum? Corporis perferendis porro quasi neque inventore eos ut dicta.", id: "item-1" },
+                { content: "item 2 Content sdfgdsfgdsfg", id: "item-2" },
+                { content: "item 3 Content sdfgdsfgdsfg", id: "item-3" },
+                { content: "item 4 Content sdfgdsfgdsfg", id: "item-4" },
+                { content: "item 5 Content sdfgdsfgdsfg", id: "item-5" },
+                { content: "item 6 Content sdfgdsfgdsfg", id: "item-6" },
+                { content: "item 7 Content sdfgdsfgdsfg", id: "item-7" },
+                { content: "item 8 Content sdfgdsfgdsfg", id: "item-8" },
+                { content: "item 9 Content sdfgdsfgdsfg", id: "item-9" }
             ]
         }
 
         this.onDragEnd = this.onDragEnd.bind(this)
         this.deleteItem = this.deleteItem.bind(this)
+        this.addNewItem = this.addNewItem.bind(this)
     }
 
     componentWillUnmount() {
@@ -81,11 +84,13 @@ export class ShoppingListBody extends Component {
             this.state.items,
             result.source.index,
             result.destination.index
-        );
+        )
 
         this.setState({
-            items
+            items: items
         })
+
+        console.log(items)
     }
 
     deleteItem(id) {
@@ -110,7 +115,21 @@ export class ShoppingListBody extends Component {
     addNewItem(e) {
         e.preventDefault()
         let value = document.forms["addNewListElement"]["itemValue"].value
-        console.log(value)
+        let newElement = {
+            content: value,
+            id: "item-" + (this.state.items.length + 1)
+        }
+
+        let arr = this.state.items
+        arr.unshift(newElement)
+        this.setState({
+            items: arr
+        })
+    }
+
+    showDeletedElements() {
+        let handler = document.querySelector(".shopping-list-deleted-elements")
+        handler.classList.toggle("shopping-list-deleted-elements-hide")
     }
 
 
@@ -127,7 +146,7 @@ export class ShoppingListBody extends Component {
                                         <Input type="text" name="itemValue"></Input>
                                     </Col>
                                     <Col xs={12} sm={2}>
-                                        <Input type="submit" value="ADD"></Input>
+                                        <Input className="shopping-list-add-button" type="submit" value="ADD"></Input>
                                     </Col>
                                 </Row>
                             </Form>
@@ -155,7 +174,7 @@ export class ShoppingListBody extends Component {
                                                                 provided.draggableProps.style
                                                             )}
                                                         >
-                                                            <DraggableContent position={index} id={item.id} deleteItem={this.deleteItem}>
+                                                            <DraggableContent position={index} id={item.id} content={item.content} deleteItem={this.deleteItem}>
 
                                                             </DraggableContent>
                                                         </div>
@@ -167,13 +186,13 @@ export class ShoppingListBody extends Component {
                                     )}
                                 </Droppable>
                             </DragDropContext>
-
-                            <div className="shopping-list-deleted-elements">
-                                {this.state.visibleDeletedElements.map(d =>
-                                    <div>{d.content}</div>
+                            <Button className="shopping-list-show-deleted-elements-button" onClick={this.showDeletedElements}>SHOW COMPLETED ELEMENTS</Button>
+                            <div className="shopping-list-deleted-elements shopping-list-deleted-elements-hide">
+                                {this.state.deletedElements.map(d =>
+                                    <DeletedItem content={d.content}></DeletedItem>
                                 )}
                             </div>
-                            <Button>Show completed elements</Button>
+
                         </Col>
                     </Row>
                 </Container>

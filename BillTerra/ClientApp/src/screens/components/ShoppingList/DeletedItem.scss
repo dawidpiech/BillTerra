@@ -1,0 +1,22 @@
+@import "../../../conf.scss";
+
+
+.shopping-list-deleted-elements{
+    padding: 10px 0 0 0;
+    width: 100%;
+    .deleted-item{
+        width: 100%;
+        padding: 8px;
+        margin: 0px 0px 12px;
+        border-radius: 25px;
+        box-shadow: rgba(158, 158, 158, 0.5) 0px 7px 13px -3px;
+        background: rgba(209, 209, 209, 0.2);
+        display: flex;
+        justify-content: center;
+        text-decoration: line-through;
+    }
+}
+
+.shopping-list-deleted-elements-hide{
+    display: none;
+}

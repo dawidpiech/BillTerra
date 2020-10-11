@@ -17,9 +17,12 @@ export class PieChart extends Component {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                type: 'pie'
+                type: 'pie',
+                margin: 40,
+                height: 100 + "%"
             },
             title: {
+                margin: 0,
                 text: this.props.title
             },
             tooltip: {
@@ -44,7 +47,7 @@ export class PieChart extends Component {
                 }
             },
             series: [{
-                name: 'Brands',
+                name: 'Value',
                 colorByPoint: true,
                 data: this.props.data
             }],

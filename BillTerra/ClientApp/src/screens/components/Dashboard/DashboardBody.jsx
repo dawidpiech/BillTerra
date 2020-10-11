@@ -14,12 +14,6 @@ export class DashboardBody extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-
-        })
-    }
-
     render() {
         const colors = ['#6146E8', '#FF5959', '#ED561B', '#E8B646', '#84FF4D', '#12CEAD', '#FF9655', '#FFF263', '#6AF9C4']
         console.log(this.props)
