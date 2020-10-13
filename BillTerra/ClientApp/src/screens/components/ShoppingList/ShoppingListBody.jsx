@@ -46,12 +46,6 @@ export class ShoppingListBody extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            deletedElements: [
-                { content: "item 1", id: "item-1" },
-                { content: "item 2", id: "item-2" },
-                { content: "item 3", id: "item-3" },
-                { content: "item 4", id: "item-4" }
-            ],
             items: [
                 { content: "item 1 Content sdfgdsfgdsfg Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis perferendis rerum quis quasi debitis iusto, distinctio amet natus exercitationem nam eum? Corporis perferendis porro quasi neque inventore eos ut dicta.", id: "item-1" },
                 { content: "item 2 Content sdfgdsfgdsfg", id: "item-2" },
@@ -74,6 +68,12 @@ export class ShoppingListBody extends Component {
         console.log("KONIEC")  //tutaj masz dopisać funkcję która wysyła aktualizację listy do bazy danych
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            items: nextProps.items
+        })
+    }
+
 
     onDragEnd(result) {
         if (!result.destination) {
@@ -89,8 +89,6 @@ export class ShoppingListBody extends Component {
         this.setState({
             items: items
         })
-
-        console.log(items)
     }
 
     deleteItem(id) {
@@ -115,15 +113,31 @@ export class ShoppingListBody extends Component {
     addNewItem(e) {
         e.preventDefault()
         let value = document.forms["addNewListElement"]["itemValue"].value
-        let newElement = {
-            content: value,
-            id: "item-" + (this.state.items.length + 11)
+        let newElementToServer = {
+            ID: 0,
+            Content: value,
+            PositionInList: 0
         }
 
         let arr = this.state.items
-        arr.unshift(newElement)
-        this.setState({
-            items: arr
+
+
+        fetch('/ShoppingList/AddShopingListElement', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newElementToServer)
+        }).then(result => {
+            return result.json()
+        }).then(e => {
+            console.log(e)
+            let element = {
+                content: e.Content,
+                id: e.ID
+            }
+            arr.unshift(element)
+            this.setState({
+                items: arr
+            })
         })
     }
 
@@ -154,44 +168,48 @@ export class ShoppingListBody extends Component {
                     </Row>
                     <Row>
                         <Col className="shopping-list-elements">
-                            <DragDropContext onDragEnd={this.onDragEnd}>
-                                <Droppable droppableId="droppable">
-                                    {(provided, snapshot) => (
-                                        <div
-                                            {...provided.droppableProps}
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}
-                                        >
-                                            {this.state.items.map((item, index) => (
-                                                <Draggable key={item.id} draggableId={item.id} index={index}>
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}
-                                                        >
-                                                            <DraggableContent position={index} id={item.id} content={item.content} deleteItem={this.deleteItem}>
+                            {(this.state.items.length > 0) ?
+                                <DragDropContext onDragEnd={this.onDragEnd}>
+                                    <Droppable droppableId="droppable">
+                                        {(provided, snapshot) => (
+                                            <div
+                                                {...provided.droppableProps}
+                                                ref={provided.innerRef}
+                                                style={getListStyle(snapshot.isDraggingOver)}
+                                            >
+                                                {this.state.items.map((item, index) => (
+                                                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                                                        {(provided, snapshot) => (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}
+                                                                style={getItemStyle(
+                                                                    snapshot.isDragging,
+                                                                    provided.draggableProps.style
+                                                                )}
+                                                            >
+                                                                <DraggableContent position={index} id={item.id} content={item.content} deleteItem={this.deleteItem}>
 
-                                                            </DraggableContent>
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            </DragDropContext>
-                            <Button className="shopping-list-show-deleted-elements-button" onClick={this.showDeletedElements}>SHOW COMPLETED ELEMENTS</Button>
+                                                                </DraggableContent>
+                                                            </div>
+                                                        )}
+                                                    </Draggable>
+                                                ))}
+                                                {provided.placeholder}
+                                            </div>
+                                        )}
+                                    </Droppable>
+                                </DragDropContext>
+                                :
+                                <h1>Currently list is empty.</h1>
+                            }
+                            {/* <Button className="shopping-list-show-deleted-elements-button" onClick={this.showDeletedElements}>SHOW COMPLETED ELEMENTS</Button>
                             <div className="shopping-list-deleted-elements shopping-list-deleted-elements-hide">
                                 {this.state.deletedElements.map(d =>
                                     <DeletedItem content={d.content}></DeletedItem>
                                 )}
-                            </div>
+                            </div> */}
 
                         </Col>
                     </Row>

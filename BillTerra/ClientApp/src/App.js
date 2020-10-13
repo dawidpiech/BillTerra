@@ -21,7 +21,7 @@ export default class App extends Component {
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/transactions' component={Transactions} />
         <Route exact path='/jars' component={Jars} />
-        <Route exact path='/shoppinglist' component={ShoppingList} />
+        <Route exact path='/shopinglist' component={ShoppingList} />
       </div>
     );
   }

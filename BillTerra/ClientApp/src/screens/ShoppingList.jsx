@@ -22,7 +22,7 @@ export class ShoppingList extends Component {
     }
 
     init() {
-        fetch('/Transaction/Index', {
+        fetch('/ShoppingList/Index', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         }).then(result => {
@@ -32,9 +32,7 @@ export class ShoppingList extends Component {
                 avatar: data.avatar,
                 email: data.email,
                 userName: data.userName,
-                expensesCategory: data.expensesCategory,
-                incomesCategory: data.incomeCategory,
-                transactions: data.transactions
+                items: data.shoppingListElements
             })
         })
     }
@@ -45,7 +43,7 @@ export class ShoppingList extends Component {
                 <Loader onRef={ref => (this.loader = ref)}></Loader>
                 <UserBar avatar={this.state.avatar} email={this.state.email} userName={this.state.userName}></UserBar>
                 <DashboardMenu></DashboardMenu>
-                <ShoppingListBody></ShoppingListBody>
+                <ShoppingListBody items={this.state.items}></ShoppingListBody>
             </div>
         )
     }

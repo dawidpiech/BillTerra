@@ -37,7 +37,7 @@ export class DashboardMenu extends Component {
                             </NavLink>
                         </li>
                         <li className="dashboard_menu_element">
-                            <NavLink to="/shoppinglist">
+                            <NavLink to="/shopinglist">
                                 <FontAwesomeIcon icon={faClipboardList} />
                                 <span>Shopping List</span>
                             </NavLink>
