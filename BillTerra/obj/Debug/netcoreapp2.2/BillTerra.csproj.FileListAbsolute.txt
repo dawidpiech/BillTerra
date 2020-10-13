@@ -191,3 +191,42 @@ C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\R
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\Bezi\Desktop\billeteraNow\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.genruntimeconfig.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.dll
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.pdb
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\nunit.engine.dll
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\nunit.engine.api.dll
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.deps.json
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.runtimeconfig.json
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.runtimeconfig.dev.json
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.dll
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.pdb
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.Views.dll
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\bin\Debug\netcoreapp2.2\BillTerra.Views.pdb
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.csprojAssemblyReference.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.AssemblyInfoInputs.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.AssemblyInfo.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.csproj.CoreCompileInputs.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorAssemblyInfo.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorAssemblyInfo.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.TagHelpers.input.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.TagHelpers.output.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorCoreGenerate.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Categorie.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\MainIndex.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Transaction\List.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.cshtml.g.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorTargetAssemblyInfo.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorTargetAssemblyInfo.cs
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.Views.pdb
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.dll
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.pdb
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.genruntimeconfig.cache
+C:\Users\Bezi\Desktop\Nowy folder (3)\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.csproj.CopyComplete
