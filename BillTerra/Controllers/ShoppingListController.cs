@@ -27,11 +27,11 @@ namespace BillTerra.Controllers
         public async Task<IActionResult> Index()
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
-            List<ShoppingListElementViewModel> shopListElementViewModel = new List<ShoppingListElementViewModel>();
+            List<ShoppingListElementViewModel> shopListElement = new List<ShoppingListElementViewModel>();
 
             shopingListRepository.ShopListElements(user).Result.ToList().ForEach(x =>
            {
-               shopListElementViewModel.Add(new ShoppingListElementViewModel
+               shopListElement.Add(new ShoppingListElementViewModel
                {
                    ID = x.ID,
                    PositionInList = x.PositionInList,
@@ -40,7 +40,15 @@ namespace BillTerra.Controllers
            });
 
 
-            return Json(shopListElementViewModel);
+            ShoppingListDataViewModel shoppingListData = new ShoppingListDataViewModel
+            {
+                Avatar = user.AvatarLink,
+                Email = user.Email,
+                ShoppingListElements = shopListElement,
+                UserName = user.UserName
+            };
+
+            return Json(shoppingListData);
 
         }
 

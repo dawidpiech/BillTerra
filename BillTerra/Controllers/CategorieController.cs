@@ -8,6 +8,7 @@ using BillTerra.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using BillTerra.Models.ViewModel;
+using NUnit.Framework.Constraints;
 
 namespace BillTerra.Controllers
 {
@@ -26,7 +27,20 @@ namespace BillTerra.Controllers
         public async Task<IActionResult> Index()
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
-            return View("Categorie", categorieRepository.Categories(user).Result);
+            List<CategorieViewModel> categories = new List<CategorieViewModel>();
+            categorieRepository.Categories(user).Result.ToList().ForEach(
+                x =>
+                {
+                    categories.Add(
+                        new CategorieViewModel
+                        {
+                            ID = x.ID,
+                            IsExpense = x.IsExpense,
+                            Name =x.Name
+                        });
+                });
+
+            return Json(categories);
         }
 
         [Authorize]
