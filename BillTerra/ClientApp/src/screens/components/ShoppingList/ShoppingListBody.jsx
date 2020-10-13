@@ -117,7 +117,7 @@ export class ShoppingListBody extends Component {
         let value = document.forms["addNewListElement"]["itemValue"].value
         let newElement = {
             content: value,
-            id: "item-" + (this.state.items.length + 1)
+            id: "item-" + (this.state.items.length + 11)
         }
 
         let arr = this.state.items

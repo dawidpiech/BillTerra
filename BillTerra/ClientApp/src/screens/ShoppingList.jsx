@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './ShoppingList.scss'
 import { DashboardMenu } from "./components/Dashboard/DashboardMenu"
-import { DashboardBody } from "./components/Dashboard/DashboardBody"
 import { UserBar } from "./components/Dashboard/UserBar"
 import { Loader } from "./components/Loader/Loader"
 import { ShoppingListBody } from './components/ShoppingList/ShoppingListBody'
