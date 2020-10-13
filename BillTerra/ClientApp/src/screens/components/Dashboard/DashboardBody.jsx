@@ -4,6 +4,7 @@ import "./DashboardBody.scss"
 import { PieChart } from "../Charts/PieCharts"
 import { NotificationsContainer } from "./Notifications/NotificationsContainer"
 import { FinanceBlock } from "./FinanceBlock/FinanceBlock"
+import { color } from "highcharts"
 
 export class DashboardBody extends Component {
 
@@ -15,8 +16,8 @@ export class DashboardBody extends Component {
     }
 
     render() {
-        const colors = ['#6146E8', '#FF5959', '#ED561B', '#E8B646', '#84FF4D', '#12CEAD', '#FF9655', '#FFF263', '#6AF9C4']
-        console.log(this.props)
+        const colors = ['#6146E8', '#FF5959', '#ED561B', '#E8B646', '#84FF4D', '#12CEAD', '#FF9655', '#FFF263', '#6AF9C4'].reverse()
+        const colors2 = [...colors].reverse()
         return (
 
 
@@ -44,7 +45,7 @@ export class DashboardBody extends Component {
                             <PieChart title={"Chart of your incomes"} data={(typeof this.props.finance.charts !== "undefined") ? this.props.finance.charts.incomes : ""} colors={colors}></PieChart>
                         </Col>
                         <Col sm={12} lg={6}>
-                            <PieChart title={"Chart of your expenses"} data={(typeof this.props.finance.charts !== "undefined") ? this.props.finance.charts.expenses : ""} colors={colors}></PieChart>
+                            <PieChart title={"Chart of your expenses"} data={(typeof this.props.finance.charts !== "undefined") ? this.props.finance.charts.expenses : ""} colors={colors2}></PieChart>
                         </Col>
                     </Row>
                 </Container>
