@@ -41,10 +41,8 @@ namespace BillTerra.EntityFramework
             if(dbEntity != null)
             {
                 dbEntity.Name = jar.Name;
-                dbEntity.AcumulatedAmmount = jar.AcumulatedAmmount;
-                dbEntity.MonthlyPayment = jar.MonthlyPayment;
+                dbEntity.Goal = jar.Goal;
                 dbEntity.State = jar.State;
-                dbEntity.Sequence = jar.Sequence;
                 await context.SaveChangesAsync();
                 return true;
             }
@@ -63,5 +61,7 @@ namespace BillTerra.EntityFramework
             }
             return false;
         }
+
+      
     }
 }
