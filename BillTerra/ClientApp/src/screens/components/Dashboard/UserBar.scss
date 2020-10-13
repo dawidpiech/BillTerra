@@ -1,6 +1,6 @@
 @import "../../../conf.scss";
 
-.dashboard_userbar_container{
+.dashboard-userbar-container{
     top: 0;
     height: 50px;
     width: 100%;
@@ -24,11 +24,21 @@
         }
     }
 
-    .userAvatar{
+    .user-name{
+        position: absolute;
+        top: 10px;
+        font-size: 20px;
+        right: 80px;
+        font-weight: 700;
+
+        @media (max-width: $mediaPhoneSize) {
+            display: none;
+        }
+    }
+    .user-avatar{
         width: 40px;
         height: 40px;
         border-radius: 20px;
-        background-color: red;
         position: absolute;
         top: 5px;
         right: 30px;
@@ -49,7 +59,7 @@
         display: none;
     }
 
-    .userMenu{
+    .user-menu{
         width: 300px;
         height: 250px;
         position: absolute;

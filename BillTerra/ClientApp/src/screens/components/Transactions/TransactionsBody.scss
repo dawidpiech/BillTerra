@@ -1,0 +1,89 @@
+@import "../../../conf.scss";
+
+.rw-multiselect-tag{
+    background-color: rgba($green, 0.4) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    color: $gray !important;
+}
+.add-transactions-section{
+    margin: 40px 0 10px 0;
+    padding: 10px 0 0 0;
+
+    @media (max-width: $mediaPhoneSize) {
+        margin: 30px 0;
+        
+    }
+
+    .date{
+        align-items: flex-end;
+        display: flex;
+        margin: 5px 0;
+        
+
+        .react-datepicker-wrapper{
+            width: 100%;
+            input{
+                width: 100%;
+                border-radius: 5px;
+                border: 1px solid rgba($gray, 0.4);
+                color: rgba($gray, 1);
+            }
+        }
+    }
+
+    .add-transaction-buttons-container{
+        justify-content: flex-start;
+        display: flex;
+
+        @media (max-width: $mediaPhoneSize) {
+            margin: 0 0 20px 0;
+            justify-content: center;
+        }
+
+        .add-transaction-button{
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            border: none;
+            margin: 0 10px;
+            transition: all 0.4s ease 0s;
+            
+
+            &:hover{
+                border-radius: 5px;
+                background: $gray;
+                padding: 10px 30px;
+                box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+                transition: all 0.4s ease 0s;
+            }
+        }
+
+        .add-transaction-button-income{
+            background: $green;
+        }
+
+        .add-transaction-button-expense{
+            background: $red;
+        }
+    }
+}
+
+.filters-section{
+    margin: 10px 0 0 0;
+
+    .category-filter{
+        margin: 5px 0;
+    }
+
+    .sort-filter{
+        margin: 5px 0;
+    }
+}
+
+.transactions-section{
+    padding: 30px 0;
+}

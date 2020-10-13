@@ -1,85 +1,55 @@
 import React, { Component } from "react"
-import { NavLink, Router } from "react-router-dom"
 import { Container, Row, Col } from 'reactstrap'
 import "./DashboardBody.scss"
 import { PieChart } from "../Charts/PieCharts"
 import { NotificationsContainer } from "./Notifications/NotificationsContainer"
 import { FinanceBlock } from "./FinanceBlock/FinanceBlock"
-
-
-import Highcharts, { find } from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
+import { color } from "highcharts"
 
 export class DashboardBody extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+
         }
     }
 
-
     render() {
-
-        //poniższe zmienne są do wykresu
-        const colors = ['#012DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
-        const title = "sdfdsafsdf"
-        const data = [{
-            name: 'Chrome',
-            y: 61.41,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Internet Explorer',
-            y: 11.84
-        }, {
-            name: 'Firefox',
-            y: 10.85
-        }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Other',
-            y: 7.05
-        }]
-
+        const colors = ['#6146E8', '#FF5959', '#ED561B', '#E8B646', '#84FF4D', '#12CEAD', '#FF9655', '#FFF263', '#6AF9C4'].reverse()
+        const colors2 = [...colors].reverse()
         return (
 
 
-            <div className="dashboard_body_container">
+            < div className="dashboard_body_container" >
                 <Container>
                     <Row>
                         <Col>
                             <div className="notifications-title">NOTIFICATIONS</div>
-                            <NotificationsContainer></NotificationsContainer>
+                            <NotificationsContainer notyfications={this.props.notyfications}></NotificationsContainer>
                         </Col>
                     </Row>
                     <Row style={{ padding: "30px 0" }}>
                         <Col sm={12} md={4}>
-                            <FinanceBlock name="Balance" backgroundColor="#12CEAD" value="1000" fontColor="#ffffff"></FinanceBlock>
+                            <FinanceBlock name="Balance" backgroundColor="#12CEAD" value={this.props.finance.balance} fontColor="#ffffff"></FinanceBlock>
                         </Col>
                         <Col sm={12} md={4}>
-                            <FinanceBlock name="Spendings" backgroundColor="#000000" value="1000" fontColor="#ffffff"></FinanceBlock>
+                            <FinanceBlock name="Spendings" backgroundColor="#000000" value={this.props.finance.spendings} fontColor="#ffffff"></FinanceBlock>
                         </Col>
                         <Col sm={12} md={4}>
-                            <FinanceBlock name="Income" backgroundColor="#707070" value="1000" fontColor="#ffffff"></FinanceBlock>
+                            <FinanceBlock name="Incomes" backgroundColor="#707070" value={this.props.finance.incomes} fontColor="#ffffff"></FinanceBlock>
                         </Col>
                     </Row>
                     <Row>
-                        <Col style={{ height: "400px", background: "#aaaaaa" }} sm={12} lg={6}>
-                            {/* <PieChart title={title} data={data} colors={colors}></PieChart>  nie wiem o co chodzi to generuje błąd */}
-                            <h1>TUTAJ BEDZIE WYKRES</h1>
+                        <Col sm={12} lg={6}>
+                            <PieChart title={"Chart of your incomes"} data={(typeof this.props.finance.charts !== "undefined") ? this.props.finance.charts.incomes : ""} colors={colors}></PieChart>
                         </Col>
-                        <Col style={{ height: "400px", background: "#444444" }} sm={12} lg={6}>
-                            {/* <PieChart title={title} data={data} colors={colors}></PieChart> */}  {/* nie wiem o co chodzi to generuje błąd*/}
-                            <h1>TUTAJ BEDZIE WYKRES</h1>
+                        <Col sm={12} lg={6}>
+                            <PieChart title={"Chart of your expenses"} data={(typeof this.props.finance.charts !== "undefined") ? this.props.finance.charts.expenses : ""} colors={colors2}></PieChart>
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </div >
         )
     }
 }

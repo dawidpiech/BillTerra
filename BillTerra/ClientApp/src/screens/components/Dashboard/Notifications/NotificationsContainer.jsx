@@ -1,59 +1,58 @@
 import React, { Component } from 'react'
 import "./NotificationsContainer.scss"
-import { ListGroupItem } from 'reactstrap';
 import { NotificationsItem } from './NotificationsItem'
-
-
-// let transactions = [
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 1000, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 354, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 234124, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 2341, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 789, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 34543, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 1234, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 1012300, 1],
-//     ["nazwa transakcji", "Jakiś komentarz do transakcji", data, 213, 1]
-// ]
 
 export class NotificationsContainer extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            notifications: [
-                [1, "Jakieś powiadomienie nume 1 asdf asdfsdafsdaf sadfsda sad fasd fsad fsafsd afsadf asdf asdfj asdf asdjfk sdf kljsdak fjlsdakjl fhasdkj sjklda fkjlsadklfj sakjlfklasdklj fasdj", "Avatar"],
-                [2, "Jakieś powiadomienie numero 2", "Avatar"],
-                [3, "Lorem asdf asdf asdf sadf sdf sdf sdafsad fsadf sda", "Avatar"]
-            ]
-        };
+            visibleNotyfications: []
+        }
 
         this.deleteNotification = this.deleteNotification.bind(this)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            visibleNotyfications: nextProps.notyfications
+        })
+    }
+
     deleteNotification(id) {
-        let arr = this.state.notifications;
+        let arr = this.state.visibleNotyfications;
+        let idInArray
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i][0] == id) {
-                arr.splice(i, 1);
+            if (arr[i].id === id) {
+                idInArray = i
             }
         }
+
+        let notyfication = {
+            ID: this.state.visibleNotyfications[idInArray].id,
+            Title: this.state.visibleNotyfications[idInArray].title,
+            Describe: this.state.visibleNotyfications[idInArray].describe,
+            Image: this.state.visibleNotyfications[idInArray].image
+        }
+
+        this.deleteNotyficationFromDatabase(notyfication, idInArray)
+
         this.setState({
-            notifications: arr
+            visibleNotyfications: this.state.visibleNotyfications.splice(idInArray, 1)
         })
-
-        this.deleteNotyficationFromDatabase(id);
     }
 
-    deleteNotyficationFromDatabase(id) {
-        //tutaj dopisać usuwanie powiadomienia z bazy danych
+    deleteNotyficationFromDatabase(id, idInArray) {
+        fetch('/Notyfication/EnableNotyfication', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(id)
+        })
     }
-
 
 
     render() {
-
-        if (this.state.notifications.length < 1) {
+        if (this.state.visibleNotyfications.length < 1) {
             return (
                 <div className="notifications-container">
                     <h1>Currently you haven't any notifications</h1>
@@ -63,7 +62,7 @@ export class NotificationsContainer extends Component {
         else {
             return (
                 <div className="notifications-container">
-                    {this.state.notifications.map((d) => <NotificationsItem content={d[1]} avatar={d[2]} id={d[0]} deleteNotificationFromState={this.deleteNotification}></NotificationsItem>)}
+                    {this.state.visibleNotyfications.map((d) => <NotificationsItem title={d.title} content={d.describe} avatar={d.image} id={d.id} deleteNotificationFromState={this.deleteNotification}></NotificationsItem>)}
                 </div>
             )
         }

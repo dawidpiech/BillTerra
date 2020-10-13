@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Nav } from 'reactstrap';
-import { Router, NavLink, Route } from "react-router-dom";
+import { Container, Row, Col } from 'reactstrap';
+import { NavLink } from "react-router-dom";
 import './Home.scss';
 import { Loader } from "./components/Loader/Loader"
 
