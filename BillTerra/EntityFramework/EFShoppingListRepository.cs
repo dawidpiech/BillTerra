@@ -20,7 +20,7 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<ShoppListElement>> ShopListElements(User user)
         {
-            return await context.ShopListElements.Where(p => p.User.Id == user.Id).OrderBy(x => x.PositionInList).ToListAsync();
+            return await context.ShopListElements.Where(p => p.User.Id == user.Id).OrderByDescending(x => x.PositionInList).ToListAsync();
         }
 
 
@@ -35,7 +35,7 @@ namespace BillTerra.EntityFramework
         public async Task<bool> DeleteListElement(ShoppListElement shopListElement)
         {
             ShoppListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);
-            if(dbEntity != null)
+            if (dbEntity != null)
             {
                 context.ShopListElements.Remove(dbEntity);
                 await context.SaveChangesAsync();
@@ -48,7 +48,7 @@ namespace BillTerra.EntityFramework
         public async Task<bool> EditListElement(ShoppListElement shopListElement)
         {
             ShoppListElement dbEntity = context.ShopListElements.FirstOrDefault(p => p.ID == shopListElement.ID);
-            if(dbEntity != null)
+            if (dbEntity != null)
             {
                 dbEntity.PositionInList = shopListElement.PositionInList;
                 dbEntity.Content = shopListElement.Content;

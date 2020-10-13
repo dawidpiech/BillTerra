@@ -63,10 +63,10 @@ namespace BillTerra.Controllers
             {
                 User = user,
                 Content = shopListElementViewModel.Content,
-                PositionInList = shopingListRepository.ShopListElements(user).Result.Last().PositionInList + 1
+                PositionInList = 0
 
             };
-            var tmp =  shopingListRepository.AddListElement(shopinglistElement).Result;
+            var tmp = shopingListRepository.AddListElement(shopinglistElement).Result;
 
             return Json(new ShoppingListElementViewModel
             {
@@ -78,7 +78,7 @@ namespace BillTerra.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteShopingListElement([FromBody] ShoppingListElementViewModel shopListElementViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
@@ -95,18 +95,18 @@ namespace BillTerra.Controllers
         }
 
         [Authorize]
-        [HttpPut]
-        public async Task EditShopingList([FromBody] ShoppingListElementViewModel [] shoppListElements)
+        [HttpPost]
+        public async Task EditShopingList([FromBody] ShoppingListElementViewModel[] shoppListElements)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
 
-            foreach(var shoppingListElemnet in shoppListElements)
+            for (int i = 0; i < shoppListElements.Length; i++)
             {
                 ShoppListElement newShoppingListElement = new ShoppListElement
                 {
-                    Content = shoppingListElemnet.Content,
-                    ID = shoppingListElemnet.ID,
-                    PositionInList = shoppingListElemnet.PositionInList,
+                    Content = shoppListElements[i].Content,
+                    ID = shoppListElements[i].ID,
+                    PositionInList = i,
                     User = user
                 };
                 await shopingListRepository.EditListElement(newShoppingListElement);

@@ -46,17 +46,7 @@ export class ShoppingListBody extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [
-                { content: "item 1 Content sdfgdsfgdsfg Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis perferendis rerum quis quasi debitis iusto, distinctio amet natus exercitationem nam eum? Corporis perferendis porro quasi neque inventore eos ut dicta.", id: "item-1" },
-                { content: "item 2 Content sdfgdsfgdsfg", id: "item-2" },
-                { content: "item 3 Content sdfgdsfgdsfg", id: "item-3" },
-                { content: "item 4 Content sdfgdsfgdsfg", id: "item-4" },
-                { content: "item 5 Content sdfgdsfgdsfg", id: "item-5" },
-                { content: "item 6 Content sdfgdsfgdsfg", id: "item-6" },
-                { content: "item 7 Content sdfgdsfgdsfg", id: "item-7" },
-                { content: "item 8 Content sdfgdsfgdsfg", id: "item-8" },
-                { content: "item 9 Content sdfgdsfgdsfg", id: "item-9" }
-            ]
+            items: []
         }
 
         this.onDragEnd = this.onDragEnd.bind(this)
@@ -65,7 +55,28 @@ export class ShoppingListBody extends Component {
     }
 
     componentWillUnmount() {
-        console.log("KONIEC")  //tutaj masz dopisać funkcję która wysyła aktualizację listy do bazy danych
+        let arr = []
+
+        this.state.items.forEach((value, id) => {
+            let element = {
+                ID: value.id,
+                Content: value.content,
+                PositionInList: id
+            }
+
+            arr.push(element)
+        })
+
+        console.log(arr)
+
+
+        fetch('/ShoppingList/EditShopingList', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(arr)
+        })
+
+        console.log("UNMOUNT")
     }
 
     componentWillReceiveProps(nextProps) {
@@ -91,7 +102,7 @@ export class ShoppingListBody extends Component {
         })
     }
 
-    deleteItem(id) {
+    deleteItem(id, position) {
         let arr = this.state.items
         let idInArray
         for (let i = 0; i < arr.length; i++) {
@@ -100,13 +111,25 @@ export class ShoppingListBody extends Component {
             }
         }
 
-        let deletedItems = this.state.deletedElements
-        let deletedItem = arr[idInArray]
+        let newElementToServer = {
+            ID: arr[idInArray].id,
+            Content: arr[idInArray].content,
+            PositionInList: position
+        }
+
         arr.splice(idInArray, 1)
-        deletedItems.unshift(deletedItem)
-        this.setState({
-            deletedElements: deletedItems,
-            items: arr
+
+
+        fetch('/ShoppingList/DeleteShopingListElement', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newElementToServer)
+        }).then(() => {
+            this.setState({
+                items: arr
+            })
+        }).catch(error => {
+            console.log(error)
         })
     }
 
@@ -131,13 +154,15 @@ export class ShoppingListBody extends Component {
         }).then(e => {
             console.log(e)
             let element = {
-                content: e.Content,
-                id: e.ID
+                content: e.content,
+                id: e.id
             }
             arr.unshift(element)
             this.setState({
                 items: arr
             })
+        }).catch(error => {
+            console.log(error)
         })
     }
 
