@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.CodeAnalysis.Differencing;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BillTerra.Models
 {
     public interface ICategorieRepository
     {
-        Task SaveCategorie(Categorie categorie);
-        Categorie DeleteCategorie(Categorie categorie);
+        Task<Categorie> AddCategorie(Categorie categorie);
+        Task<bool> DeleteCategorie(Categorie categorie);
+        Task<bool> EditCategory(Categorie categorie);
         Categorie GetCategoryByID(int id);
         Task<IEnumerable<Categorie>> Categories(User user);
         Task<IEnumerable<Categorie>> GetIncomes(User user);
