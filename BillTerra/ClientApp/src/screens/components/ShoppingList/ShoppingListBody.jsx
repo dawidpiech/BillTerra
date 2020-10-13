@@ -47,21 +47,21 @@ export class ShoppingListBody extends Component {
         super(props)
         this.state = {
             deletedElements: [
-                { content: "item 1", id: "item-1" },
-                { content: "item 2", id: "item-2" },
-                { content: "item 3", id: "item-3" },
-                { content: "item 4", id: "item-4" }
+                { content: "asdf sdf 1", id: 1 },
+                { content: "asdf a2", id: 11 },
+                { content: "as df3", id: 12 },
+                { content: " asdf4", id: 14 }
             ],
             items: [
-                { content: "item 1 Content sdfgdsfgdsfg Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis perferendis rerum quis quasi debitis iusto, distinctio amet natus exercitationem nam eum? Corporis perferendis porro quasi neque inventore eos ut dicta.", id: "item-1" },
-                { content: "item 2 Content sdfgdsfgdsfg", id: "item-2" },
-                { content: "item 3 Content sdfgdsfgdsfg", id: "item-3" },
-                { content: "item 4 Content sdfgdsfgdsfg", id: "item-4" },
-                { content: "item 5 Content sdfgdsfgdsfg", id: "item-5" },
-                { content: "item 6 Content sdfgdsfgdsfg", id: "item-6" },
-                { content: "item 7 Content sdfgdsfgdsfg", id: "item-7" },
-                { content: "item 8 Content sdfgdsfgdsfg", id: "item-8" },
-                { content: "item 9 Content sdfgdsfgdsfg", id: "item-9" }
+                { content: "1 Content sdfgdsfgdsfg Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis perferendis rerum quis quasi debitis iusto, distinctio amet natus exercitationem nam eum? Corporis perferendis porro quasi neque inventore eos ut dicta.", id: "item-1" },
+                { content: "2 Content sdfgdsfgdsfg", id: 2 },
+                { content: "3 Content sdfgdsfgdsfg", id: 3 },
+                { content: "4 Content sdfgdsfgdsfg", id: 4 },
+                { content: "5 Content sdfgdsfgdsfg", id: 5 },
+                { content: "item 6 Content sdfgdsfgdsfg", id: 6 },
+                { content: "item 7 Content sdfgdsfgdsfg", id: 7 },
+                { content: "item 8 Content sdfgdsfgdsfg", id: 8 },
+                { content: "item 9 Content sdfgdsfgdsfg", id: 9 }
             ]
         }
 
@@ -72,6 +72,13 @@ export class ShoppingListBody extends Component {
 
     componentWillUnmount() {
         console.log("KONIEC")  //tutaj masz dopisać funkcję która wysyła aktualizację listy do bazy danych
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            transactions: nextProps.items,
+            visibleTransactions: nextProps.deletedItems,
+        })
     }
 
 
@@ -93,7 +100,7 @@ export class ShoppingListBody extends Component {
         console.log(items)
     }
 
-    deleteItem(id) {
+    deleteItem(id, position) {
         let arr = this.state.items
         let idInArray
         for (let i = 0; i < arr.length; i++) {
@@ -115,15 +122,28 @@ export class ShoppingListBody extends Component {
     addNewItem(e) {
         e.preventDefault()
         let value = document.forms["addNewListElement"]["itemValue"].value
-        let newElement = {
-            content: value,
-            id: "item-" + (this.state.items.length + 11)
+        let newElementToServer = {
+            ID: 0,
+            Content: value,
+            PositionInList: 0
         }
 
         let arr = this.state.items
-        arr.unshift(newElement)
-        this.setState({
-            items: arr
+
+
+        fetch('ścieżka', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newElementToServer)
+        }).then(e => {
+            let element = {
+                content: "asdf",
+                id: "asdf"
+            }
+            arr.unshift(element)
+            this.setState({
+                items: arr
+            })
         })
     }
 

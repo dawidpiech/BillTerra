@@ -103,7 +103,6 @@ C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\BillTerra.RazorC
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Categorie.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\MainIndex.cshtml.g.cs
-C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\ShopingList.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\HP\Desktop\BillTerra\BillTerra\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs

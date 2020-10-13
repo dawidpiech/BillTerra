@@ -13,8 +13,8 @@ export class DraggableContent extends Component {
         }
     }
 
-    deleteItem(id) {
-        this.props.deleteItem(id);
+    deleteItem(id, position) {
+        this.props.deleteItem(id, position)
     }
 
     render() {
@@ -28,7 +28,7 @@ export class DraggableContent extends Component {
                     {"Position: " + this.props.position} */}
                 </div>
                 <div className="shopping-list-delete">
-                    <FontAwesomeIcon icon={faTrashAlt} className="shopping-list-delete-button" onClick={() => this.deleteItem(this.props.id)} />
+                    <FontAwesomeIcon icon={faTrashAlt} className="shopping-list-delete-button" onClick={() => this.deleteItem(this.props.id, this.props.position)} />
                 </div>
             </div>
         )

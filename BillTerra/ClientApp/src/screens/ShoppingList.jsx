@@ -32,9 +32,8 @@ export class ShoppingList extends Component {
                 avatar: data.avatar,
                 email: data.email,
                 userName: data.userName,
-                expensesCategory: data.expensesCategory,
-                incomesCategory: data.incomeCategory,
-                transactions: data.transactions
+                items: data.items,
+                deletedItems: data.deletedItems
             })
         })
     }
@@ -45,7 +44,7 @@ export class ShoppingList extends Component {
                 <Loader onRef={ref => (this.loader = ref)}></Loader>
                 <UserBar avatar={this.state.avatar} email={this.state.email} userName={this.state.userName}></UserBar>
                 <DashboardMenu></DashboardMenu>
-                <ShoppingListBody></ShoppingListBody>
+                <ShoppingListBody items={this.state.items} deletedItems={this.state.deletedItems}></ShoppingListBody>
             </div>
         )
     }
