@@ -1,0 +1,20 @@
+@import "../../../conf.scss";
+
+.draggable-content{
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    .shopping-list-content{
+
+    }
+    .shopping-list-delete{
+        align-self: center;
+        
+
+        .shopping-list-delete-button{
+            color: $red;
+        }
+    }
+    
+}

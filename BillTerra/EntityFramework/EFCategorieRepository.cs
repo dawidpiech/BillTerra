@@ -28,33 +28,37 @@ namespace BillTerra.EntityFramework
             return  context.Categories.FirstOrDefault(x => x.ID == id);
         }
 
-        public async Task SaveCategorie(Categorie categorie)
-        {
-            if (categorie.ID == 0)
-                context.Categories.Add(categorie);
-            else
-            {
-                Categorie dbEntity = context.Categories.FirstOrDefault(p => p.ID == categorie.ID);
-                if (dbEntity != null)
-                {
-                    dbEntity.Name = categorie.Name;
-                   
-                }
-
-            }
+        public async Task<Categorie> AddCategorie(Categorie categorie)
+        {            
+            context.Categories.Add(categorie);            
             await context.SaveChangesAsync();
+            return categorie;
         }
-
-        public Categorie DeleteCategorie(Categorie categorie)
+        public async Task<bool> DeleteCategorie(Categorie categorie)
         {
             Categorie dbEntity = context.Categories.FirstOrDefault(p => p.ID == categorie.ID);
             if (dbEntity != null)
             {
                 context.Categories.Remove(dbEntity);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
+                return true;
             }
-            return dbEntity;
+            return false;
         }
+
+        public async Task<bool> EditCategory(Categorie categorie)
+        {
+            Categorie dbEntity = context.Categories.FirstOrDefault(p => p.ID == categorie.ID);
+            if (dbEntity != null)
+            {
+                dbEntity.IsExpense = categorie.IsExpense;
+                dbEntity.Name = categorie.Name;
+                 await context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
 
         public async Task<IEnumerable<Categorie>> GetIncomes(User user)
         {
@@ -66,6 +70,8 @@ namespace BillTerra.EntityFramework
             return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == true).ToListAsync();
 
         }
+
+      
 
        
     }

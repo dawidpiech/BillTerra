@@ -26,11 +26,11 @@ export class TransactionsBody extends Component {
     constructor(props) {
         super(props)
         this.state = {
-        };
+        }
 
-        this.income = React.createRef();
-        this.expense = React.createRef();
-        this.edit = React.createRef();
+        this.income = React.createRef()
+        this.expense = React.createRef()
+        this.edit = React.createRef()
         this.editTransaction = this.editTransaction.bind(this)
         this.deleteTransaction = this.deleteTransaction.bind(this)
         this.changeCategory = this.changeCategory.bind(this)
@@ -190,11 +190,6 @@ export class TransactionsBody extends Component {
         let a = transactions.filter(d => {
             let transactionDate = new Date(d.date)
             let currentTime = date.getTime() + 86399999
-            console.log(transactionDate)
-            console.log(transactionDate.getTime())
-            console.log(date)
-            console.log(currentTime)
-
             return (transactionDate.getTime() <= currentTime)
         })
         return a

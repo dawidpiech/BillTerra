@@ -19,7 +19,7 @@ export class Dashboard extends Component {
             finance: "",
             notyfication: [],
             userName: ""
-        };
+        }
     }
 
     componentWillMount() {
@@ -40,11 +40,16 @@ export class Dashboard extends Component {
                 notyfication: data.notyfication,
                 userName: data.userName
             })
+
+            this.loader.hideLoader()
+        }).catch(error => {
+            console.log("EWRROR")
+            console.log(error)
         })
     }
 
     componentDidMount() {
-        this.loader.hideLoader()
+
     }
 
     render() {

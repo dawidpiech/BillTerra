@@ -7,6 +7,7 @@ using BillTerra.Models;
 using BillTerra.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using BillTerra.Models.ViewModel;
 
 namespace BillTerra.Controllers
 {
@@ -29,24 +30,72 @@ namespace BillTerra.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Add()
+        [HttpPost]
+        public async Task<IActionResult> AddCategorie([FromBody]CategorieViewModel categorieViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
             var categorie = new Categorie
             {
 
-                Name = "Home",
+                Name = categorieViewModel.Name,
                 User = user,
-                IsExpense =  true
-                
+                IsExpense = categorieViewModel.IsExpense
+
 
             };
-            await categorieRepository.SaveCategorie(categorie);
-            return RedirectToAction("Index");
+            var newcategorie = await categorieRepository.AddCategorie(categorie);
+            
+
+
+            return Json(new CategorieViewModel
+            {
+                ID= newcategorie.ID,
+                IsExpense = newcategorie.IsExpense,
+                Name = newcategorie.Name
+            });
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategorie([FromBody]CategorieViewModel categorieViewModel)
+        {
+            User user = await userManager.GetUserAsync(HttpContext.User);
+            var categorie = new Categorie
+            {
+
+                Name = categorieViewModel.Name,
+                User = user,
+                IsExpense = categorieViewModel.IsExpense
+
+
+            };
+            return Json(new { succeed = categorieRepository.DeleteCategorie(categorie) });
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task EditCategory([FromBody] CategorieViewModel [] categorieViewModels)
+        {
+            User user = await userManager.GetUserAsync(HttpContext.User);
+            
+            foreach(var categorie in categorieViewModels)
+            {
+                var newCategorie = new Categorie
+                {
+
+                    Name = categorie.Name,
+                    User = user,
+                    IsExpense = categorie.IsExpense
+
+
+                };
+                await categorieRepository.EditCategory(newCategorie);
+            }
+            
+           
+
         }
 
 
-
-      
     }
 }
