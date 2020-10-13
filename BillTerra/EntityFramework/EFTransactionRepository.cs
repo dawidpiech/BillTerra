@@ -11,7 +11,7 @@ namespace BillTerra.EntityFramework
 
     public class EFTransactionRepository : ITransactionRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext context;
 
         public EFTransactionRepository(ApplicationDbContext ctx)
         {

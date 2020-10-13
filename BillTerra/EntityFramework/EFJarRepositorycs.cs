@@ -1,9 +1,11 @@
 ﻿using BillTerra.Contexts;
 using BillTerra.Models;
+using Microsoft.AspNetCore.NodeServices;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace BillTerra.EntityFramework
@@ -20,43 +22,46 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Jar>> Jars(User user)
         {
-            return await context.Jars.Where(p => p.User.Id == user.Id).ToListAsync();
+            return await context.Jars.Where(p => p.User.Id == user.Id).OrderBy(x=> x.ID).ToListAsync();
 
         }
 
 
-        public async Task SaveJar(Jar jar)
+        public async Task<Jar> AddJar(Jar jar)
         {
-            if (jar.ID == 0)
-                context.Jars.Add(jar);
-            else
-            {
-                Jar dbEntity = context.Jars.FirstOrDefault(p => p.ID == jar.ID);
-                if (dbEntity != null)
-                {
-                    dbEntity.Name = jar.Name;
-                    dbEntity.FinalAmmount = jar.FinalAmmount;
-                    dbEntity.AcumulatedAmmount = jar.AcumulatedAmmount;
-                    dbEntity.CreationDate = jar.CreationDate;
-                    dbEntity.MonthlyPayment = jar.MonthlyPayment;
-                    dbEntity.State = jar.State;
-                    dbEntity.EndDate = jar.EndDate;
-                    dbEntity.Sequence = jar.Sequence;
-                }
-
-            }
+            context.Jars.Add(jar);
             await context.SaveChangesAsync();
+
+            return jar;
         }
 
-        public Jar DeleteJar(Jar jar)
+        public async Task<bool> EditJar(Jar jar)
+        {
+            Jar dbEntity =  context.Jars.FirstOrDefault(x => x.ID == jar.ID);
+            if(dbEntity != null)
+            {
+                dbEntity.Name = jar.Name;
+                dbEntity.AcumulatedAmmount = jar.AcumulatedAmmount;
+                dbEntity.MonthlyPayment = jar.MonthlyPayment;
+                dbEntity.State = jar.State;
+                dbEntity.Sequence = jar.Sequence;
+                await context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DeleteJar(Jar jar)
         {
             Jar dbEntity = context.Jars.FirstOrDefault(p => p.ID == jar.ID);
             if (dbEntity != null)
             {
                 context.Jars.Remove(dbEntity);
                 context.SaveChanges();
+                return true;
             }
-            return dbEntity;
+            return false;
         }
     }
 }
