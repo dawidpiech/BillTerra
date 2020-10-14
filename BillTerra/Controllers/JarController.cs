@@ -41,7 +41,7 @@ namespace BillTerra.Controllers
                         ID = x.ID,
                         State = x.State
 
-                    }); 
+                    });
 
                 });
 
@@ -52,7 +52,7 @@ namespace BillTerra.Controllers
                 Email = user.Email,
                 UserName = user.UserName,
                 JarList = jars
-                
+
             };
 
 
@@ -61,7 +61,7 @@ namespace BillTerra.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteJar([FromBody] JarViewModel jarViewModel)
         {
             User user = await _userManager.GetUserAsync(HttpContext.User);
@@ -73,11 +73,11 @@ namespace BillTerra.Controllers
                 Goal = jarViewModel.Goal,
                 CurrentAmount = jarViewModel.CurrentAmount,
                 User = user
-                
+
 
             };
 
-            return Json(new { succeed = _jarRepositorycs.EditJar(jar) });
+            return Json(new { succeed = _jarRepositorycs.DeleteJar(jar) });
         }
 
         [Authorize]
@@ -104,7 +104,7 @@ namespace BillTerra.Controllers
                 Name = tmp.Name,
                 State = tmp.State,
                 CurrentAmount = tmp.CurrentAmount
-            }) ;
+            });
 
 
         }
@@ -122,7 +122,7 @@ namespace BillTerra.Controllers
                 IsVisible = true
             });
         }
-        public async Task AddMoneyToJar([FromBody] JarViewModel jarViewModel , int money)
+        public async Task AddMoneyToJar([FromBody] JarViewModel jarViewModel, int money)
         {
             User user = await _userManager.GetUserAsync(HttpContext.User);
 

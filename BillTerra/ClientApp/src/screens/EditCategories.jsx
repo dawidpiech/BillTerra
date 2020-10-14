@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
-import './Jars.scss'
 import { DashboardMenu } from "./components/Dashboard/DashboardMenu"
+import "./EditCategories.scss"
 import { UserBar } from "./components/Dashboard/UserBar"
 import { Loader } from "./components/Loader/Loader"
-import { JarsBody } from './components/Jars/JarsBody'
+import { EditCategoriesBody } from './components/EditCategories/EditCategoriesBody'
 
-export class Jars extends Component {
+
+
+
+
+export class EditCategories extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-        };
+
+        }
     }
 
     componentDidMount() {
@@ -21,10 +26,8 @@ export class Jars extends Component {
         this.init()
     }
 
-    balance = 1000000
-
     init() {
-        fetch('/Jar/Index', {
+        fetch('/Categorie/Index', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         }).then(result => {
@@ -35,19 +38,18 @@ export class Jars extends Component {
                 avatar: data.avatar,
                 email: data.email,
                 userName: data.userName,
-                jars: data.jarList,
-                balance: this.balance //data.balance
+                categories: data
             })
         })
     }
 
     render() {
         return (
-            <div className="jars-wrapper">
+            <div className="edit-categories-wrapper">
                 <Loader onRef={ref => (this.loader = ref)}></Loader>
                 <UserBar avatar={this.state.avatar} email={this.state.email} userName={this.state.userName}></UserBar>
                 <DashboardMenu></DashboardMenu>
-                <JarsBody jars={this.state.jars} balance={this.state.balance}></JarsBody>
+                <EditCategoriesBody categories={this.state.categories}></EditCategoriesBody>
             </div>
         )
     }

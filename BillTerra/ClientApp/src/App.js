@@ -7,6 +7,7 @@ import { Dashboard } from './screens/Dashboard'
 import { Transactions } from './screens/Transactions'
 import { Jars } from './screens/Jars'
 import { ShoppingList } from './screens/ShoppingList'
+import { EditCategories } from './screens/EditCategories'
 
 
 export default class App extends Component {
@@ -22,6 +23,7 @@ export default class App extends Component {
         <Route exact path='/transactions' component={Transactions} />
         <Route exact path='/jars' component={Jars} />
         <Route exact path='/shopinglist' component={ShoppingList} />
+        <Route exact path='/editCategories' component={EditCategories} />
       </div>
     );
   }

@@ -36,7 +36,7 @@ namespace BillTerra.Controllers
                         {
                             ID = x.ID,
                             IsExpense = x.IsExpense,
-                            Name =x.Name
+                            Name = x.Name
                         });
                 });
 
@@ -45,7 +45,7 @@ namespace BillTerra.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddCategorie([FromBody]CategorieViewModel categorieViewModel)
+        public async Task<IActionResult> AddCategorie([FromBody] CategorieViewModel categorieViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
             var categorie = new Categorie
@@ -58,20 +58,20 @@ namespace BillTerra.Controllers
 
             };
             var newcategorie = await categorieRepository.AddCategorie(categorie);
-            
+
 
 
             return Json(new CategorieViewModel
             {
-                ID= newcategorie.ID,
+                ID = newcategorie.ID,
                 IsExpense = newcategorie.IsExpense,
                 Name = newcategorie.Name
             });
         }
 
         [Authorize]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategorie([FromBody]CategorieViewModel categorieViewModel)
+        [HttpPost]
+        public async Task<IActionResult> DeleteCategorie([FromBody] CategorieViewModel categorieViewModel)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
             var categorie = new Categorie
@@ -87,12 +87,12 @@ namespace BillTerra.Controllers
         }
 
         [Authorize]
-        [HttpPut]
-        public async Task EditCategory([FromBody] CategorieViewModel [] categorieViewModels)
+        [HttpPost]
+        public async Task EditCategory([FromBody] CategorieViewModel[] categorieViewModels)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
-            
-            foreach(var categorie in categorieViewModels)
+
+            foreach (var categorie in categorieViewModels)
             {
                 var newCategorie = new Categorie
                 {
@@ -105,9 +105,6 @@ namespace BillTerra.Controllers
                 };
                 await categorieRepository.EditCategory(newCategorie);
             }
-            
-           
-
         }
 
 

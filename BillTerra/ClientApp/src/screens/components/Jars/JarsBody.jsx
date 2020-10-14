@@ -41,25 +41,30 @@ export class JarsBody extends Component {
 
         if (this.state.goalFlag && this.state.nameFlag) {
             let newJar = {
-                name: this.state.name,
-                goal: parseInt(this.state.goal),
-                currentAmount: 1,
-                state: "in progress"
+                ID: 0,
+                Name: this.state.name,
+                Goal: parseInt(this.state.goal),
+                CurrentAmount: 0,
+                State: 2
             }
 
-            fetch('ścieżka', {
+
+            fetch('/Jar/AddJar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newJar)
+            }).then(result => {
+                return result.json()
             }).then(e => {
-                let newJarTymczasowy = {
-                    id: this.state.jars.length + 10,
-                    name: this.state.name,
-                    goal: parseInt(this.state.goal),
-                    currentAmount: 0,
-                    state: "in progress"
+                let jar = {
+                    id: e.id,
+                    name: e.name,
+                    goal: e.goal,
+                    currentAmount: e.currentAmount,
+                    state: (e.state === 0) ? "achived" : (e.state === 2) ? "in progress" : "not achived"
                 }
-                arr.unshift(newJarTymczasowy)
+
+                arr.unshift(jar)
 
                 this.setState({
                     items: arr
@@ -70,10 +75,19 @@ export class JarsBody extends Component {
 
     deleteJar(id) {
         let index = this.state.jars.findIndex(e => e.id === id)
-        fetch('ścieżka', {
+
+        let jar = {
+            ID: this.state.jars[index].id,
+            Name: this.state.jars[index].name,
+            Goal: this.state.jars[index].goal,
+            CurrentAmount: this.state.jars[index].currentAmount,
+            State: (this.state.jars[index].state === "achived") ? 0 : (this.state.jars[index].state === "in progress") ? 2 : 1
+        }
+
+        fetch('/Jar/DeleteJar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.state.jars[index])
+            body: JSON.stringify(jar)
         }).then(() => {
             let arr = this.state.jars
             arr.splice(index, 1)
@@ -81,7 +95,7 @@ export class JarsBody extends Component {
             this.setState({
                 jars: arr
             })
-        })
+        }).catch(error => console.log(error))
     }
 
     reachTheGoal(id) {
@@ -108,21 +122,30 @@ export class JarsBody extends Component {
         let index = this.state.jars.findIndex(e => e.id === jar.id)
         let arr = this.state.jars
 
+        let sendingJar = {
+            ID: jar.id,
+            Name: jar.name,
+            Goal: jar.goal,
+            CurrentAmount: jar.currentAmount,
+            State: (jar.state === "achived") ? 0 : (jar.state === "in progress") ? 2 : 1
+        }
+
         arr[index].currentAmount = parseFloat(arr[index].currentAmount) + parseFloat(amount)
 
 
-        fetch('ścieżka', {
+        fetch('/Jar/AddMoneyToJar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                jar: jar,
-                amount: amount
+                jarViewModel: sendingJar,
+                money: amount
             })
         }).then(() => {
+            console.log("asdfasd")
             this.setState({
                 jars: arr
             })
-        })
+        }).catch(error => console.log(error))
     }
 
     render() {

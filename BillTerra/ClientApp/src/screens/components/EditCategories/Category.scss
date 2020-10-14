@@ -1,0 +1,14 @@
+@import "./../../../conf.scss";
+
+.category{
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+
+    .category-delete-button{
+        align-self: center;
+        margin: 10px;
+        color: $red;
+        cursor: pointer;
+    }
+}

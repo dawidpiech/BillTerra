@@ -67,8 +67,6 @@ export class ShoppingListBody extends Component {
             arr.push(element)
         })
 
-        console.log(arr)
-
 
         fetch('/ShoppingList/EditShopingList', {
             method: 'POST',
@@ -203,7 +201,7 @@ export class ShoppingListBody extends Component {
                                                 style={getListStyle(snapshot.isDraggingOver)}
                                             >
                                                 {this.state.items.map((item, index) => (
-                                                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                                                    <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                         {(provided, snapshot) => (
                                                             <div
                                                                 ref={provided.innerRef}
