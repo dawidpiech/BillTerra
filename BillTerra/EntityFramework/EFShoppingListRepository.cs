@@ -20,7 +20,7 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<ShoppListElement>> ShopListElements(User user)
         {
-            return await context.ShopListElements.Where(p => p.User.Id == user.Id).OrderByDescending(x => x.PositionInList).ToListAsync();
+            return await context.ShopListElements.Where(p => p.User.Id == user.Id).OrderBy(x => x.PositionInList).ToListAsync();
         }
 
 

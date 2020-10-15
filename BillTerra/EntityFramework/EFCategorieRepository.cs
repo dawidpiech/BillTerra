@@ -20,12 +20,16 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Categorie>> Categories(User user)
         {
-            return await context.Categories.Where(p => p.User.Id == user.Id).ToListAsync();               
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.Name != "Jar").ToListAsync();               
         }
 
         public  Categorie GetCategoryByID(int id)
         {
             return  context.Categories.FirstOrDefault(x => x.ID == id);
+        }
+        public Categorie GetCategoryByName(string name)
+        {
+            return context.Categories.FirstOrDefault(x => x.Name == name);
         }
 
         public async Task<Categorie> AddCategorie(Categorie categorie)
@@ -62,16 +66,14 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Categorie>> GetIncomes(User user)
         {
-            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == false ).ToListAsync();
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == false  && p.Name != "Jar").ToListAsync();
         }
 
         public async Task<IEnumerable<Categorie>> GetExpenses(User user)
         {
-            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == true).ToListAsync();
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == true &&  p.Name != "Jar").ToListAsync();
 
         }
-
-      
 
        
     }

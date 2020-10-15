@@ -40,7 +40,16 @@ namespace BillTerra.Controllers
                         });
                 });
 
-            return Json(categories);
+
+
+
+
+            return Json(new CategorieDataViewModel { 
+            Avatar = user.AvatarLink,
+            Categories = categories,
+            Email = user.Email,
+            UserName = user.UserName
+            });
         }
 
         [Authorize]
@@ -76,35 +85,45 @@ namespace BillTerra.Controllers
             User user = await userManager.GetUserAsync(HttpContext.User);
             var categorie = new Categorie
             {
-
+                ID = categorieViewModel.ID,
                 Name = categorieViewModel.Name,
                 User = user,
                 IsExpense = categorieViewModel.IsExpense
-
-
             };
+
             return Json(new { succeed = categorieRepository.DeleteCategorie(categorie) });
         }
 
         [Authorize]
         [HttpPost]
-        public async Task EditCategory([FromBody] CategorieViewModel[] categorieViewModels)
+        public async Task<IActionResult> EditCategory([FromBody] CategorieViewModel[] categorieViewModels)
         {
             User user = await userManager.GetUserAsync(HttpContext.User);
 
-            foreach (var categorie in categorieViewModels)
+            try
             {
-                var newCategorie = new Categorie
+                foreach (var categorie in categorieViewModels)
                 {
+                    var newCategorie = new Categorie
+                    {
+                        ID = categorie.ID,
+                        Name = categorie.Name,
+                        User = user,
+                        IsExpense = categorie.IsExpense
 
-                    Name = categorie.Name,
-                    User = user,
-                    IsExpense = categorie.IsExpense
 
-
-                };
-                await categorieRepository.EditCategory(newCategorie);
+                    };
+                    await categorieRepository.EditCategory(newCategorie);
+                }
             }
+            catch
+            {
+                return Json("Something went wrong please try again later.");
+            }
+                
+            return Json("Woohoo! All changes have been saved!");
+            
+           
         }
 
 

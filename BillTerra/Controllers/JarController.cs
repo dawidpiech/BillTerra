@@ -15,13 +15,17 @@ namespace BillTerra.Controllers
     {
         private IJarRepositorycs _jarRepositorycs;
         private readonly INotificationRepository _notificationRepository;
+        private readonly ITransactionRepository _transactionRepository;
+        private ICategorieRepository _categorieRepository;
         private UserManager<User> _userManager;
 
-        public JarController(IJarRepositorycs jarRepositorycs, INotificationRepository notificationRepository, UserManager<User> userManager)
+        public JarController(ITransactionRepository transactionRepository, ICategorieRepository categorieRepository, IJarRepositorycs jarRepositorycs, INotificationRepository notificationRepository, UserManager<User> userManager)
         {
             _jarRepositorycs = jarRepositorycs;
             _notificationRepository = notificationRepository;
             _userManager = userManager;
+            _transactionRepository = transactionRepository;
+            _categorieRepository = categorieRepository;
         }
 
         [Authorize]
@@ -51,7 +55,9 @@ namespace BillTerra.Controllers
                 Avatar = user.AvatarLink,
                 Email = user.Email,
                 UserName = user.UserName,
-                JarList = jars
+                JarList = jars,
+                Balance = (_transactionRepository.GetIncomes(user).Result.ToList().Sum(x => x.Amount))
+                - (_transactionRepository.GetExpenses(user).Result.ToList().Sum(x => x.Amount))
 
             };
 
@@ -105,8 +111,6 @@ namespace BillTerra.Controllers
                 State = tmp.State,
                 CurrentAmount = tmp.CurrentAmount
             });
-
-
         }
 
         [Authorize]
@@ -121,10 +125,6 @@ namespace BillTerra.Controllers
                 User = user,
                 IsVisible = true
             });
-        }
-        public async Task AddMoneyToJar([FromBody] JarViewModel jarViewModel, int money)
-        {
-            User user = await _userManager.GetUserAsync(HttpContext.User);
 
             var jar = new Jar
             {
@@ -132,28 +132,57 @@ namespace BillTerra.Controllers
                 Name = jarViewModel.Name,
                 CurrentAmount = jarViewModel.CurrentAmount,
                 Goal = jarViewModel.Goal,
-                State = jarViewModel.State,
+                State = State.Reached,
 
             };
 
-            if (jar.CurrentAmount + money >= jar.Goal)
+            await _jarRepositorycs.EditJar(jar);
+
+        }
+
+        public async Task AddMoneyToJar([FromBody] JarAddMoneyViewModel jarAddMoneyViewModel)
+        {
+            User user = await _userManager.GetUserAsync(HttpContext.User);
+
+            var jar = new Jar
+            {
+                User = user,
+                Name = jarAddMoneyViewModel.Name,
+                CurrentAmount = jarAddMoneyViewModel.CurrentAmount,
+                Goal = jarAddMoneyViewModel.Goal,
+                State = jarAddMoneyViewModel.State,
+
+            };
+
+            if (jar.CurrentAmount + jarAddMoneyViewModel.Money >= jar.Goal)
             {
                 jar.State = State.Reached;
 
                 await _notificationRepository.SaveNotyfication(new Notification
                 {
-                    Title = $"End jar {jarViewModel.Name}",
+                    Title = $"Jar {jarAddMoneyViewModel.Name}",
                     Describe = $"Congratulations The jar is full",
                     User = user,
                     IsVisible = true
                 });
 
-
             }
 
-            jar.CurrentAmount += money;
+            jar.CurrentAmount += jarAddMoneyViewModel.Money;
 
             await _jarRepositorycs.EditJar(jar);
+
+            await _transactionRepository.AddTransaction(new Transaction
+            {
+                User = user,
+                Coment = $"Add money to jar {jarAddMoneyViewModel.Name}",
+                IsExpense = false,
+                Date = DateTime.Now,
+                Categorie = _categorieRepository.GetCategoryByName("Jar"),
+                Amount = jarAddMoneyViewModel.Money
+            });
+
+
 
         }
 
