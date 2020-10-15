@@ -73,5 +73,14 @@ namespace BillTerra.EntityFramework
         {
             return await context.Transactions.Include(d => d.Categorie).Where(p => p.User.Id == user.Id && p.IsExpense == true).ToListAsync();
         }
+
+        public async Task<IEnumerable<Transaction>> GetTransactionOfDay(User user, DateTime date)
+        {
+            return await context
+                .Transactions
+                .Include(d => d.Categorie)
+                .Where(p => p.User.Id == user.Id && p.IsExpense == true && p.Date.Year == date.Year && p.Date.DayOfYear == date.DayOfYear)
+                .ToListAsync();
+        }
     }
 }

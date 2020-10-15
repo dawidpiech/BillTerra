@@ -178,7 +178,7 @@ namespace BillTerra.Controllers
                 Coment = $"Add money to jar {jarAddMoneyViewModel.Name}",
                 IsExpense = false,
                 Date = DateTime.Now,
-                Categorie = _categorieRepository.GetCategoryByName("Jar"),
+                Categorie = _categorieRepository.GetCategoryByName("Jar", user),
                 Amount = jarAddMoneyViewModel.Money
             });
 
