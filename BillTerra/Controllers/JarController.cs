@@ -119,10 +119,11 @@ namespace BillTerra.Controllers
         {
             User user = await _userManager.GetUserAsync(HttpContext.User);
 
-            _notificationRepository.SaveNotyfication(NotyficationMessages.selectJarNotyfication(_jarRepositorycs.ReachedJars(user).Result.Count(), user));
+            await _notificationRepository.SaveNotyfication(NotyficationMessages.selectJarNotyfication(_jarRepositorycs.ReachedJars(user).Result.Count(), user));
 
             var jar = new Jar
             {
+                ID = jarViewModel.ID,
                 User = user,
                 Name = jarViewModel.Name,
                 CurrentAmount = jarViewModel.CurrentAmount,

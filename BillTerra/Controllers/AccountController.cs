@@ -44,7 +44,8 @@ namespace BillTerra.Controllers
             {
                 UserName = createUser.Name,
                 Email = createUser.Email,
-                AvatarLink = "https://static.fajnyzwierzak.pl/media/uploads/media_image/auto/entry-content/24/desktop/szary-kot-brytyjski.jpg"
+                AvatarLink = "/img/avatar_1.jpg"
+
 
             };
 

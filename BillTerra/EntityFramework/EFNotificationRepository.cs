@@ -20,21 +20,12 @@ namespace BillTerra.EntityFramework
 
         public async Task SaveNotyfication(Notification notification)
         {
-            if (notification.ID == 0)
-                context.Notyfications.Add(notification);
-            else
+            if (notification.ID == 0 && notification != null)
             {
-                Notification dbEntity = context.Notyfications.FirstOrDefault(p => p.ID == notification.ID);
-                if (dbEntity != null)
-                {
-                    dbEntity.Describe = notification.Describe;
-                    dbEntity.Title = notification.Title;
-                    dbEntity.IsVisible = notification.IsVisible;
-
-                }
-
+                context.Notyfications.Add(notification);
+                await context.SaveChangesAsync();
             }
-            await context.SaveChangesAsync();
+               
         }
         public async Task<IEnumerable<Notification>> Notifications(User user)
         {

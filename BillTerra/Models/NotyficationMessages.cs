@@ -17,7 +17,7 @@ namespace BillTerra.Models
             else if (numberOfJars % 10 == 0) notification = EveryTenthJarCompled(user, numberOfJars);
             else if (numberOfJars == 100) notification = HundredthJarCompleted(user);
 
-            return notification;
+            return null;
 
         }
 
@@ -27,14 +27,16 @@ namespace BillTerra.Models
                 Title = $"Hello {user.UserName}",
                 Describe = "Welcome in Biletera",
                 User = user,
+                Image = "/img/notyfication-1.jpg",
                 IsVisible = true
             };
-        
+
 
         public static Notification FirstJarCompleted(User user) =>
-            new Notification {
+            new Notification
+            {
                 User = user,
-                Image = "",
+                Image = "/img/notyfication-2.jpg",
                 Describe = "Congratulations, you've achieved your first goal. What's next?",
                 IsVisible = true,
                 Title = "Jar"
@@ -43,27 +45,27 @@ namespace BillTerra.Models
            new Notification
            {
                User = user,
-               Image = "",
+               Image = "/img/notyfication-2.jpg",
                Describe = "Whoaaa... This is the fifth goal achieved.Keep it up :)",
                IsVisible = true,
                Title = "Jar"
            };
-        
+
         public static Notification HundredthJarCompleted(User user) =>
         new Notification
         {
             User = user,
-            Image = "",
+            Image = "/img/notyfication-2.jpg",
             Describe = "Master! 100 goals achieved. I think it's time to celebrate: D",
             IsVisible = true,
             Title = "Jar"
         };
 
-        public static Notification EveryTenthJarCompled(User user , int numberOfJars) =>
+        public static Notification EveryTenthJarCompled(User user, int numberOfJars) =>
           new Notification
           {
               User = user,
-              Image = "",
+              Image = "/img/notyfication-2.jpg",
               Describe = $"Goals achieved = {numberOfJars}. How soon after the = sign will we see 100? ",
               IsVisible = true,
               Title = "Jar"
