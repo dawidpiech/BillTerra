@@ -20,12 +20,12 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Categorie>> Categories(User user)
         {
-            return await context.Categories.Where(p => p.User.Id == user.Id && p.Name != "Jar").ToListAsync();               
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.Name != "Jar").OrderByDescending(x => x.ID).ToListAsync();
         }
 
-        public  Categorie GetCategoryByID(int id)
+        public Categorie GetCategoryByID(int id)
         {
-            return  context.Categories.FirstOrDefault(x => x.ID == id);
+            return context.Categories.FirstOrDefault(x => x.ID == id);
         }
         public Categorie GetCategoryByName(string name, User user)
         {
@@ -33,8 +33,8 @@ namespace BillTerra.EntityFramework
         }
 
         public async Task<Categorie> AddCategorie(Categorie categorie)
-        {            
-            context.Categories.Add(categorie);            
+        {
+            context.Categories.Add(categorie);
             await context.SaveChangesAsync();
             return categorie;
         }
@@ -57,7 +57,7 @@ namespace BillTerra.EntityFramework
             {
                 dbEntity.IsExpense = categorie.IsExpense;
                 dbEntity.Name = categorie.Name;
-                 await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return true;
             }
             return false;
@@ -66,15 +66,15 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Categorie>> GetIncomes(User user)
         {
-            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == false  && p.Name != "Jar").ToListAsync();
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == false && p.Name != "Jar").ToListAsync();
         }
 
         public async Task<IEnumerable<Categorie>> GetExpenses(User user)
         {
-            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == true &&  p.Name != "Jar").ToListAsync();
+            return await context.Categories.Where(p => p.User.Id == user.Id && p.IsExpense == true && p.Name != "Jar").ToListAsync();
 
         }
 
-       
+
     }
 }

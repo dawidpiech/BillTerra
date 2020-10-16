@@ -11,6 +11,8 @@ export class EditProfile extends Component {
         super(props);
         this.state = {
         };
+
+        this.changeAvatar = this.changeAvatar.bind(this)
     }
 
     componentDidMount() {
@@ -31,11 +33,18 @@ export class EditProfile extends Component {
             this.setState({
                 avatar: data.avatar,
                 email: data.email,
-                userName: data.userName,
-
+                userName: data.userName
             })
         })
     }
+
+    changeAvatar(a) {
+        this.setState({
+            avatar: a
+        })
+    }
+
+
 
     render() {
         return (
@@ -43,7 +52,7 @@ export class EditProfile extends Component {
                 <Loader onRef={ref => (this.loader = ref)}></Loader>
                 <UserBar avatar={this.state.avatar} email={this.state.email} userName={this.state.userName}></UserBar>
                 <DashboardMenu></DashboardMenu>
-                <EditProfileBody nick={this.state.userName}></EditProfileBody>
+                <EditProfileBody nick={this.state.userName} changeAvatar={this.changeAvatar}></EditProfileBody>
             </div>
         )
     }

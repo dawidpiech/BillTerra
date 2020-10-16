@@ -146,7 +146,7 @@ namespace BillTerra.Controllers
                 CurrentAmount = jarAddMoneyViewModel.CurrentAmount,
                 Goal = jarAddMoneyViewModel.Goal,
                 State = jarAddMoneyViewModel.State,
-
+                ID = jarAddMoneyViewModel.ID
             };
 
             jar.CurrentAmount += jarAddMoneyViewModel.Money;

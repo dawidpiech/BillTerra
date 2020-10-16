@@ -13,8 +13,9 @@ namespace BillTerra.Models.ViewModel
         public List<JarRaportViewModel> JarRaports { get; set; }
         public List<double> DayExpenses { get; set; }
 
+        public List<double> DayIncome { get; set; }
     }
 
-    
+
 
 }

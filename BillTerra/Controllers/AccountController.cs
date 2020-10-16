@@ -19,7 +19,7 @@ namespace BillTerra.Controllers
         private readonly ICategorieRepository categorieRepository;
         private readonly INotificationRepository notificationRepository;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager , ICategorieRepository categorieRepository , INotificationRepository notificationRepository)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ICategorieRepository categorieRepository, INotificationRepository notificationRepository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -28,7 +28,7 @@ namespace BillTerra.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult>  Index() =>   View();
+        public async Task<IActionResult> Index() => View();
 
 
         [AllowAnonymous]
@@ -36,7 +36,7 @@ namespace BillTerra.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateUserViewModel createUser)
+        public async Task<IActionResult> Create([FromBody] CreateUserViewModel createUser)
         {
             AutorisationCreateUserState autorisationCreateUser = new AutorisationCreateUserState();
 
@@ -54,7 +54,7 @@ namespace BillTerra.Controllers
             {
                 AddDefaultCaterories.Add(categorieRepository, user);
                 await notificationRepository.SaveNotyfication(NotyficationMessages.HelloNotyfication(user));
-              
+
                 autorisationCreateUser.CreateAccountSucceeded = true;
                 autorisationCreateUser.Errors = null;
             }
@@ -66,7 +66,7 @@ namespace BillTerra.Controllers
 
             return Json(autorisationCreateUser);
         }
-      
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginUser userLogin)
@@ -76,41 +76,38 @@ namespace BillTerra.Controllers
                 LoginAccountSucceeded = false
             };
             User user = await userManager.FindByEmailAsync(userLogin.Email);
-                if (user != null)
+            if (user != null)
+            {
+                await signInManager.SignOutAsync();
+                Microsoft.AspNetCore.Identity.SignInResult result =
+                        await signInManager.PasswordSignInAsync(
+                            user, userLogin.Password, false, false);
+                if (result.Succeeded)
                 {
-                    await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result =
-                            await signInManager.PasswordSignInAsync(
-                                user, userLogin.Password, false, false);
-                    if (result.Succeeded)
-                    {
-                        autorisationLogin.LoginAccountSucceeded = true;
-                    }
-                    else
-                    {
-                        autorisationLogin.Error = "Invalid email or password";
-                    }
+                    autorisationLogin.LoginAccountSucceeded = true;
                 }
                 else
                 {
                     autorisationLogin.Error = "Invalid email or password";
                 }
-
-
+            }
+            else
+            {
+                autorisationLogin.Error = "Invalid email or password";
+            }
 
             return Json(autorisationLogin);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit([FromBody] EditUserViewModel editUserViewModel)
+        public async Task<IActionResult> EditUser([FromBody] EditUserViewModel editUserViewModel)
         {
-            User user = await userManager.GetUserAsync(HttpContext.User); 
+            User user = await userManager.GetUserAsync(HttpContext.User);
             user.UserName = editUserViewModel.Name;
             user.AvatarLink = editUserViewModel.AvatarLink;
-            user.PasswordHash = userManager.PasswordHasher.HashPassword(user, editUserViewModel.Password);        
             IdentityResult result = await userManager.UpdateAsync(user);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return Json(new { succeed = true });
             }
@@ -119,6 +116,39 @@ namespace BillTerra.Controllers
                 return Json(new { succeed = false });
             }
         }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditUserPassword([FromBody] EditUserPasswordViewModel editUserPasswordViewModel)
+        {
+
+            List<IdentityError> identityErrors = new List<IdentityError>();
+            bool editUserPasswordSucceeded = false;
+
+
+            User user = await userManager.GetUserAsync(HttpContext.User);
+            if (userManager.PasswordHasher.HashPassword(user, editUserPasswordViewModel.CurrentPassword) == user.PasswordHash)
+            {
+                user.PasswordHash = userManager.PasswordHasher.HashPassword(user, editUserPasswordViewModel.NewPassword);
+                IdentityResult result = await userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    result.Errors.ToList().ForEach(
+                        x => identityErrors.Add(x));
+                }
+                else
+                {
+                    editUserPasswordSucceeded = true;
+                }
+            }
+            else
+            {
+                identityErrors.Add(new IdentityError { Code = "100", Description = "You entered the wrong current password" });
+            }
+
+            return Json(new { IdentityErrors = identityErrors, EditUserPasswordSucceeded = editUserPasswordSucceeded });
+        }
+
 
         [Authorize]
         public async Task<IActionResult> Logout()

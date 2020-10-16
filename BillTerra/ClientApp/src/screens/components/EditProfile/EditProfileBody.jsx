@@ -10,12 +10,13 @@ export class EditProfileBody extends Component {
             selectedAvatar: "/img/avatar-1.jpg",
             saveLoad: false,
             changePasswordLoad: false,
-            saveResponce: "",
+            saveResponce: [],
             nick: "",
-            changePasswordResponce: "",
+            changePasswordResponce: [],
             repeatPassword: "",
             newPassword: "",
-            oldPassword: ""
+            oldPassword: "",
+            changePasswordFlag: true
         }
 
         this.changeAvatar = this.changeAvatar.bind(this)
@@ -35,21 +36,40 @@ export class EditProfileBody extends Component {
         })
 
         let data = {
-            avatar: this.state.avatar,
-            nick: this.state.nick
+            AvatarLink: this.state.selectedAvatar,
+            Name: (this.state.nick === "") ? this.props.nick : this.state.nick
         }
 
-        fetch('ścieżka', {
+        fetch('/Account/EditUser', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }).then(result => {
             return result.json()
         }).then(e => {
-            this.setState({
-                saveResponce: e,
-                saveLoad: false
-            })
+            setTimeout(() => {
+                if (e.succeed) {
+
+                    this.props.changeAvatar(data.AvatarLink)
+
+                    this.setState({
+                        saveResponce: "All your changes have been saved!",
+                        saveLoad: false
+                    })
+                }
+                else {
+                    this.setState({
+                        saveResponce: "Something went wrong please try again later.",
+                        saveLoad: false
+                    })
+                }
+            }, 500)
+
+            setTimeout(() => {
+                this.setState({
+                    saveResponce: ""
+                })
+            }, 2000);
         })
     }
 
@@ -59,9 +79,12 @@ export class EditProfileBody extends Component {
             changePasswordLoad: true
         })
 
-        let password = this.state.newPassword
+        let password = {
+            CurrentPassword: this.state.oldPassword,
+            NewPassword: this.state.newPassword
+        }
 
-        fetch('ścieżka', {
+        fetch('/Account/EditUserPassword', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(password)
@@ -69,8 +92,9 @@ export class EditProfileBody extends Component {
             return result.json()
         }).then(e => {
             this.setState({
-                changePasswordResponce: e,
-                changePasswordLoad: false
+                changePasswordResponce: e.identityErrors,
+                changePasswordLoad: false,
+                changePasswordFlag: e.editUserPasswordSucceeded
             })
         })
     }
@@ -87,74 +111,74 @@ export class EditProfileBody extends Component {
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-1.jpg" checked></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_1.jpg"></Input>
                                 <div className="avatar avatar-1 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-2.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_2.jpg"></Input>
                                 <div className="avatar avatar-2 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-3.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_3.jpg"></Input>
                                 <div className="avatar avatar-3 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-4.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_4.jpg"></Input>
                                 <div className="avatar avatar-4 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-5.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_5.jpg"></Input>
                                 <div className="avatar avatar-5 active-avatar"></div>
                             </InputGroup>
                         </Col>
 
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-6.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_6.jpg"></Input>
                                 <div className="avatar avatar-6 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-7.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_7.jpg"></Input>
                                 <div className="avatar avatar-7 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-8.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_8.jpg"></Input>
                                 <div className="avatar avatar-8 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-9.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_9.jpg"></Input>
                                 <div className="avatar avatar-9 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-10.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_10.jpg"></Input>
                                 <div className="avatar avatar-10 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-11.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_11.jpg"></Input>
                                 <div className="avatar avatar-11 active-avatar"></div>
                             </InputGroup>
                         </Col>
                         <Col xs={4} md={3} xl={2}>
                             <InputGroup className="avatar-wrapper">
-                                <Input type="radio" name="avatar" value="/img/avatar-12.jpg"></Input>
+                                <Input type="radio" name="avatar" value="/img/avatar_12.jpg"></Input>
                                 <div className="avatar avatar-12 active-avatar"></div>
                             </InputGroup>
                         </Col>
@@ -176,7 +200,14 @@ export class EditProfileBody extends Component {
                     <Row>
                         <Col xs={12} className="avatar-title">
                             <span>Change password</span>
-                            {(this.state.changePasswordResponce !== "") ? <Alert color="danger" isOpen={"visible"}>{this.state.changePasswordResponce}</Alert> : ""}
+                            {(this.state.changePasswordResponce !== "" && this.state.changePasswordResponce.length > 0) ?
+                                <Alert
+                                    color={(this.state.changePasswordFlag) ? "success" : "danger"}
+                                >
+                                    {this.state.changePasswordResponce.map((line, index) => (
+                                        <p key={index}>{line.description}</p>
+                                    ))}
+                                </Alert> : ""}
                         </Col>
                         <Col className="change-password-form">
                             <FormGroup>

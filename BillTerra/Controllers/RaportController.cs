@@ -7,6 +7,7 @@ using BillTerra.Models;
 using BillTerra.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BillTerra.Controllers
 {
@@ -30,6 +31,7 @@ namespace BillTerra.Controllers
         {
             User user = await _userManager.GetUserAsync(HttpContext.User);
             List<double> dayExpenses = new List<double>();
+            List<double> dayIncome = new List<double>();
             List<JarRaportViewModel> jarRaportViewModels = new List<JarRaportViewModel>();
             DateTime Today = DateTime.Now;
 
@@ -40,6 +42,11 @@ namespace BillTerra.Controllers
                         user, new DateTime(Today.Year, Today.Month, i))
                     .Result.ToList().Sum(x => x.Amount)
                     );
+
+                dayIncome.Add(
+                    _transactionRepository.GetTransactionOfDay(
+                          user, new DateTime(Today.Year, Today.Month, i), false)
+                    .Result.ToList().Sum(x => x.Amount));
             }
 
             _jarRepositorycs.Jars(user).Result.ToList().ForEach(
@@ -49,7 +56,7 @@ namespace BillTerra.Controllers
                     CurrentAmount = x.CurrentAmount,
                     Goal = x.Goal
                 }
-                )); 
+                ));
 
 
             return Json(new RaportDataViewModel
@@ -58,8 +65,9 @@ namespace BillTerra.Controllers
                 Email = user.Email,
                 UserName = user.UserName,
                 DayExpenses = dayExpenses,
-                JarRaports = jarRaportViewModels
-            }); ;
+                JarRaports = jarRaportViewModels,
+                DayIncome = dayIncome
+            });
         }
     }
 }

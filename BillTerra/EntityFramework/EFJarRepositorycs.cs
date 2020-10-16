@@ -22,7 +22,7 @@ namespace BillTerra.EntityFramework
 
         public async Task<IEnumerable<Jar>> Jars(User user)
         {
-            return await context.Jars.Where(p => p.User.Id == user.Id).OrderBy(x=> x.ID).ToListAsync();
+            return await context.Jars.Where(p => p.User.Id == user.Id).OrderBy(x => x.ID).ToListAsync();
 
         }
         public async Task<IEnumerable<Jar>> ReachedJars(User user)
@@ -41,12 +41,13 @@ namespace BillTerra.EntityFramework
 
         public async Task<bool> EditJar(Jar jar)
         {
-            Jar dbEntity =  context.Jars.FirstOrDefault(x => x.ID == jar.ID);
-            if(dbEntity != null)
+            Jar dbEntity = context.Jars.FirstOrDefault(x => x.ID == jar.ID);
+            if (dbEntity != null)
             {
                 dbEntity.Name = jar.Name;
                 dbEntity.Goal = jar.Goal;
                 dbEntity.State = jar.State;
+                dbEntity.CurrentAmount = jar.CurrentAmount;
                 await context.SaveChangesAsync();
                 return true;
             }
@@ -66,6 +67,6 @@ namespace BillTerra.EntityFramework
             return false;
         }
 
-      
+
     }
 }

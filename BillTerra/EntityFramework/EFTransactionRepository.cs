@@ -48,8 +48,8 @@ namespace BillTerra.EntityFramework
                 return true;
             }
             return false;
-            
-            
+
+
         }
 
         public bool DeleteTransaction(Transaction transaction)
@@ -74,12 +74,12 @@ namespace BillTerra.EntityFramework
             return await context.Transactions.Include(d => d.Categorie).Where(p => p.User.Id == user.Id && p.IsExpense == true).ToListAsync();
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactionOfDay(User user, DateTime date)
+        public async Task<IEnumerable<Transaction>> GetTransactionOfDay(User user, DateTime date, bool isExpense)
         {
             return await context
                 .Transactions
                 .Include(d => d.Categorie)
-                .Where(p => p.User.Id == user.Id && p.IsExpense == true && p.Date.Year == date.Year && p.Date.DayOfYear == date.DayOfYear)
+                .Where(p => p.User.Id == user.Id && p.IsExpense == isExpense && p.Date.Year == date.Year && p.Date.DayOfYear == date.DayOfYear)
                 .ToListAsync();
         }
     }

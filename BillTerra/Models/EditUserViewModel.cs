@@ -8,7 +8,11 @@ namespace BillTerra.Models.ViewModel
     public class EditUserViewModel
     {
         public string Name { get; set; }
-        public string Password { get; set; }
         public string AvatarLink { get; set; }
+    }
+    public class EditUserPasswordViewModel
+    {
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
     }
 }

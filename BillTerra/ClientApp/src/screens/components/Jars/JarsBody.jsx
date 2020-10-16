@@ -121,29 +121,31 @@ export class JarsBody extends Component {
     transferToJar = (jar, amount) => {
         let index = this.state.jars.findIndex(e => e.id === jar.id)
         let arr = this.state.jars
+        let a
+
+        if ((parseFloat(arr[index].currentAmount) + parseFloat(amount)) > parseFloat(arr[index].goal)) {
+            a = parseFloat(arr[index].goal) - parseFloat(arr[index].currentAmount)
+        }
+        else {
+            a = parseFloat(amount)
+        }
 
         let sendingJar = {
             ID: jar.id,
             Name: jar.name,
             Goal: jar.goal,
             CurrentAmount: jar.currentAmount,
-            State: (jar.state === "achived") ? 0 : (jar.state === "in progress") ? 2 : 1
+            State: (jar.state === "achived") ? 0 : (jar.state === "in progress") ? 2 : 1,
+            Money: a
         }
 
-        if ((parseFloat(arr[index].currentAmount) + parseFloat(amount)) > parseFloat(arr[index].goal)) {
-            arr[index].currentAmount = parseFloat(arr[index].goal)
-        }
-        else {
-            arr[index].currentAmount = parseFloat(arr[index].currentAmount) + parseFloat(amount)
-        }
+        console.log(sendingJar)
+        arr[index].currentAmount = parseFloat(arr[index].currentAmount) + a
 
         fetch('/Jar/AddMoneyToJar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                jarViewModel: sendingJar,
-                money: amount
-            })
+            body: JSON.stringify(sendingJar)
         }).then(() => {
             this.setState({
                 jars: arr
