@@ -73,8 +73,6 @@ export class ShoppingListBody extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(arr)
         })
-
-        console.log("UNMOUNT")
     }
 
     componentWillReceiveProps(nextProps) {
@@ -150,7 +148,6 @@ export class ShoppingListBody extends Component {
         }).then(result => {
             return result.json()
         }).then(e => {
-            console.log(e)
             let element = {
                 content: e.content,
                 id: e.id

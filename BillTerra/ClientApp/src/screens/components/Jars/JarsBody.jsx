@@ -145,7 +145,6 @@ export class JarsBody extends Component {
                 money: amount
             })
         }).then(() => {
-            console.log("asdfasd")
             this.setState({
                 jars: arr
             })

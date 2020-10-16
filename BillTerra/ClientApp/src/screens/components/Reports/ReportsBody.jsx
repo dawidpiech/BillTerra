@@ -18,7 +18,7 @@ export class ReportsBody extends Component {
     }
 
     render() {
-        const colors = ['#6146E8', '#FF5959', '#ED561B', '#E8B646', '#84FF4D', '#12CEAD', '#FF9655', '#FFF263', '#6AF9C4'].reverse()
+        const colors = ['#C5FA89', '#FACD5F', '#78E2FA', '#FAA491', '#84A7FA', '#6BFAC5', '#6AF9C4', '#FA84B1', '#FAF17C'].reverse()
         return (
             <div className="reports-body-wrapper">
                 <Container>
@@ -26,7 +26,7 @@ export class ReportsBody extends Component {
 
                         {(typeof this.props.jars !== "undefined") ? this.props.jars.map((e, id) =>
                             <Col xs={12} md={4}>
-                                <PieChart title={e.title} data={[{ name: "Collected: ", y: (e.currentAmount / e.goal * 100) }, { name: "Missing part: ", y: ((e.goal - e.currentAmount) / e.goal * 100) }]} colors={colors}></PieChart>
+                                <PieChart title={e.title} data={[{ name: "Collected: ", y: (e.currentAmount / e.goal * 100) }, { name: "Missing part: ", y: ((e.goal - e.currentAmount) / e.goal * 100) }]} colors={[colors[id], colors[id + 1]]}></PieChart>
                             </Col>
                         ) : ""}
                         <Col xs={12}>
