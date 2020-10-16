@@ -25,7 +25,11 @@ namespace BillTerra.EntityFramework
             return await context.Jars.Where(p => p.User.Id == user.Id).OrderBy(x=> x.ID).ToListAsync();
 
         }
+        public async Task<IEnumerable<Jar>> ReachedJars(User user)
+        {
+            return await context.Jars.Where(p => p.User.Id == user.Id && p.State == State.Reached).OrderBy(x => x.ID).ToListAsync();
 
+        }
 
         public async Task<Jar> AddJar(Jar jar)
         {

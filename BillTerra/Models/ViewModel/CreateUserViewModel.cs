@@ -1,6 +1,6 @@
-﻿namespace BillTerra.Models
+﻿namespace BillTerra.Models.ViewModel
 {
-    public class CreateUser
+    public class CreateUserViewModel
     {
         public string Name { get; set; }
         public string Email { get; set; }

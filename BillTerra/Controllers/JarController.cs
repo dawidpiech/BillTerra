@@ -118,13 +118,8 @@ namespace BillTerra.Controllers
         public async Task EndJar([FromBody] JarViewModel jarViewModel)
         {
             User user = await _userManager.GetUserAsync(HttpContext.User);
-            await _notificationRepository.SaveNotyfication(new Notification
-            {
-                Title = $"Jar {jarViewModel.Name}",
-                Describe = $"Jar state is {jarViewModel.State}",
-                User = user,
-                IsVisible = true
-            });
+
+            _notificationRepository.SaveNotyfication(NotyficationMessages.selectJarNotyfication(_jarRepositorycs.ReachedJars(user).Result.Count(), user));
 
             var jar = new Jar
             {
@@ -154,20 +149,6 @@ namespace BillTerra.Controllers
 
             };
 
-            if (jar.CurrentAmount + jarAddMoneyViewModel.Money >= jar.Goal)
-            {
-                jar.State = State.Reached;
-
-                await _notificationRepository.SaveNotyfication(new Notification
-                {
-                    Title = $"Jar {jarAddMoneyViewModel.Name}",
-                    Describe = $"Congratulations The jar is full",
-                    User = user,
-                    IsVisible = true
-                });
-
-            }
-
             jar.CurrentAmount += jarAddMoneyViewModel.Money;
 
             await _jarRepositorycs.EditJar(jar);
@@ -178,7 +159,7 @@ namespace BillTerra.Controllers
                 Coment = $"Add money to jar {jarAddMoneyViewModel.Name}",
                 IsExpense = false,
                 Date = DateTime.Now,
-                Categorie = _categorieRepository.GetCategoryByName("Jar"),
+                Categorie = _categorieRepository.GetCategoryByName("Jar", user),
                 Amount = jarAddMoneyViewModel.Money
             });
 

@@ -36,7 +36,7 @@ namespace BillTerra.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateUser createUser)
+        public async Task<IActionResult> Create([FromBody]CreateUserViewModel createUser)
         {
             AutorisationCreateUserState autorisationCreateUser = new AutorisationCreateUserState();
 
@@ -53,13 +53,8 @@ namespace BillTerra.Controllers
             if (result.Succeeded)
             {
                 AddDefaultCaterories.Add(categorieRepository, user);
-                await notificationRepository.SaveNotyfication(new Notification
-                {
-                    Title = $"Hello {user.UserName}",
-                    Describe = "Welcome in Biletera",
-                    User = user,
-                    IsVisible = true
-                });
+                await notificationRepository.SaveNotyfication(NotyficationMessages.HelloNotyfication(user));
+              
                 autorisationCreateUser.CreateAccountSucceeded = true;
                 autorisationCreateUser.Errors = null;
             }
@@ -105,35 +100,23 @@ namespace BillTerra.Controllers
 
             return Json(autorisationLogin);
         }
-        [Authorize]
-        public async Task<IActionResult> Edit()
-        {
-            User user = await userManager.GetUserAsync(HttpContext.User);
-            if (user != null)
-            {
-                return View(new CreateUser { Name = user.UserName, Email = user.Email });
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(CreateUser editUser)
+        public async Task<IActionResult> Edit([FromBody] EditUserViewModel editUserViewModel)
         {
-            User user = await userManager.GetUserAsync(HttpContext.User);
-            user.Email = editUser.Email;
-            user.UserName = editUser.Name;
-            user.PasswordHash = userManager.PasswordHasher.HashPassword(user, editUser.Password);        
+            User user = await userManager.GetUserAsync(HttpContext.User); 
+            user.UserName = editUserViewModel.Name;
+            user.AvatarLink = editUserViewModel.AvatarLink;
+            user.PasswordHash = userManager.PasswordHasher.HashPassword(user, editUserViewModel.Password);        
             IdentityResult result = await userManager.UpdateAsync(user);
             if(result.Succeeded)
             {
-                return RedirectToAction("Index");
+                return Json(new { succeed = true });
             }
             else
             {
-                return View(user);
+                return Json(new { succeed = false });
             }
         }
 

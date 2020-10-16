@@ -27,9 +27,9 @@ namespace BillTerra.EntityFramework
         {
             return  context.Categories.FirstOrDefault(x => x.ID == id);
         }
-        public Categorie GetCategoryByName(string name)
+        public Categorie GetCategoryByName(string name, User user)
         {
-            return context.Categories.FirstOrDefault(x => x.Name == name);
+            return context.Categories.FirstOrDefault(x => x.Name == name && x.User.Id == user.Id);
         }
 
         public async Task<Categorie> AddCategorie(Categorie categorie)
