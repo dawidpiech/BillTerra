@@ -20,7 +20,7 @@ namespace BillTerra.EntityFramework
 
         public async Task SaveNotyfication(Notification notification)
         {
-            if (notification.ID == 0 && notification != null)
+            if (notification != null)
             {
                 context.Notyfications.Add(notification);
                 await context.SaveChangesAsync();

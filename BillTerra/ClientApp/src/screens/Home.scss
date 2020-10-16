@@ -1,53 +1,100 @@
 @import "../normalize.scss";
 @import "../conf.scss";
 
-.wrapper{
-    min-height: 100vh;
+.wrapper {
+    width: 100%;
+    font-family: $segoe;
 
-    header{
+    header {
         background-color: $gray;
         height: 100px;
         display: flex;
+        width: 100%;
 
-        .logo{
+
+        @media (max-width: $mediaPhoneSize) {
+            height: 150px;
+            flex-direction: column;
+        }
+
+        .logo {
             font-family: $segoe;
             color: $green;
             font-weight: bold;
             font-size: 32px;
             padding: 20px;
-            margin-left: 20px;
-        
-            span{
+            margin-left: 40px;
+
+
+            @media (max-width: $mediaPhoneSize) {
+                margin: 0 auto;
+            }
+
+            span {
                 font-weight: lighter;
             }
         }
-        
-        .buttons-container{
+
+        .buttons-container {
             margin-left: auto;
             margin-right: 40px;
             margin-top: 35px;
 
-            a{
+            @media (max-width: $mediaPhoneSize) {
+                margin: 0 auto;
+            }
+
+            a {
                 background-color: $green;
                 border-radius: 20px;
                 font-weight: bold;
                 padding: 10px 30px;
                 color: white;
-                margin: 0px 10px 0;
+                margin: 0 10px;
             }
         }
     }
 
+    .welcome {
+        padding: 40px 0;
 
-    .welcome{
-        height: 500px;
-        padding: 150px 0;
+        .welcome-title {
+            font-size: 48px;
+            font-weight: bold;
+
+            @media (max-width: $mediaPhoneSize) {
+                font-size: 36px;
+            }
+        }
+
+        .welcome-first-subtitle {
+            font-size: 36px;
+            font-weight: bold;
+
+            @media (max-width: $mediaPhoneSize) {
+                font-size: 24px;
+            }
+        }
+
+        .welcome-second-subtitle {
+            font-size: 36px;
+            font-weight: lighter;
+
+            @media (max-width: $mediaPhoneSize) {
+                font-size: 18px;
+            }
+        }
+
+        img {
+            width: 100%;
+        }
     }
 
-    footer{
+    footer {
         width: 100%;
         padding: 20px 0;
         background-color: $gray;
         color: $white;
+        margin-bottom: 0;
     }
 }

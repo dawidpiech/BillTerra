@@ -53,7 +53,7 @@ namespace BillTerra.Controllers
 
             if (result.Succeeded)
             {
-                AddDefaultCaterories.Add(categorieRepository, user);
+                await AddDefaultCaterories.Add(categorieRepository, user);
                 await notificationRepository.SaveNotyfication(NotyficationMessages.HelloNotyfication(user));
 
                 autorisationCreateUser.CreateAccountSucceeded = true;
