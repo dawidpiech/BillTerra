@@ -38,9 +38,10 @@ export class EditProfile extends Component {
         })
     }
 
-    changeAvatar(a) {
+    changeAvatar(a, b) {
         this.setState({
-            avatar: a
+            avatar: a,
+            userName: b
         })
     }
 

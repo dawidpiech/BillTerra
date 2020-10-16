@@ -54,7 +54,8 @@ namespace BillTerra.Controllers
                 {
                     Name = x.Name,
                     CurrentAmount = x.CurrentAmount,
-                    Goal = x.Goal
+                    Goal = x.Goal,
+                    State = x.State
                 }
                 ));
 

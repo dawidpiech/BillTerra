@@ -50,7 +50,7 @@ export class EditProfileBody extends Component {
             setTimeout(() => {
                 if (e.succeed) {
 
-                    this.props.changeAvatar(data.AvatarLink)
+                    this.props.changeAvatar(data.AvatarLink, data.Name)
 
                     this.setState({
                         saveResponce: "All your changes have been saved!",

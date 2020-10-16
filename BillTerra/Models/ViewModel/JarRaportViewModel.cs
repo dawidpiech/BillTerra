@@ -10,5 +10,7 @@ namespace BillTerra.Models.ViewModel
         public string Name { get; set; }
         public int CurrentAmount { get; set; }
         public int Goal { get; set; }
+
+        public State State { get; set; }
     }
 }
