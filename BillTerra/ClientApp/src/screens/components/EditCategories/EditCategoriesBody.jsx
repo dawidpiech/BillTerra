@@ -151,7 +151,7 @@ export class EditCategoriesBody extends Component {
             return result.json()
         }).then(e => {
             this.setState({
-                spinnerLoading: true,
+                spinnerLoading: false,
                 editCategoryResponce: e
             })
         })

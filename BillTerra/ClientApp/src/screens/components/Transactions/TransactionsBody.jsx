@@ -148,7 +148,7 @@ export class TransactionsBody extends Component {
     ////////////////////////////////////////////////
 
     addNewTransaction = (category, date, note, amount, IncomeOrExpenseFlag) => {
-        let transaction = { ID: 0, Category: category, Date: date, Coment: note, Amount: amount, IsExpense: IncomeOrExpenseFlag }
+        let transaction = { ID: 0, Category: category, Date: date, Coment: note, Amount: amount, IsExpense: !IncomeOrExpenseFlag }
         let transactions = this.state.transactions
         let visibleTransactions = this.state.visibleTransactions
 

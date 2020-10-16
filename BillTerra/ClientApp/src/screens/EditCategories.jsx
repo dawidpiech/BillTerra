@@ -38,7 +38,7 @@ export class EditCategories extends Component {
                 avatar: data.avatar,
                 email: data.email,
                 userName: data.userName,
-                categories: data
+                categories: data.categories
             })
         })
     }
