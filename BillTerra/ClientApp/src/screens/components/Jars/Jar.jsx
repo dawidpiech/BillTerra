@@ -44,7 +44,7 @@ export class Jar extends Component {
                     <button onClick={this.deleteJar}>
                         Delete JAR
                     </button>
-                    {this.props.state === "achived" ? <button onClick={this.reachGoal}>Reach the GOAL</button> : ""}
+                    {(this.props.currentAmount >= this.props.goal) ? <button onClick={this.reachGoal}>Reach the GOAL</button> : ""}
                 </div>
 
             </div>

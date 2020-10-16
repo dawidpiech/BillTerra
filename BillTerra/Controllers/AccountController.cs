@@ -127,7 +127,8 @@ namespace BillTerra.Controllers
 
 
             User user = await userManager.GetUserAsync(HttpContext.User);
-            if (userManager.PasswordHasher.HashPassword(user, editUserPasswordViewModel.CurrentPassword) == user.PasswordHash)
+            PasswordVerificationResult passwordCompare = userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, editUserPasswordViewModel.CurrentPassword);
+            if (passwordCompare == PasswordVerificationResult.Success)
             {
                 user.PasswordHash = userManager.PasswordHasher.HashPassword(user, editUserPasswordViewModel.NewPassword);
                 IdentityResult result = await userManager.UpdateAsync(user);

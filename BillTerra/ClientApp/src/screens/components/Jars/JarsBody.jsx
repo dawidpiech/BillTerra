@@ -61,13 +61,13 @@ export class JarsBody extends Component {
                     name: e.name,
                     goal: e.goal,
                     currentAmount: e.currentAmount,
-                    state: (e.state === 0) ? "achived" : (e.state === 2) ? "in progress" : "not achived"
+                    state: e.state
                 }
 
                 arr.unshift(jar)
 
                 this.setState({
-                    items: arr
+                    jars: arr
                 })
             })
         }
@@ -81,7 +81,7 @@ export class JarsBody extends Component {
             Name: this.state.jars[index].name,
             Goal: this.state.jars[index].goal,
             CurrentAmount: this.state.jars[index].currentAmount,
-            State: (this.state.jars[index].state === "achived") ? 0 : (this.state.jars[index].state === "in progress") ? 2 : 1
+            State: 1
         }
 
         fetch('/Jar/DeleteJar', {
@@ -130,16 +130,19 @@ export class JarsBody extends Component {
             a = parseFloat(amount)
         }
 
+        if (jar.currentAmount === jar.goal) {
+            jar.state = 0
+        }
+
         let sendingJar = {
             ID: jar.id,
             Name: jar.name,
             Goal: jar.goal,
             CurrentAmount: jar.currentAmount,
-            State: (jar.state === "achived") ? 0 : (jar.state === "in progress") ? 2 : 1,
+            State: jar.state,
             Money: a
         }
 
-        console.log(sendingJar)
         arr[index].currentAmount = parseFloat(arr[index].currentAmount) + a
 
         fetch('/Jar/AddMoneyToJar', {
@@ -198,15 +201,17 @@ export class JarsBody extends Component {
                         <Col className="jars-list">
                             {
                                 (this.state.jars.length > 0) ? this.state.jars.map(d =>
-                                    <Jar
-                                        name={d.name}
-                                        goal={d.goal}
-                                        currentAmount={d.currentAmount}
-                                        id={d.id} state={d.state}
-                                        deleteJar={this.deleteJar}
-                                        reachTheGoal={this.reachTheGoal}>
+                                    (d.state === 2) ?
+                                        <Jar
+                                            name={d.name}
+                                            goal={d.goal}
+                                            currentAmount={d.currentAmount}
+                                            id={d.id} state={d.state}
+                                            deleteJar={this.deleteJar}
+                                            reachTheGoal={this.reachTheGoal}>
 
-                                    </Jar>
+                                        </Jar>
+                                        : ""
                                 )
                                     : <h1>Currently you haven't any GOAL's</h1>
                             }
