@@ -130,8 +130,12 @@ export class JarsBody extends Component {
             State: (jar.state === "achived") ? 0 : (jar.state === "in progress") ? 2 : 1
         }
 
-        arr[index].currentAmount = parseFloat(arr[index].currentAmount) + parseFloat(amount)
-
+        if ((parseFloat(arr[index].currentAmount) + parseFloat(amount)) > parseFloat(arr[index].goal)) {
+            arr[index].currentAmount = parseFloat(arr[index].goal)
+        }
+        else {
+            arr[index].currentAmount = parseFloat(arr[index].currentAmount) + parseFloat(amount)
+        }
 
         fetch('/Jar/AddMoneyToJar', {
             method: 'POST',

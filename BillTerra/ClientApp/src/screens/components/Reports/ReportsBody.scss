@@ -1,0 +1,17 @@
+@import "./../../../conf.scss";
+
+.reports-body-wrapper{
+    position: relative;
+    float: right;
+    width: calc(100% - 100px);
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 40px 0;
+
+    @media (max-width: $mediaPhoneSize) {
+        float: none;
+        width: 100%;
+        padding-bottom: 60px;
+    }
+}

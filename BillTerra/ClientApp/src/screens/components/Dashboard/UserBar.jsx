@@ -61,6 +61,8 @@ export class UserBar extends Component {
                 <div ref={this.wrapperRef} className="user-menu inactive">
                     <img src={this.props.avatar} alt="Avatar" />
                     <p>{this.props.email}</p>
+
+                    <NavLink to="/editProfile" className="edit-profile">Edit profile</NavLink>
                     <NavLink to="/editCategories" className="edit-categories">Edit Categories</NavLink>
                     <NavLink to="/login" onClick={this.logout}>Wyloguj</NavLink>
                 </div>

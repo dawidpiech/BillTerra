@@ -131,12 +131,12 @@ export class Login extends Component {
                                 <FormGroup>
                                     <Label className="authorization__label">E-mail</Label>
                                     <Input invalid={!this.state.emailValid && this.state.email.length > 0} onChange={(e) => this.handleChange(e, 'email')} type="e-mail" name="email" value={this.state.email} className="authorization__input" placeholder="Enter e-mail" />
-                                    <FormFeedback>Ten e-mail jest niepoprawny!</FormFeedback>
+                                    <FormFeedback>This e-mail is incorrect!</FormFeedback>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label className="authorization__label">Password <span><Link to="/">Forgot password?</Link></span></Label>
                                     <Input onChange={(e) => this.handleChange(e, 'password')} type="password" name="password" className="authorization__input" placeholder="Enter password" value={this.state.password}></Input>
-                                    <FormFeedback>To pole nie może być puste!</FormFeedback>
+                                    <FormFeedback>This field can't be empty!</FormFeedback>
                                 </FormGroup>
                                 <Button className="authorization__button" disabled={this.state.buttonDisabled}>Login</Button>
                             </Form>

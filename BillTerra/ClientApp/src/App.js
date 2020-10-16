@@ -8,7 +8,8 @@ import { Transactions } from './screens/Transactions'
 import { Jars } from './screens/Jars'
 import { ShoppingList } from './screens/ShoppingList'
 import { EditCategories } from './screens/EditCategories'
-
+import { Reports } from './screens/Reports'
+import { EditProfile } from './screens/EditProfile'
 
 export default class App extends Component {
   static displayName = App.name;
@@ -24,7 +25,9 @@ export default class App extends Component {
         <Route exact path='/jars' component={Jars} />
         <Route exact path='/shopinglist' component={ShoppingList} />
         <Route exact path='/editCategories' component={EditCategories} />
+        <Route exact path='/reports' component={Reports} />
+        <Route exact path='/editProfile' component={EditProfile} />
       </div>
-    );
+    )
   }
 }
