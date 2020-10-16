@@ -16,7 +16,7 @@ export class NotificationsItem extends Component {
     render() {
         return (
             <div className="notyfication-wrap" id={this.props.id}>
-                <div className={`notification-avatar avatar-${this.props.avatar}`}></div>
+                <div className={`notification-avatar`} style={{ backgroundImage: `url(${this.props.avatar})` }}></div>
                 <div className="notification-content">
                     <p>{this.props.title}</p>
                     {this.props.content}

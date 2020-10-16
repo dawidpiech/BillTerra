@@ -34,11 +34,12 @@ export class NotificationsContainer extends Component {
             Describe: this.state.visibleNotyfications[idInArray].describe,
             Image: this.state.visibleNotyfications[idInArray].image
         }
+        arr.splice(idInArray, 1)
 
         this.deleteNotyficationFromDatabase(notyfication, idInArray)
 
         this.setState({
-            visibleNotyfications: this.state.visibleNotyfications.splice(idInArray, 1)
+            visibleNotyfications: arr
         })
     }
 

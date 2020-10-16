@@ -160,7 +160,7 @@ export class JarsBody extends Component {
         return (
             <div className="jars-body-wrapper">
                 <Container>
-                    <TransferToJarModal ref={this.jar} jars={this.state.jars} transferToJar={this.transferToJar}></TransferToJarModal>
+                    <TransferToJarModal ref={this.jar} jars={this.state.jars.filter(e => { return e.state === 2 })} transferToJar={this.transferToJar}></TransferToJarModal>
                     <Row>
                         <Col className="jars-form">
                             <Col xs={12} md={12}>

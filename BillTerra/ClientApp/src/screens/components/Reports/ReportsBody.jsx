@@ -24,7 +24,7 @@ export class ReportsBody extends Component {
                 <Container>
                     <Row>
 
-                        {(typeof this.props.jars !== "undefined") ? this.props.jars.map((e, id) =>
+                        {(typeof this.props.jars !== "undefined") ? this.props.jars.filter(e => { return e.state === 2 }).map((e, id) =>
                             <Col xs={12} md={4}>
                                 <PieChart title={e.name} data={[{ name: "Collected: ", y: (e.currentAmount / e.goal * 100) }, { name: "Missing part: ", y: ((e.goal - e.currentAmount) / e.goal * 100) }]} colors={[colors[id], colors[id + 1]]}></PieChart>
                             </Col>
