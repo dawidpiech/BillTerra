@@ -30,6 +30,7 @@ export class Jars extends Component {
         }).then(result => {
             return result.json()
         }).then(data => {
+            console.log(data)
             this.setState({
                 avatar: data.avatar,
                 email: data.email,

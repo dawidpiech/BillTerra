@@ -100,7 +100,7 @@ export class JarsBody extends Component {
 
     reachTheGoal(id) {
         let index = this.state.jars.findIndex(e => e.id === id)
-        fetch('ścieżka', {
+        fetch('/Jar/EndJar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(this.state.jars[index])
@@ -201,7 +201,7 @@ export class JarsBody extends Component {
                         <Col className="jars-list">
                             {
                                 (this.state.jars.length > 0) ? this.state.jars.map(d =>
-                                    (d.state === 2) ?
+                                    (parseFloat(d.state) === 2) ?
                                         <Jar
                                             name={d.name}
                                             goal={d.goal}

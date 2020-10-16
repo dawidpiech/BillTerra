@@ -83,7 +83,7 @@ namespace BillTerra.Controllers
 
             };
 
-            return Json(new { succeed = _jarRepositorycs.DeleteJar(jar) });
+            return Json(new { succeed = _jarRepositorycs.EditJar(jar) });
         }
 
         [Authorize]
