@@ -21,7 +21,6 @@ export class Jars extends Component {
         this.init()
     }
 
-    balance = 1000000
 
     init() {
         fetch('/Jar/Index', {
@@ -36,7 +35,7 @@ export class Jars extends Component {
                 email: data.email,
                 userName: data.userName,
                 jars: data.jarList,
-                balance: this.balance //data.balance
+                balance: data.balance
             })
         })
     }

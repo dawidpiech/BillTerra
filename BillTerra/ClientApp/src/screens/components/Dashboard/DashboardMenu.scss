@@ -2,21 +2,22 @@
 
 .dashboard_menu_container{
     width: 100px;
-    height: calc(100vh - 50px);
-    position: relative;
-    border-right: gray 1px solid;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    box-shadow: 2px 0px 20px -9px rgba(120,120,120,1);
     float: left;
     background: $white;
+    
 
     @media (max-width: $mediaPhoneSize) {
         width: 100%;
         height: 60px;
         position: fixed;
+        top: auto;
         bottom: 0;
-        left: 0;
         z-index: 999;
-        border-right: none;
-        border-top: gray 1px solid;
+        box-shadow: 2px 0px 20px -9px rgba(120,120,120,1);
     }
 
     .dashboard_menu{

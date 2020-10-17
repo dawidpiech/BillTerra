@@ -32,7 +32,10 @@ export class Loader extends Component {
     render() {
         return (
             <div className="loader-wrapper">
-                <div className="loader">Loading...</div>
+                <div className="loader">
+                    <div class="dot1"></div>
+                    <div class="dot2"></div>
+                </div>
             </div>
         )
     }
