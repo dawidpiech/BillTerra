@@ -9,7 +9,7 @@
     "bootstrap": "^4.5.2",
     "canvasjs": "^1.8.3",
     "globalize": "^1.6.0",
-    "highcharts": "^8.2.0",
+    "highcharts": "^9.0.0",
     "highcharts-react-official": "^3.0.0",
     "moment": "^2.27.0",
     "multiselect-react-dropdown": "^1.5.7",
